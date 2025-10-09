@@ -1,0 +1,67 @@
+/* keep this simple; no @import from /public */
+:root { --bg: #fff; --text: #111; }
+html, body { margin:0; padding:0; background:var(--bg); color:var(--text); }
+.theme_container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+@import "../public/assets/css/bootstrap.css";
+@import "../public/assets/css/fontawesome-all.css";
+@import "../public/assets/css/custom-animate.css";
+@import "../public/assets/css/animate.css";
+@import "../public/assets/css/jquery-ui-1.9.2.custom.min.css";
+@import "../public/assets/css/nice-select.css";
+@import "../public/assets/css/flaticon.css";
+@import "../public/assets/css/owl.css";
+@import "../public/assets/css/jquery.fancybox.min.css";
+@import "../public/assets/css/swiper.min.css";
+@import "../public/assets/css/custom-menu.css";
+
+@import "../public/assets/css/style.css";
+@import "../public/assets/css/responsive.css";
+@import "../public/assets/css/color.css";
+@import "./mfp.css";
+@import "swiper/css/effect-fade";
+
+.open_sidebar {
+  right: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  transition: 0.75s all;
+}
+.header-widget-sidebar {
+  transition: 0.75s all;
+}
+
+.header-style-five .sticky-header .logo {
+  transform: translateY(0px) !important;
+  margin: 0 !important;
+}
+
+.owl-carousel {
+  display: block !important;
+}
+.causes-block .progress-box .graph-outer::before {
+  content: none;
+}
+
+.graph-outer {
+  width: 80px;
+  height: 80px;
+}
+
+div#chart {
+  width: 80px;
+  height: 80px;
+  margin-top: -20px;
+}
+/* .banner-block-one .image-layer {
+  opacity: 1 !important;
+} */
+
+/* .banner-section-one-carousel
+  .swiper-slide-active
+  .banner-block-one
+  .image-layer {
+  opacity: 1 !important;
+} */
+
+.swiper-initialized {
+  overflow: hidden !important;
+}

@@ -1,0 +1,32 @@
+{
+  "name": "masden",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "start": "next start -p 3000",
+    "build": "next build",
+    "lint": "next lint || echo \"skip\"",
+    "clean": "rm -rf .next node_modules package-lock.json"
+  },
+  "dependencies": {
+    "apexcharts": "3.41.0",
+    "bootstrap": "4.5.0",
+    "next": "12.3.4",
+    "react": "17.0.2",
+    "react-apexcharts": "1.4.0",
+    "react-bootstrap": "1.6.1",
+    "react-countup": "6.1.1",
+    "react-dom": "17.0.2",
+    "react-nice-select": "1.0.4",
+    "react-visibility-sensor": "5.1.1",
+    "swiper": "8.4.7",
+    "wowjs": "1.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "16.18.11",
+    "@types/react": "17.0.89",
+    "@types/react-dom": "17.0.26",
+    "typescript": "4.9.5"
+  }
+}
