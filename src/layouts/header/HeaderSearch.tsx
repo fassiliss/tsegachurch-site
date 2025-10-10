@@ -13,10 +13,7 @@ const HeaderSearch = ({ open, close }) => {
         <div className="popup-inner">
           <div className="overlay-layer" onClick={() => close()} />
           <div className="search-form">
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              
-            >
+            <form onSubmit={(e) => e.preventDefault()}>
               <div className="form-group">
                 <fieldset>
                   <input

@@ -16,29 +16,30 @@ const HeaderSidebar = ({ open, close }) => {
             </div>
             <div className="about-widget widget">
               <div className="logo">
-                <img src="assets/images/logo-light.png" alt="" />
+                <img src="assets/images/logo-light1.png" alt="" />
               </div>
               <div className="text">
-                We Have Over 40 Payment Ways for Locking the Lowest Room Rates.
-                No Credit Card Needed! Read Reviews from Verified Guests.
+                Welcome to Grace Ethiopian Evangelical Church Nashville — a
+                place to grow in faith, find hope, and experience God’s love
+                together.
               </div>
             </div>
             <div className="footer-widget-item recent-news-widget widget">
-              <h4>Instagram Feeds</h4>
+              <h4>Build generation</h4>
               <div className="footer-widget-news">
                 <ul>
                   <li>
                     <div className="img-box">
-                      <img src="assets/images/resource/footer-1.jpg" alt="" />
+                      <img src="assets/images/resource/footer-3.png" alt="" />
                     </div>
                     <div className="text-box">
-                      <p>
+                      {/* <p>
                         <span className="far fa-calendar-alt" />
                         24th January 2021
-                      </p>
+                      </p> */}
                       <h6>
                         <a href="#">
-                          We can build anything ni <br />
+                          We can build anything in <br />
                           hill ground or building.
                         </a>
                       </h6>
@@ -46,16 +47,16 @@ const HeaderSidebar = ({ open, close }) => {
                   </li>
                   <li>
                     <div className="img-box">
-                      <img src="assets/images/resource/footer-2.jpg" alt="" />
+                      <img src="assets/images/resource/footer-4.png" alt="" />
                     </div>
                     <div className="text-box">
-                      <p>
+                      {/* <p>
                         <span className="far fa-calendar-alt" />
                         24th January 2021
-                      </p>
+                      </p> */}
                       <h6>
                         <a href="#">
-                          We can build anything ni <br />
+                          We can build anything in <br />
                           hill ground or building.
                         </a>
                       </h6>
@@ -72,8 +73,9 @@ const HeaderSidebar = ({ open, close }) => {
                 <div className="our-info">
                   <div className="text">
                     <p>
-                      Sed ut perspiciatis unde omnis iste natus error sit
-                      voluptatem accusanum doloremue laudantiue totame
+                      We believe in the authority of Scripture, the power of the
+                      Gospel, and living out our faith daily with love and
+                      integrity.
                     </p>
                   </div>
                 </div>
@@ -84,7 +86,7 @@ const HeaderSidebar = ({ open, close }) => {
                         <i className="far fa-map-marker-alt" />
                       </div>
                       <div className="text">
-                        4486 Richards Avenue, Modesto CA - 95354
+                        5227 Murfreesboro Rd, La Vergne, TN 37086
                       </div>
                     </li>
                     <li>
@@ -97,9 +99,7 @@ const HeaderSidebar = ({ open, close }) => {
                       <div className="icon">
                         <i className="far fa-phone" />
                       </div>
-                      <div className="text">
-                        4486 Richards Avenue, Modesto CA - 95354
-                      </div>
+                      <div className="text">(615) 485-1516</div>
                     </li>
                   </ul>
                 </div>

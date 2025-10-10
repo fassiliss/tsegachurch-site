@@ -60,7 +60,7 @@ export default function About() {
                   <span className="title-sep-left">
                     <img src="/assets/images/resource/icon-9.png" alt="" />
                   </span>
-                  Why Greace Ethiopian Evangelical Church
+                  Why Grace Ethiopian Evangelical Church
                 </div>
                 <h2 className="sec-title mb-20">
                   <span>Know God. Find Family.</span> <br /> Make a Difference.
@@ -97,9 +97,9 @@ export default function About() {
                   <Tab.Content className="tab-content" id="myTabContent">
                     <Tab.Pane className="tab-pane fade" eventKey="tab-1">
                       <div className="text">
-                        At GEECN of Nashville, our
-                        mission is to lead people into a growing relationship
-                        with Jesus, through worship, discipleship, and service.
+                        At of Nashville, our mission is to lead people into a
+                        growing relationship with Jesus, through worship,
+                        discipleship, and service.
                       </div>
                       <div className="tab-icon">
                         <ul>

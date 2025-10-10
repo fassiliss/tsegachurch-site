@@ -1,41 +1,47 @@
-// src/layouts/header/Header.tsx
+"use client";
+
 import Link from "next/link";
 import { useState } from "react";
+import HeaderSidebar from "./HeaderSidebar"; // ✅ make sure this file exists in same folder
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // ✅ controls sidebar visibility
 
   return (
     <header className="main-header header-style-two">
-      {/* Top bar */}
-
-      {/* Header main */}
+      {/* Header Main */}
       <div className="header-upper">
         <div className="header-container-box">
           <div className="inner-container d-flex align-items-center justify-content-between">
-            {/* Left: logo */}
+            {/* 🟩 Left Column: Logo + Navigation */}
             <div className="left-column d-flex align-items-center">
+              {/* Logo */}
               <div className="logo me-3">
                 <Link href="/">
                   <a>
                     <img
-                      src="/assets/images/logo-three.png"
+                      src="/assets/images/logo-light5.png"
                       alt="Tsega Church"
                     />
                   </a>
                 </Link>
               </div>
 
-              {/* Mobile toggle */}
+              {/* Mobile Menu Button */}
               <button
                 aria-label="Toggle navigation"
                 className="mobile-nav-toggler btn btn-link p-0 d-md-none"
                 onClick={() => setNavOpen((s) => !s)}
               >
-                <img src="/assets/images/icons/icon-bar.png" alt="Menu" />
+                <img
+                  src="/assets/images/icons/icon-bar.png"
+                  alt="Menu"
+                  style={{ width: "28px", height: "28px" }}
+                />
               </button>
 
-              {/* Nav */}
+              {/* Navigation Menu */}
               <nav
                 className={`main-menu navbar-expand-md navbar-light ${
                   navOpen ? "show" : ""
@@ -74,9 +80,27 @@ export default function Header() {
                 </ul>
               </nav>
             </div>
+
+            {/* 🟦 Right Column: Sidebar Toggle Button */}
+            <div className="right-column d-flex align-items-center">
+              <button
+                className="btn btn-link p-0 ms-3"
+                aria-label="Open sidebar"
+                onClick={() => setSidebarOpen(true)}
+              >
+                <img
+                  src="/assets/images/icons/icon-menu.png"
+                  alt="Open Sidebar"
+                  style={{ width: "28px", height: "28px" }}
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* 🟥 Sidebar Component */}
+      <HeaderSidebar open={sidebarOpen} close={() => setSidebarOpen(false)} />
     </header>
   );
 }

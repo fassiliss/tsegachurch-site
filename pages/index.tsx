@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <Head>
         <title>Tsega Church — Home</title>
-        <link rel="icon" href="/assets/images/favicon-3.png" />
+        <link rel="icon" href="/assets/images/logo-light5.png" />
       </Head>
 
       <Header />
