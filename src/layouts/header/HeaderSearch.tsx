@@ -1,17 +1,24 @@
+// src/layouts/header/HeaderSearch.tsx
 import { Fragment } from "react";
 
-const HeaderSearch = ({ open, close }) => {
+type Props = {
+  open: boolean;
+  close: () => void;
+};
+
+const HeaderSearch = ({ open, close }: Props) => {
   return (
     <Fragment>
       <div
         id="header-main-search"
         className={`header-main-search ${open ? "popup-visible" : ""}`}
       >
-        <div className="close-search primary_btn" onClick={() => close()}>
+        <button className="close-search primary_btn" onClick={close}>
           <i className="far fa-times" />
-        </div>
+        </button>
+
         <div className="popup-inner">
-          <div className="overlay-layer" onClick={() => close()} />
+          <div className="overlay-layer" onClick={close} />
           <div className="search-form">
             <form onSubmit={(e) => e.preventDefault()}>
               <div className="form-group">
@@ -20,9 +27,8 @@ const HeaderSearch = ({ open, close }) => {
                     type="search"
                     className="form-control"
                     name="search-input"
-                    defaultValue=""
                     placeholder="Type & Enter"
-                    required={true}
+                    required
                   />
                 </fieldset>
               </div>
@@ -33,4 +39,6 @@ const HeaderSearch = ({ open, close }) => {
     </Fragment>
   );
 };
+
 export default HeaderSearch;
+
