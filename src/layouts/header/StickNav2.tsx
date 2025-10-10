@@ -38,7 +38,7 @@ const StickNav2 = ({
                 {/*Mobile Navigation Toggler*/}
                 <div
                   className="mobile-nav-toggler"
-                  onClick={() => openMobileMenu()}
+                  onClick={openSidebar}
                 >
                   <img src="assets/images/icons/icon-bar.png" alt="" />
                 </div>
@@ -82,7 +82,7 @@ const StickNav2 = ({
               </div>
               <div
                 className="search-toggler"
-                onClick={() => setSearchToggle(true)}
+                onClick={openSearchBar}
               >
                 <i className="far fa-search" />
               </div>
