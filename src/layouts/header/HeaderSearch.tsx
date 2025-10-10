@@ -15,7 +15,7 @@ const HeaderSearch = ({ open, close }) => {
           <div className="search-form">
             <form
               onSubmit={(e) => e.preventDefault()}
-              onSubmit={(e) => e.preventDefault()}
+              
             >
               <div className="form-group">
                 <fieldset>
@@ -25,7 +25,7 @@ const HeaderSearch = ({ open, close }) => {
                     name="search-input"
                     defaultValue=""
                     placeholder="Type & Enter"
-                    required=""
+                    required={true}
                   />
                 </fieldset>
               </div>
