@@ -1,4 +1,3 @@
-// pages/members/register.tsx
 import Head from "next/head";
 import { useState } from "react";
 import Header from "src/layouts/header/Header";
@@ -85,9 +84,18 @@ export default function MembersRegister() {
     try {
       setSubmitting(true);
 
-      // TODO: Connect to your backend / Google Form / Airtable / Supabase later.
-      // For now we just simulate a submit delay and show success.
-      await new Promise((r) => setTimeout(r, 800));
+      const res = await fetch("/api/members/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        setError(json?.error || "Could not submit. Please try again.");
+        return;
+      }
 
       setSuccess("Thank you! Your registration was received.");
       setData(initialData);
@@ -106,7 +114,7 @@ export default function MembersRegister() {
 
       <Header />
 
-      {/* Page Banner (simple) */}
+      {/* Page Banner */}
       <section
         className="page-title"
         style={{
