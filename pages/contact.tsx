@@ -87,7 +87,16 @@ export default function Contact() {
                 </ul>
 
                 <div className="social-link" style={{ marginTop: 16 }}>
-                  <ul>
+                  <ul
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: "15px",
+                      paddingLeft: 0,
+                      listStyle: "none",
+                    }}
+                  >
                     <li>
                       <a
                         href="https://facebook.com/geecn1"
