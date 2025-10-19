@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import HeaderSidebar from "./HeaderSidebar";
 import HeaderSearch from "./HeaderSearch";
+import ThemeToggle from "src/components/ThemeToggle.tsx";
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
@@ -153,13 +154,14 @@ export default function Header() {
 
               {/* Right: search + sidebar */}
               <div className="right-column d-none d-md-flex align-items-center gap-3">
-                <button
+                <ThemeToggle />
+                {/* <button
                   className="btn btn-sm btn-outline-light"
                   onClick={() => setSearchOpen(true)}
                   aria-label="Open search"
                 >
                   <i className="far fa-search" />
-                </button>
+                </button> */}
 
                 <button
                   className="btn btn-sm btn-outline-light"
