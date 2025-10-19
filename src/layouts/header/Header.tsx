@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import HeaderSidebar from "./HeaderSidebar";
 import HeaderSearch from "./HeaderSearch";
-import ThemeToggle from "src/components/ThemeToggle.tsx";
+import ThemeToggle from "src/components/ThemeToggle";
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
