@@ -131,3 +131,67 @@
   border-radius: 10px;
   border: none;
 }
+/* Ministries dropdown menu */
+.navigation .dropdown {
+  position: relative;
+}
+
+.navigation .dropdown > .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 240px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  padding: 6px 0;
+}
+
+.navigation .dropdown > .submenu li a {
+  display: block;
+  padding: 10px 15px;
+  color: #222;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navigation .dropdown > .submenu li a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Hover show (desktop) */
+@media (min-width: 992px) {
+  .navigation .dropdown:hover > .submenu {
+    display: block;
+  }
+}
+
+/* Mobile: stack menu */
+@media (max-width: 991.98px) {
+  .navigation .dropdown > .submenu {
+    position: static;
+    box-shadow: none;
+    border: 0;
+  }
+}
+/* Center all ministry page titles */
+.ministry-page {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.ministry-page h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.ministry-page p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+}

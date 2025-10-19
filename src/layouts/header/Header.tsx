@@ -38,7 +38,7 @@ export default function Header() {
                   <img src="/assets/images/icons/icon-bar.png" alt="Menu" />
                 </button>
 
-                {/* Nav */}
+                {/* Navigation menu */}
                 <nav
                   className={`main-menu navbar-expand-md navbar-light ${
                     navOpen ? "show" : ""
@@ -49,27 +49,100 @@ export default function Header() {
                       navOpen ? "d-block mt-3" : "d-none d-md-flex"
                     }`}
                   >
-                    <li className="nav-item">
+                    <li>
                       <Link href="/">
                         <a className="nav-link">Home</a>
                       </Link>
                     </li>
-                    <li className="nav-item">
+
+                    <li>
                       <Link href="/about">
                         <a className="nav-link">About</a>
                       </Link>
                     </li>
-                    <li className="nav-item">
+
+                    <li>
                       <Link href="/leaders">
                         <a className="nav-link">Leaders</a>
                       </Link>
                     </li>
-                    <li className="nav-item">
+
+                    <li>
                       <Link href="/members/register">
                         <a className="nav-link">Members</a>
                       </Link>
                     </li>
-                    <li className="nav-item">
+
+                    {/* Ministries dropdown */}
+                    <li className="dropdown">
+                      <a href="#" className="nav-link">
+                        Ministries <i className="fa fa-angle-down ms-1"></i>
+                      </a>
+                      <ul className="submenu">
+                        <li>
+                          <Link href="/ministries/young-adults">
+                            <a>Young Adult’s Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/women">
+                            <a>Women’s Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/men">
+                            <a>Men’s Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/bible-study">
+                            <a>Bible Study’s Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/family">
+                            <a>Family Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/worship-arts">
+                            <a>Worship Art’s Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/high-school">
+                            <a>High School’s Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/middle-school">
+                            <a>Middle School’s Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/kids">
+                            <a>Kid’s Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/prayer">
+                            <a>Prayer Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/evangelism">
+                            <a>Evangelism Ministry</a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/ministries/audio-visual">
+                            <a>Audio-Visual Ministry</a>
+                          </Link>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li>
                       <Link href="/contact">
                         <a className="nav-link">Contact</a>
                       </Link>
@@ -78,9 +151,8 @@ export default function Header() {
                 </nav>
               </div>
 
-              {/* Right: actions */}
+              {/* Right: search + sidebar */}
               <div className="right-column d-none d-md-flex align-items-center gap-3">
-                {/* Search button */}
                 <button
                   className="btn btn-sm btn-outline-light"
                   onClick={() => setSearchOpen(true)}
@@ -89,7 +161,6 @@ export default function Header() {
                   <i className="far fa-search" />
                 </button>
 
-                {/* Sidebar button */}
                 <button
                   className="btn btn-sm btn-outline-light"
                   onClick={() => setSidebarOpen(true)}

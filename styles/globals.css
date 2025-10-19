@@ -65,3 +65,6 @@ div#chart {
 .swiper-initialized {
   overflow: hidden !important;
 }
+.banner-section-one .content-box {
+  padding-top: 16px;
+}
