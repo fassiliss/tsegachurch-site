@@ -63,7 +63,7 @@ export default function Contact() {
               <div className="contact-card">
                 <h3 className="mb-3">Church Info</h3>
                 <p className="mb-4">
-                  We’d love to hear from you. Reach out for prayer, questions,
+                  We'd love to hear from you. Reach out for prayer, questions,
                   or to plan your visit.
                 </p>
 
@@ -74,13 +74,11 @@ export default function Contact() {
                   </li>
                   <li>
                     <i className="far fa-envelope" />
-                    <a href="mailto:info@tsegachurch.org">
-                      info@tsegachurch.org
-                    </a>
+                    <a href="mailto:fassil661@gmail.com">fassil661@gmail.com</a>
                   </li>
                   <li>
                     <i className="far fa-phone" />
-                    <a href="tel:+11234567890">+1 (615) 485-1516</a>
+                    <a href="tel:+16154851516">+1 (615) 485-1516</a>
                   </li>
                   <li>
                     <i className="far fa-clock" />
@@ -91,7 +89,12 @@ export default function Contact() {
                 <div className="social-link" style={{ marginTop: 16 }}>
                   <ul>
                     <li>
-                      <a href="#" aria-label="Facebook">
+                      <a
+                        href="https://facebook.com/geecn1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Facebook"
+                      >
                         <i className="fab fa-facebook-f" />
                       </a>
                     </li>
@@ -101,7 +104,12 @@ export default function Contact() {
                       </a>
                     </li>
                     <li>
-                      <a href="#" aria-label="YouTube">
+                      <a
+                        href="https://www.youtube.com/@geecn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="YouTube"
+                      >
                         <i className="fab fa-youtube" />
                       </a>
                     </li>
@@ -120,10 +128,9 @@ export default function Contact() {
                   className="ratio ratio-16x9"
                   style={{ borderRadius: 8, overflow: "hidden" }}
                 >
-                  {/* Replace src with your church map embed */}
                   <iframe
                     title="Church Location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153..."
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3226.384858371944!2d-86.54468082397806!3d36.01434797254859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8864178e5e5e5e5f%3A0x1234567890abcdef!2s5227%20Murfreesboro%20Rd%2C%20La%20Vergne%2C%20TN%2037086!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
                     width="600"
                     height="450"
                     style={{ border: 0 }}
