@@ -56,7 +56,8 @@ export default function Home() {
                       <div className="banner-slider-text">
                         Join us Sundays at Grace Ethiopian Evangelical Church of
                         Nashville 11:00 AM. We’re a family pursuing Jesus
-                        together.
+                        together. <br /> እሁድ በ11:00 ጠዋት በግሬስ ኢትዮጵያ ወንጌላዊያን
+                        ቤተክርስቲያን በናሽቪል አብረውን ያምልኩ።
                       </div>
                       <div className="banner-slider-btn"></div>
                     </div>

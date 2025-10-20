@@ -122,12 +122,12 @@ export default function Header() {
                         </li>
                         <li>
                           <Link href="/ministries/kids">
-                            <a>Kid’s Ministry</a>
+                            <a>Kid’s Ministry / የልጆች አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/prayer">
-                            <a>Prayer Ministry</a>
+                            <a>Prayer Ministry / የጸሎት አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
