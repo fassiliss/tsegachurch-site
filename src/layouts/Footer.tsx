@@ -27,7 +27,7 @@ export default function Footer({ extraClass }: FooterProps) {
                 </div>
                 <ul className="social-link d-flex gap-3 mt-3">
                   <li>
-                    <a href="#" aria-label="Facebook">
+                    <a href="https://facebook.com/geecn1" aria-label="Facebook">
                       <i className="fab fa-facebook-f" />
                     </a>
                   </li>
@@ -37,7 +37,10 @@ export default function Footer({ extraClass }: FooterProps) {
                     </a>
                   </li>
                   <li>
-                    <a href="#" aria-label="YouTube">
+                    <a
+                      href="https://www.youtube.com/@geecn"
+                      aria-label="YouTube"
+                    >
                       <i className="fab fa-youtube" />
                     </a>
                   </li>

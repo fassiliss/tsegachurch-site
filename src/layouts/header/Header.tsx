@@ -155,13 +155,6 @@ export default function Header() {
               {/* Right: search + sidebar */}
               <div className="right-column d-none d-md-flex align-items-center gap-3">
                 <ThemeToggle />
-                {/* <button
-                  className="btn btn-sm btn-outline-light"
-                  onClick={() => setSearchOpen(true)}
-                  aria-label="Open search"
-                >
-                  <i className="far fa-search" />
-                </button> */}
 
                 <button
                   className="btn btn-sm btn-outline-light"
