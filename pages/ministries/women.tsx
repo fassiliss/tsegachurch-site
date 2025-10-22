@@ -6,7 +6,7 @@ export default function WomensMinistry() {
   return (
     <>
       <Head>
-        <title>Women’s Ministry — Tsega Church</title>
+        <title>Women’s Ministry / የሴቶች አገልግሎት — Tsega Church</title>
       </Head>
       <Header />
 

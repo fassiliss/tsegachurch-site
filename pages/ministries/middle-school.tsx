@@ -6,7 +6,7 @@ export default function MiddleSchoolMinistry() {
   return (
     <>
       <Head>
-        <title>Middle School’s Ministry — Tsega Church</title>
+        <title>Middle School’s / የመካከለኛ ትምህርት አገልግሎት Ministry — Tsega Church</title>
       </Head>
       <Header />
 

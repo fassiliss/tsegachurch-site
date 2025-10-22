@@ -6,7 +6,7 @@ export default function YoungAdultsMinistry() {
   return (
     <>
       <Head>
-        <title>Young Adults Ministry — Tsega Church</title>
+        <title>Young Adults Ministry / የወጣቶች አገልግሎት — Tsega Church</title>
       </Head>
       <Header />
 

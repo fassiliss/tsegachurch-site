@@ -6,7 +6,7 @@ export default function WorshipArtsMinistry() {
   return (
     <>
       <Head>
-        <title>Worship Arts Ministry — Tsega Church</title>
+        <title>Worship Arts Ministry / የማምለኪያ እና ፈጠራ አገልግሎት — Tsega Church</title>
       </Head>
       <Header />
 

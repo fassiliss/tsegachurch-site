@@ -22,7 +22,7 @@ export default function PrayerMinistry() {
               marginBottom: "15px",
             }}
           >
-            Prayer Ministry
+            Prayer Ministry / የጸሎት አገልግሎት
           </h1>
 
           <p

@@ -82,47 +82,49 @@ export default function Header() {
                       <ul className="submenu">
                         <li>
                           <Link href="/ministries/young-adults">
-                            <a>Young Adult’s Ministry</a>
+                            <a>Young Adult’s Ministry / የወጣቶች አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/women">
-                            <a>Women’s Ministry</a>
+                            <a>Women’s Ministry / የሴቶች አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/men">
-                            <a>Men’s Ministry</a>
+                            <a>Men’s Ministry / የወንዶች አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/bible-study">
-                            <a>Bible Study’s Ministry</a>
+                            <a>Bible Study’s / የመጽሐፍ ቅዱስ ትምህርት አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/family">
-                            <a>Family Ministry</a>
+                            <a>Family Ministry / ቤተሰብ አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/worship-arts">
-                            <a>Worship Art’s Ministry</a>
+                            <a>Worship Art’s Ministry / የአምልኮ እና ፈጠራ አገልግሎት </a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/high-school">
-                            <a>High School’s Ministry</a>
+                            <a>High School’s Ministry / የከፍተኛ ትምህርት አገልግሎት </a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/middle-school">
-                            <a>Middle School’s Ministry</a>
+                            <a>
+                              Middle School’s Ministry / የመካከለኛ ትምህርት አገልግሎት
+                            </a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/kids">
-                            <a>Kid’s Ministry / የልጆች አገልግሎት</a>
+                            <a>Kid’s Ministry / የሕፃናት አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
@@ -132,12 +134,12 @@ export default function Header() {
                         </li>
                         <li>
                           <Link href="/ministries/evangelism">
-                            <a>Evangelism Ministry</a>
+                            <a>Evangelism Ministry / ምስክር አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/audio-visual">
-                            <a>Audio-Visual Ministry</a>
+                            <a>Audio-Visual Ministry / የድምጽ እና ቪዲዮ አገልግሎት</a>
                           </Link>
                         </li>
                       </ul>

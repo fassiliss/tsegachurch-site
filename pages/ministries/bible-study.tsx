@@ -6,7 +6,7 @@ export default function BibleStudyMinistry() {
   return (
     <>
       <Head>
-        <title>Bible Study’s Ministry — Tsega Church</title>
+        <title>Bible Study’s / የመጽሐፍ ቅዱስ ጥናት አገልግሎት — Tsega Church</title>
       </Head>
       <Header />
 

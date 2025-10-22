@@ -6,7 +6,7 @@ export default function EvangelismMinistry() {
   return (
     <>
       <Head>
-        <title>Evangelism Ministry — Tsega Church</title>
+        <title>Evangelism Ministry / የውንጌል አገልግሎት — Tsega Church</title>
       </Head>
       <Header />
 

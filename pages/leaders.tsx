@@ -13,7 +13,7 @@ export default function LeadersPage() {
       bio: "Faithful servant and mentor to the community.",
     },
     {
-      name: "Daniel Mare",
+      name: "Daniel Shita",
       role: "Elder",
       img: "/assets/images/leaders/sample3.png",
       bio: "Guiding families and supporting discipleship.",

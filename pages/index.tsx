@@ -38,7 +38,7 @@ export default function Home() {
                 />
                 <div className="theme_container">
                   <div className="content-box">
-                    <div className="inner-box">
+                    <div className="inner-box text-center">
                       <h6 className="banner-slider-sub-title mb-30">
                         <span className="title-sep-left">
                           <img
@@ -49,7 +49,7 @@ export default function Home() {
                         Welcome to Grace Ethiopian Evangelical Church of
                         Nashville
                       </h6>
-                      <h2 className="banner-slider-title mb-30">
+                      <h2 className="banner-slider-title text-center mb-30">
                         <span>Worship • Get together • Love</span> <br /> You
                         belong here.
                       </h2>

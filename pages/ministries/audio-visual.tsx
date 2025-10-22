@@ -6,7 +6,7 @@ export default function AudioVisualMinistry() {
   return (
     <>
       <Head>
-        <title>Audio-Visual Ministry — Tsega Church</title>
+        <title>Audio-Visual Ministry / የድምጽ እና ቪዲዮ አገልግሎት — Tsega Church</title>
       </Head>
       <Header />
 
@@ -22,7 +22,7 @@ export default function AudioVisualMinistry() {
               marginBottom: "15px",
             }}
           >
-            Audio-Visual Ministry
+            Audio-Visual Ministry / የድምጽ እና ቪዲዮ አገልግሎት
           </h1>
 
           <p

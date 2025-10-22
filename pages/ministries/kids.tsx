@@ -7,13 +7,13 @@ export default function KidsMinistry() {
     {
       name: "Dagem Samuel 1",
       role: "Kids Teacher",
-      img: "/assets/images/kids/dagim.png",
+      img: "/assets/images/kids/dagem.png",
       bio: "Passionate about teaching children about Jesus.",
     },
     {
       name: "Naomi Assefa 2",
       role: "Kids Teacher",
-      img: "/assets/images/kids/neyomi.png",
+      img: "/assets/images/kids/naomi.png",
       bio: "Creating fun and engaging lessons for kids.",
     },
     {
@@ -33,7 +33,7 @@ export default function KidsMinistry() {
   return (
     <>
       <Head>
-        <title>Kid's Ministry — Tsega Church</title>
+        <title>Kid's Ministry / የሕፃናት አገልግሎት — Tsega Church</title>
       </Head>
       <Header />
 
@@ -49,7 +49,7 @@ export default function KidsMinistry() {
               marginBottom: "15px",
             }}
           >
-            Kid's Ministry
+            Kid's Ministry / የሕፃናት አገልግሎት
           </h1>
 
           <p
