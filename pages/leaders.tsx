@@ -1,4 +1,3 @@
-
 // pages/leaders.tsx
 import Head from "next/head";
 import Header from "src/layouts/header/Header";

@@ -29,6 +29,7 @@ export default function Home() {
             "/assets/images/main-slider/main-slider-8.png",
             "/assets/images/main-slider/main-slider-9.png",
             "/assets/images/main-slider/main-slider-11.png",
+            "/assets/images/main-slider/main-slider-14.png",
           ].map((src, i) => (
             <SwiperSlide key={i}>
               <div className="banner-block-one">
@@ -50,8 +51,9 @@ export default function Home() {
                         Nashville
                       </h6>
                       <h2 className="banner-slider-title text-center mb-30">
-                        <span>Worship • Get together • Love</span> <br /> You
-                        belong here.
+                        <span>Worship • Get together • Love</span> <br /> እንክዋን ደህና መጡ ወደ ግሬስ ኢትዮጵያ
+                        ወንጌላዊያን ቤተክርስቲያን በናሽቪል
+                    
                       </h2>
                       <div className="banner-slider-text">
                         Join us Sundays at Grace Ethiopian Evangelical Church of
