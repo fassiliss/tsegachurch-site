@@ -1,6 +1,6 @@
 // src/layouts/header/Header.tsx
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HeaderSidebar from "./HeaderSidebar";
 import HeaderSearch from "./HeaderSearch";
 import ThemeToggle from "src/components/ThemeToggle";
@@ -9,6 +9,21 @@ export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector(".main-header");
+      if (window.scrollY > 50) {
+        header?.classList.add("fixed-top");
+      } else {
+        header?.classList.remove("fixed-top");
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -82,22 +97,22 @@ export default function Header() {
                       <ul className="submenu">
                         <li>
                           <Link href="/ministries/young-adults">
-                            <a>Young Adult’s Ministry / የወጣቶች አገልግሎት</a>
+                            <a>Young Adult's Ministry / የወጣቶች አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/women">
-                            <a>Women’s Ministry / የሴቶች አገልግሎት</a>
+                            <a>Women's Ministry / የሴቶች አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/men">
-                            <a>Men’s Ministry / የወንዶች አገልግሎት</a>
+                            <a>Men's Ministry / የወንዶች አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/bible-study">
-                            <a>Bible Study’s / የመጽሐፍ ቅዱስ ትምህርት አገልግሎት</a>
+                            <a>Bible Study's / የመጽሐፍ ቅዱስ ትምህርት አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
@@ -107,24 +122,24 @@ export default function Header() {
                         </li>
                         <li>
                           <Link href="/ministries/worship-arts">
-                            <a>Worship Art’s Ministry / የአምልኮ እና ፈጠራ አገልግሎት </a>
+                            <a>Worship Art's Ministry / የአምልኮ እና ፈጠራ አገልግሎት </a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/high-school">
-                            <a>High School’s Ministry / የከፍተኛ ትምህርት አገልግሎት </a>
+                            <a>High School's Ministry / የከፍተኛ ትምህርት አገልግሎት </a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/middle-school">
                             <a>
-                              Middle School’s Ministry / የመካከለኛ ትምህርት አገልግሎት
+                              Middle School's Ministry / የመካከለኛ ትምህርት አገልግሎት
                             </a>
                           </Link>
                         </li>
                         <li>
                           <Link href="/ministries/kids">
-                            <a>Kid’s Ministry / የሕፃናት አገልግሎት</a>
+                            <a>Kid's Ministry / የሕፃናት አገልግሎት</a>
                           </Link>
                         </li>
                         <li>
@@ -170,6 +185,9 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      {/* Spacer div to prevent content from hiding under fixed header */}
+      <div style={{ height: "120px", width: "100%" }}></div>
 
       {/* Overlays */}
       <HeaderSidebar open={sidebarOpen} close={() => setSidebarOpen(false)} />
