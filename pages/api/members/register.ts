@@ -1,7 +1,7 @@
 // pages/api/members/register.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
-import { getPool } from "src/lib/db";
+import { supabase } from "../../../lib/supabase";
 
 export const config = { api: { bodyParser: { sizeLimit: "1mb" } } };
 
@@ -52,58 +52,59 @@ export default async function handler(
   const email = d.email; // already trimmed + lowercased by Zod
 
   try {
-    const pool = getPool();
+    // 🔎 Check for duplicate email
+    const { data: existingMember, error: checkError } = await supabase
+      .from('members')
+      .select('id')
+      .eq('email', email)
+      .limit(1)
+      .single();
 
-    // 🔎 Nice UX: pre-check for duplicate (DB will still enforce)
-    const [dupes] = (await pool.query(
-      "SELECT id FROM members WHERE LOWER(TRIM(email)) = ? LIMIT 1",
-      [email]
-    )) as any[];
-
-    if (Array.isArray(dupes) && dupes.length > 0) {
+    // If we found a member (and it's not a "not found" error), it's a duplicate
+    if (existingMember) {
       return res
         .status(409)
         .json({ ok: false, error: "This email is already registered." });
     }
 
-    // Insert
-    const sql = `
-      INSERT INTO members
-        (first_name, last_name, email, phone, dob, marital_status, membership_type,
-         address, city, state, zip, prayer_request, agree)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
+    // Insert new member into Supabase
+    const { data, error } = await supabase
+      .from('members')
+      .insert([
+        {
+          first_name: d.firstName,
+          last_name: d.lastName,
+          email: email,
+          phone: d.phone,
+          date_of_birth: toNull(d.dob ?? undefined),
+          marital_status: toNull(d.maritalStatus ?? undefined),
+          membership_type: d.membershipType,
+          address: toNull(d.address ?? undefined),
+          city: toNull(d.city ?? undefined),
+          state_province: toNull(d.state ?? undefined),
+          zip_postal: toNull(d.zip ?? undefined),
+          prayer_requests: toNull(d.prayerRequest ?? undefined),
+        }
+      ])
+      .select();
 
-    await pool.execute(sql, [
-      d.firstName,
-      d.lastName,
-      email, // normalized
-      d.phone,
-      toNull(d.dob ?? undefined),
-      toNull(d.maritalStatus ?? undefined),
-      d.membershipType,
-      toNull(d.address ?? undefined),
-      toNull(d.city ?? undefined),
-      toNull(d.state ?? undefined),
-      toNull(d.zip ?? undefined),
-      toNull(d.prayerRequest ?? undefined),
-      d.agree ? 1 : 0,
-    ]);
+    if (error) {
+      // Check for unique constraint violation
+      if (error.code === '23505') {
+        return res
+          .status(409)
+          .json({ ok: false, error: "This email is already registered." });
+      }
+      
+      console.error("Supabase insert error:", error);
+      throw error;
+    }
 
     return res.status(200).json({ ok: true, message: "Saved successfully!" });
   } catch (err: any) {
-    // If DB unique index is present, this will catch race conditions
-    if (err?.code === "ER_DUP_ENTRY") {
-      return res
-        .status(409)
-        .json({ ok: false, error: "This email is already registered." });
-    }
     console.error("Register insert error:", err);
     return res
       .status(500)
       .json({ ok: false, error: "Server error. Please try again." });
   }
 }
-
-//f4d.iUJ4i4T*An4 
-//https://qxoqhxcjgantiomxornd.supabase.co
