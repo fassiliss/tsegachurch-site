@@ -421,7 +421,7 @@ export default function TestMembers() {
                 placeholder="Prayer Requests"
                 value={newMember.prayer_requests}
                 onChange={(e) => setNewMember({...newMember, prayer_requests: e.target.value})}
-                rows="3"
+                rows={3}
                 style={{...inputStyle, resize: 'vertical'}}
               />
             </div>
@@ -477,7 +477,7 @@ export default function TestMembers() {
                 {editingId === member.id ? (
                   /* EDIT MODE - EXPANDED VIEW */
                   <>
-                    <td colSpan="8" style={{ padding: '20px', background: '#f9f9f9' }}>
+                    <td colSpan={8} style={{ padding: '20px', background: '#f9f9f9' }}>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
                         <div>
                           <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>First Name *</label>
