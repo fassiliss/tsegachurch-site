@@ -415,104 +415,152 @@ export default function TestMembers() {
             {filteredMembers.map((member) => (
               <tr key={member.id} style={{ borderBottom: '1px solid #ddd' }}>
                 {editingId === member.id ? (
-                  /* EDIT MODE */
+                  /* EDIT MODE - EXPANDED VIEW */
                   <>
-                    <td style={{ padding: '12px' }}>
-                      <input
-                        type="text"
-                        value={editMember.first_name}
-                        onChange={(e) => setEditMember({...editMember, first_name: e.target.value})}
-                        style={tableInputStyle}
-                        placeholder="First"
-                      />
-                      <input
-                        type="text"
-                        value={editMember.last_name}
-                        onChange={(e) => setEditMember({...editMember, last_name: e.target.value})}
-                        style={{...tableInputStyle, marginTop: '4px'}}
-                        placeholder="Last"
-                      />
-                    </td>
-                    <td style={{ padding: '12px' }}>
-                      <input
-                        type="date"
-                        value={editMember.date_of_birth}
-                        onChange={(e) => setEditMember({...editMember, date_of_birth: e.target.value})}
-                        style={tableInputStyle}
-                      />
-                    </td>
-                    <td style={{ padding: '12px' }}>
-                      <input
-                        type="email"
-                        value={editMember.email}
-                        onChange={(e) => setEditMember({...editMember, email: e.target.value})}
-                        style={tableInputStyle}
-                      />
-                    </td>
-                    <td style={{ padding: '12px' }}>
-                      <input
-                        type="tel"
-                        value={editMember.phone}
-                        onChange={(e) => setEditMember({...editMember, phone: e.target.value})}
-                        style={tableInputStyle}
-                      />
-                    </td>
-                    <td style={{ padding: '12px' }}>
-                      <select
-                        value={editMember.membership_type}
-                        onChange={(e) => setEditMember({...editMember, membership_type: e.target.value})}
-                        style={tableInputStyle}
-                      >
-                        <option value="">Select...</option>
-                        <option value="New Member">New Member</option>
-                        <option value="Transfer">Transfer</option>
-                        <option value="Baptism">Baptism</option>
-                        <option value="Volunteer">Volunteer</option>
-                      </select>
-                    </td>
-                    <td style={{ padding: '12px' }}>
-                      <select
-                        value={editMember.marital_status}
-                        onChange={(e) => setEditMember({...editMember, marital_status: e.target.value})}
-                        style={tableInputStyle}
-                      >
-                        <option value="">Select...</option>
-                        <option value="Single">Single</option>
-                        <option value="Married">Married</option>
-                        <option value="Engaged">Engaged</option>
-                        <option value="Widowed">Widowed</option>
-                        <option value="Prefer not to say">Prefer not to say</option>
-                      </select>
-                    </td>
-                    <td style={{ padding: '12px' }}>
-                      <input
-                        type="text"
-                        value={editMember.city}
-                        onChange={(e) => setEditMember({...editMember, city: e.target.value})}
-                        style={tableInputStyle}
-                        placeholder="City"
-                      />
-                      <input
-                        type="text"
-                        value={editMember.state_province}
-                        onChange={(e) => setEditMember({...editMember, state_province: e.target.value})}
-                        style={{...tableInputStyle, marginTop: '4px'}}
-                        placeholder="State"
-                      />
-                    </td>
-                    <td style={{ padding: '12px' }}>
-                      <button 
-                        onClick={() => saveEdit(member.id)}
-                        style={{ padding: '6px 12px', marginRight: '5px', background: '#28a745', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px' }}
-                      >
-                        Save
-                      </button>
-                      <button 
-                        onClick={cancelEdit}
-                        style={{ padding: '6px 12px', background: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px' }}
-                      >
-                        Cancel
-                      </button>
+                    <td colSpan="8" style={{ padding: '20px', background: '#f9f9f9' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>First Name *</label>
+                          <input
+                            type="text"
+                            value={editMember.first_name}
+                            onChange={(e) => setEditMember({...editMember, first_name: e.target.value})}
+                            style={tableInputStyle}
+                            placeholder="First Name"
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>Last Name *</label>
+                          <input
+                            type="text"
+                            value={editMember.last_name}
+                            onChange={(e) => setEditMember({...editMember, last_name: e.target.value})}
+                            style={tableInputStyle}
+                            placeholder="Last Name"
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>Date of Birth</label>
+                          <input
+                            type="date"
+                            value={editMember.date_of_birth}
+                            onChange={(e) => setEditMember({...editMember, date_of_birth: e.target.value})}
+                            style={tableInputStyle}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>Email</label>
+                          <input
+                            type="email"
+                            value={editMember.email}
+                            onChange={(e) => setEditMember({...editMember, email: e.target.value})}
+                            style={tableInputStyle}
+                            placeholder="Email"
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>Phone *</label>
+                          <input
+                            type="tel"
+                            value={editMember.phone}
+                            onChange={(e) => setEditMember({...editMember, phone: e.target.value})}
+                            style={tableInputStyle}
+                            placeholder="Phone"
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>Membership Type *</label>
+                          <select
+                            value={editMember.membership_type}
+                            onChange={(e) => setEditMember({...editMember, membership_type: e.target.value})}
+                            style={tableInputStyle}
+                          >
+                            <option value="">Select...</option>
+                            <option value="New Member">New Member</option>
+                            <option value="Transfer">Transfer</option>
+                            <option value="Baptism">Baptism</option>
+                            <option value="Volunteer">Volunteer</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>Marital Status</label>
+                          <select
+                            value={editMember.marital_status}
+                            onChange={(e) => setEditMember({...editMember, marital_status: e.target.value})}
+                            style={tableInputStyle}
+                          >
+                            <option value="">Select...</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Engaged">Engaged</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                          </select>
+                        </div>
+                        <div style={{ gridColumn: 'span 2' }}>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>Street Address</label>
+                          <input
+                            type="text"
+                            value={editMember.address}
+                            onChange={(e) => setEditMember({...editMember, address: e.target.value})}
+                            style={tableInputStyle}
+                            placeholder="Street Address"
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>City</label>
+                          <input
+                            type="text"
+                            value={editMember.city}
+                            onChange={(e) => setEditMember({...editMember, city: e.target.value})}
+                            style={tableInputStyle}
+                            placeholder="City"
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>State/Province</label>
+                          <input
+                            type="text"
+                            value={editMember.state_province}
+                            onChange={(e) => setEditMember({...editMember, state_province: e.target.value})}
+                            style={tableInputStyle}
+                            placeholder="State/Province"
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>ZIP/Postal</label>
+                          <input
+                            type="text"
+                            value={editMember.zip_postal}
+                            onChange={(e) => setEditMember({...editMember, zip_postal: e.target.value})}
+                            style={tableInputStyle}
+                            placeholder="ZIP/Postal"
+                          />
+                        </div>
+                        <div style={{ gridColumn: 'span 3' }}>
+                          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>Prayer Requests</label>
+                          <textarea
+                            value={editMember.prayer_requests}
+                            onChange={(e) => setEditMember({...editMember, prayer_requests: e.target.value})}
+                            style={{...tableInputStyle, minHeight: '60px', resize: 'vertical'}}
+                            placeholder="Prayer Requests"
+                          />
+                        </div>
+                      </div>
+                      <div style={{ marginTop: '15px', display: 'flex', gap: '10px' }}>
+                        <button 
+                          onClick={() => saveEdit(member.id)}
+                          style={{ padding: '8px 20px', background: '#28a745', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold' }}
+                        >
+                          Save Changes
+                        </button>
+                        <button 
+                          onClick={cancelEdit}
+                          style={{ padding: '8px 20px', background: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '14px' }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </td>
                   </>
                 ) : (
