@@ -29,10 +29,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // Add CORS headers
+  // Add CORS headers - FIXED VERSION
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', 'https://planetfassil.org');
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.planetfassil.org');
+  
+  // Handle multiple allowed origins properly
+  const origin = req.headers.origin;
+  const allowedOrigins = [
+    'https://planetfassil.org', 
+    'https://www.planetfassil.org',
+    'http://localhost:3000' // For local development
+  ];
+  
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader(
     'Access-Control-Allow-Headers',
