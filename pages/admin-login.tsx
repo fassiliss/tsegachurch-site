@@ -7,10 +7,10 @@ export default function AdminLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
-  async function handleLogin(e) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     setError(null)
@@ -25,7 +25,7 @@ export default function AdminLogin() {
 
       // Redirect to admin panel on success
       router.push('/test-members')
-    } catch (error) {
+    } catch (error: any) {
       setError(error.message)
     } finally {
       setLoading(false)
@@ -96,11 +96,8 @@ export default function AdminLogin() {
                   fontSize: '16px',
                   border: '2px solid #ddd',
                   borderRadius: '6px',
-                  boxSizing: 'border-box',
-                  transition: 'border-color 0.3s'
+                  boxSizing: 'border-box'
                 }}
-                onFocus={(e) => e.target.style.borderColor = '#667eea'}
-                onBlur={(e) => e.target.style.borderColor = '#ddd'}
               />
             </div>
 
@@ -126,11 +123,8 @@ export default function AdminLogin() {
                   fontSize: '16px',
                   border: '2px solid #ddd',
                   borderRadius: '6px',
-                  boxSizing: 'border-box',
-                  transition: 'border-color 0.3s'
+                  boxSizing: 'border-box'
                 }}
-                onFocus={(e) => e.target.style.borderColor = '#667eea'}
-                onBlur={(e) => e.target.style.borderColor = '#ddd'}
               />
             </div>
 
@@ -147,18 +141,7 @@ export default function AdminLogin() {
                 fontSize: '16px',
                 fontWeight: 'bold',
                 cursor: loading ? 'not-allowed' : 'pointer',
-                transition: 'transform 0.2s, box-shadow 0.2s',
                 boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
-              }}
-              onMouseEnter={(e) => {
-                if (!loading) {
-                  e.target.style.transform = 'translateY(-2px)'
-                  e.target.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)'
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)'
-                e.target.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)'
               }}
             >
               {loading ? 'Signing in...' : 'Sign In'}
