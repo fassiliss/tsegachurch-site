@@ -177,6 +177,12 @@ export default function TestMembers() {
     }
   }
 
+  function formatDate(dateString) {
+    if (!dateString) return '-'
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+  }
+
   if (loading) return <div style={{padding: '20px'}}>Loading...</div>
 
   const inputStyle = { 
@@ -195,8 +201,16 @@ export default function TestMembers() {
     fontSize: '14px'
   }
 
+  const tableInputStyle = {
+    padding: '4px',
+    width: '100%',
+    fontSize: '13px',
+    border: '1px solid #ddd',
+    borderRadius: '3px'
+  }
+
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: '20px', fontFamily: 'Arial', maxWidth: '1600px', margin: '0 auto' }}>
       <h1>Church Member Management</h1>
       
       {/* ADD NEW MEMBER FORM */}
@@ -388,81 +402,151 @@ export default function TestMembers() {
           <thead>
             <tr style={{ background: '#333', color: 'white' }}>
               <th style={{ padding: '12px', textAlign: 'left' }}>Name</th>
+              <th style={{ padding: '12px', textAlign: 'left' }}>DOB</th>
               <th style={{ padding: '12px', textAlign: 'left' }}>Email</th>
               <th style={{ padding: '12px', textAlign: 'left' }}>Phone</th>
               <th style={{ padding: '12px', textAlign: 'left' }}>Membership</th>
               <th style={{ padding: '12px', textAlign: 'left' }}>Marital Status</th>
               <th style={{ padding: '12px', textAlign: 'left' }}>Location</th>
-              <th style={{ padding: '12px', textAlign: 'left' }}>Actions</th>
+              <th style={{ padding: '12px', textAlign: 'left', minWidth: '180px' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredMembers.map((member) => (
               <tr key={member.id} style={{ borderBottom: '1px solid #ddd' }}>
-                <td style={{ padding: '12px' }}>
-                  {member.first_name} {member.last_name}
-                  {member.date_of_birth && (
-                    <div style={{ fontSize: '12px', color: '#666' }}>
-                      DOB: {new Date(member.date_of_birth).toLocaleDateString()}
-                    </div>
-                  )}
-                </td>
-                <td style={{ padding: '12px' }}>{member.email || '-'}</td>
-                <td style={{ padding: '12px' }}>{member.phone || '-'}</td>
-                <td style={{ padding: '12px' }}>{member.membership_type || '-'}</td>
-                <td style={{ padding: '12px' }}>{member.marital_status || '-'}</td>
-                <td style={{ padding: '12px' }}>
-                  {member.city && member.state_province 
-                    ? `${member.city}, ${member.state_province}` 
-                    : member.city || member.state_province || '-'}
-                </td>
-                <td style={{ padding: '12px' }}>
-                  <button 
-                    onClick={() => {
-                      const details = `
-Name: ${member.first_name} ${member.last_name}
-Email: ${member.email || 'N/A'}
-Phone: ${member.phone || 'N/A'}
-DOB: ${member.date_of_birth ? new Date(member.date_of_birth).toLocaleDateString() : 'N/A'}
-Marital Status: ${member.marital_status || 'N/A'}
-Membership Type: ${member.membership_type || 'N/A'}
-Address: ${member.address || 'N/A'}
-City: ${member.city || 'N/A'}
-State: ${member.state_province || 'N/A'}
-ZIP: ${member.zip_postal || 'N/A'}
-Prayer Requests: ${member.prayer_requests || 'N/A'}
-Joined: ${new Date(member.created_at).toLocaleDateString()}
-                      `.trim()
-                      alert(details)
-                    }}
-                    style={{ 
-                      padding: '6px 12px', 
-                      marginRight: '5px', 
-                      background: '#17a2b8', 
-                      color: 'white', 
-                      border: 'none', 
-                      borderRadius: '4px', 
-                      cursor: 'pointer',
-                      fontSize: '14px'
-                    }}
-                  >
-                    View
-                  </button>
-                  <button 
-                    onClick={() => deleteMember(member.id, `${member.first_name} ${member.last_name}`)}
-                    style={{ 
-                      padding: '6px 12px', 
-                      background: '#dc3545', 
-                      color: 'white', 
-                      border: 'none', 
-                      borderRadius: '4px', 
-                      cursor: 'pointer',
-                      fontSize: '14px'
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
+                {editingId === member.id ? (
+                  /* EDIT MODE */
+                  <>
+                    <td style={{ padding: '12px' }}>
+                      <input
+                        type="text"
+                        value={editMember.first_name}
+                        onChange={(e) => setEditMember({...editMember, first_name: e.target.value})}
+                        style={tableInputStyle}
+                        placeholder="First"
+                      />
+                      <input
+                        type="text"
+                        value={editMember.last_name}
+                        onChange={(e) => setEditMember({...editMember, last_name: e.target.value})}
+                        style={{...tableInputStyle, marginTop: '4px'}}
+                        placeholder="Last"
+                      />
+                    </td>
+                    <td style={{ padding: '12px' }}>
+                      <input
+                        type="date"
+                        value={editMember.date_of_birth}
+                        onChange={(e) => setEditMember({...editMember, date_of_birth: e.target.value})}
+                        style={tableInputStyle}
+                      />
+                    </td>
+                    <td style={{ padding: '12px' }}>
+                      <input
+                        type="email"
+                        value={editMember.email}
+                        onChange={(e) => setEditMember({...editMember, email: e.target.value})}
+                        style={tableInputStyle}
+                      />
+                    </td>
+                    <td style={{ padding: '12px' }}>
+                      <input
+                        type="tel"
+                        value={editMember.phone}
+                        onChange={(e) => setEditMember({...editMember, phone: e.target.value})}
+                        style={tableInputStyle}
+                      />
+                    </td>
+                    <td style={{ padding: '12px' }}>
+                      <select
+                        value={editMember.membership_type}
+                        onChange={(e) => setEditMember({...editMember, membership_type: e.target.value})}
+                        style={tableInputStyle}
+                      >
+                        <option value="">Select...</option>
+                        <option value="New Member">New Member</option>
+                        <option value="Transfer">Transfer</option>
+                        <option value="Baptism">Baptism</option>
+                        <option value="Volunteer">Volunteer</option>
+                      </select>
+                    </td>
+                    <td style={{ padding: '12px' }}>
+                      <select
+                        value={editMember.marital_status}
+                        onChange={(e) => setEditMember({...editMember, marital_status: e.target.value})}
+                        style={tableInputStyle}
+                      >
+                        <option value="">Select...</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Engaged">Engaged</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
+                      </select>
+                    </td>
+                    <td style={{ padding: '12px' }}>
+                      <input
+                        type="text"
+                        value={editMember.city}
+                        onChange={(e) => setEditMember({...editMember, city: e.target.value})}
+                        style={tableInputStyle}
+                        placeholder="City"
+                      />
+                      <input
+                        type="text"
+                        value={editMember.state_province}
+                        onChange={(e) => setEditMember({...editMember, state_province: e.target.value})}
+                        style={{...tableInputStyle, marginTop: '4px'}}
+                        placeholder="State"
+                      />
+                    </td>
+                    <td style={{ padding: '12px' }}>
+                      <button 
+                        onClick={() => saveEdit(member.id)}
+                        style={{ padding: '6px 12px', marginRight: '5px', background: '#28a745', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px' }}
+                      >
+                        Save
+                      </button>
+                      <button 
+                        onClick={cancelEdit}
+                        style={{ padding: '6px 12px', background: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px' }}
+                      >
+                        Cancel
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  /* VIEW MODE */
+                  <>
+                    <td style={{ padding: '12px' }}>
+                      <div style={{ fontWeight: 'bold' }}>{member.first_name} {member.last_name}</div>
+                    </td>
+                    <td style={{ padding: '12px' }}>{formatDate(member.date_of_birth)}</td>
+                    <td style={{ padding: '12px' }}>{member.email || '-'}</td>
+                    <td style={{ padding: '12px' }}>{member.phone || '-'}</td>
+                    <td style={{ padding: '12px' }}>{member.membership_type || '-'}</td>
+                    <td style={{ padding: '12px' }}>{member.marital_status || '-'}</td>
+                    <td style={{ padding: '12px' }}>
+                      {member.city && member.state_province 
+                        ? `${member.city}, ${member.state_province}` 
+                        : member.city || member.state_province || '-'}
+                    </td>
+                    <td style={{ padding: '12px' }}>
+                      <button 
+                        onClick={() => startEdit(member)}
+                        style={{ padding: '6px 12px', marginRight: '5px', background: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px' }}
+                      >
+                        Edit
+                      </button>
+                      <button 
+                        onClick={() => deleteMember(member.id, `${member.first_name} ${member.last_name}`)}
+                        style={{ padding: '6px 12px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px' }}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </>
+                )}
               </tr>
             ))}
           </tbody>
