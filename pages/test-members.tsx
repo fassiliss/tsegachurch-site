@@ -44,11 +44,14 @@ export default function TestMembers() {
     checkUser()
     
     // Listen for auth changes
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+        setUser(session?.user ?? null)
+        setLoading(false)
+      }
       if (event === 'SIGNED_OUT') {
         router.push('/admin-login')
       }
-      setUser(session?.user ?? null)
     })
 
     return () => {
@@ -57,15 +60,23 @@ export default function TestMembers() {
   }, [])
 
   async function checkUser() {
-    const { data: { session } } = await supabase.auth.getSession()
-    
-    if (!session) {
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      if (!session) {
+        // Add small delay to allow OAuth callback to complete
+        setTimeout(() => {
+          router.push('/admin-login')
+        }, 100)
+        return
+      }
+      
+      setUser(session.user)
+      await fetchMembers()
+    } catch (error) {
+      console.error('Auth check error:', error)
       router.push('/admin-login')
-      return
     }
-    
-    setUser(session.user)
-    fetchMembers()
   }
 
   async function handleLogout() {
@@ -421,7 +432,7 @@ export default function TestMembers() {
                 placeholder="Prayer Requests"
                 value={newMember.prayer_requests}
                 onChange={(e) => setNewMember({...newMember, prayer_requests: e.target.value})}
-                rows={3}
+                rows="3"
                 style={{...inputStyle, resize: 'vertical'}}
               />
             </div>
@@ -477,7 +488,7 @@ export default function TestMembers() {
                 {editingId === member.id ? (
                   /* EDIT MODE - EXPANDED VIEW */
                   <>
-                    <td colSpan={8} style={{ padding: '20px', background: '#f9f9f9' }}>
+                    <td colSpan="8" style={{ padding: '20px', background: '#f9f9f9' }}>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
                         <div>
                           <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '12px' }}>First Name *</label>

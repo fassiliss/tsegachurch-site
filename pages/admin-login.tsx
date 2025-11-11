@@ -40,7 +40,7 @@ export default function AdminLogin() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/test-members`
+          redirectTo: 'https://members.planetfassil.org/test-members'
         }
       })
 
