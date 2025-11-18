@@ -75,21 +75,59 @@ export default function About() {
                         id="myTab"
                         role="tablist"
                       >
-                        <Nav.Item as={"li"} role="presentation">
-                          <Nav.Link as={"button"} eventKey="tab-1">
-                            <span>Our Mission</span>
-                          </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item as={"li"} role="presentation">
-                          <Nav.Link as={"button"} eventKey="tab-2">
-                            <span>Our Beliefs</span>
-                          </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item as={"li"} role="presentation">
-                          <Nav.Link as={"button"} eventKey="tab-3">
-                            <span>Next Steps</span>
-                          </Nav.Link>
-                        </Nav.Item>
+                          <Nav.Item as={"li"} role="presentation">
+                              <Nav.Link
+                                  as={"button"}
+                                  eventKey="tab-1"
+                                  style={{
+                                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                                      color: 'white',
+                                      border: '2px solid #10b981',
+                                      fontWeight: '600',
+                                      padding: '10px 20px',
+                                      borderRadius: '8px',
+                                      margin: '0 5px'
+                                  }}
+                              >
+                                  <span>Our Mission</span>
+                              </Nav.Link>
+                          </Nav.Item>
+
+                          <Nav.Item as={"li"} role="presentation">
+                              <Nav.Link
+                                  as={"button"}
+                                  eventKey="tab-2"
+                                  style={{
+                                      background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                                      color: 'white',
+                                      border: '2px solid #f59e0b',
+                                      fontWeight: '600',
+                                      padding: '10px 20px',
+                                      borderRadius: '8px',
+                                      margin: '0 5px'
+                                  }}
+                              >
+                                  <span>Our Beliefs</span>
+                              </Nav.Link>
+                          </Nav.Item>
+
+                          <Nav.Item as={"li"} role="presentation">
+                              <Nav.Link
+                                  as={"button"}
+                                  eventKey="tab-3"
+                                  style={{
+                                      background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                                      color: 'white',
+                                      border: '2px solid #ef4444',
+                                      fontWeight: '600',
+                                      padding: '10px 20px',
+                                      borderRadius: '8px',
+                                      margin: '0 5px'
+                                  }}
+                              >
+                                  <span>Next Steps</span>
+                              </Nav.Link>
+                          </Nav.Item>
                       </Nav>
                     </div>
                   </div>
