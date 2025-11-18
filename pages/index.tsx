@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { Nav, Tab } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { useEffect } from "react";
 // your layouts
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
@@ -12,12 +12,69 @@ import Footer from "src/layouts/Footer";
 import { banner1, fiveItemCarousel, testimonialSlider } from "@/sliderProps";
 
 export default function Home() {
+
   return (
     <>
-      <Head>
-        <title>Tsega Church — Home</title>
-        <link rel="icon" href="/assets/images/logo-light5.png" />
-      </Head>
+        <Head>
+            <title>Tsega Church — Home</title>
+            <link rel="icon" href="/assets/images/logo-light5.png" />
+            <style jsx global>{`
+                /* FORCE SLIDER TO SHOW AND STYLE PROPERLY ON MOBILE */
+                .banner-section-one.style-three {
+                    display: block !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    height: auto !important;
+                    min-height: 600px !important;
+                }
+
+                .banner-section-one .swiper-slide {
+                    min-height: 600px !important;
+                }
+
+                .banner-section-one .banner-block-one {
+                    min-height: 600px !important;
+                    position: relative !important;
+                }
+
+                .banner-section-one .image-layer {
+                    position: absolute !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    background-size: cover !important;
+                    background-position: center !important;
+                    background-repeat: no-repeat !important;
+                    z-index: 0 !important;
+                }
+
+                .banner-section-one .theme_container {
+                    position: relative !important;
+                    z-index: 1 !important;
+                }
+
+                .banner-section-one .content-box {
+                    position: relative !important;
+                    z-index: 2 !important;
+                }
+
+                @media (max-width: 991px) {
+                    .banner-section-one.style-three {
+                        display: block !important;
+                        min-height: 500px !important;
+                    }
+
+                    .banner-section-one .swiper-slide {
+                        min-height: 500px !important;
+                    }
+
+                    .banner-section-one .banner-block-one {
+                        min-height: 500px !important;
+                    }
+                }
+            `}</style>
+        </Head>
 
       <Header />
 
@@ -30,16 +87,26 @@ export default function Home() {
             "/assets/images/main-slider/main-slider-9.png",
             "/assets/images/main-slider/main-slider-11.png",
             "/assets/images/main-slider/main-slider-14.png",
+            "/assets/images/main-slider/main-slider-15.png",
           ].map((src, i) => (
-            <SwiperSlide key={i}>
-              <div className="banner-block-one">
-                <div
-                  className="image-layer"
-                  style={{ backgroundImage: `url(${src})` }}
-                />
-                <div className="theme_container">
-                  <div className="content-box">
-                    <div className="inner-box text-center">
+              <SwiperSlide key={i}>
+                  <div className="banner-block-one" style={{ position: 'relative', minHeight: '600px' }}>
+                      <img
+                          src={src}
+                          alt="Church banner"
+                          style={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              zIndex: 0
+                          }}
+                      />
+                      <div className="theme_container" style={{ position: 'relative', zIndex: 1 }}>
+                          <div className="content-box">
+                              <div className="inner-box text-center">
                       <h6 className="banner-slider-sub-title mb-30">
                         <span className="title-sep-left">
                           <img
@@ -51,7 +118,7 @@ export default function Home() {
                         Nashville
                       </h6>
                       <h2 className="banner-slider-title text-center mb-30">
-                        <span>Worship • Get together • Love</span> <br /> እንክዋን ወደ ግሬስ ኢትዮጵያ
+                        <span>Worship • Get together • Love</span> <br /> እንኳን ወደ ግሬስ ኢትዮጵያ
                         ወንጌላዊያን ቤተክርስቲያን በናሽቪል በደህና መጡ።
                     
                       </h2>

@@ -68,3 +68,20 @@ div#chart {
 .banner-section-one .content-box {
   padding-top: 16px;
 }
+/* Force banner to show on all devices */
+.banner-section-one.style-three {
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    min-height: 500px !important;
+}
+
+@media (max-width: 768px) {
+    .banner-section-one.style-three {
+        display: block !important;
+    }
+
+    .banner-section-one.style-three .swiper-slide {
+        display: block !important;
+    }
+}
