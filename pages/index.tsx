@@ -17,7 +17,7 @@ export default function Home() {
     <>
         <Head>
             <title>Tsega Church — Home</title>
-            <link rel="icon" href="/assets/images/logo-light5.png" />
+            <link rel="icon" href="/assets/images/grace-logo-new.png" />
             <style jsx global>{`
                 /* FORCE SLIDER TO SHOW AND STYLE PROPERLY ON MOBILE */
                 .banner-section-one.style-three {

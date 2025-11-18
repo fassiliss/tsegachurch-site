@@ -39,7 +39,7 @@ export default function Header() {
                             <div className="left-column d-flex align-items-center">
                                 <div className="logo me-3">
                                     <Link href="/">
-                                        <a onClick={closeMenu}><img src="/assets/images/logo-light5.png" alt="Tsega Church" style={{ maxHeight: '60px' }} /></a>
+                                        <a onClick={closeMenu}><img src="/assets/images/grace-logo-new.png" alt="Tsega Church" style={{ maxHeight: '60px' }} /></a>
                                     </Link>
                                 </div>
 
@@ -84,39 +84,214 @@ export default function Header() {
                 </div>
 
                 {navOpen && (
-                    <div className="mobile-menu-overlay d-lg-none" style={{ position: 'fixed', top: '80px', left: 0, right: 0, bottom: 0, background: 'var(--bg-color)', zIndex: 999, overflowY: 'auto', padding: '20px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                    <div
+                        className="mobile-menu-overlay d-lg-none"
+                        style={{
+                            position: 'fixed',
+                            top: '80px',
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            background: 'linear-gradient(135deg, var(--bg-color) 0%, rgba(100, 50, 200, 0.05) 100%)',
+                            zIndex: 999,
+                            overflowY: 'auto',
+                            padding: '30px 20px',
+                            boxShadow: '0 -4px 20px rgba(0,0,0,0.2)',
+                            backdropFilter: 'blur(10px)',
+                        }}
+                    >
                         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                            <li style={{ marginBottom: '15px' }}><Link href="/"><a onClick={closeMenu} style={{ display: 'block', padding: '12px 16px', fontSize: '16px', fontWeight: '500', color: 'var(--text-color)', textDecoration: 'none', borderRadius: '8px' }}><i className="fas fa-home me-2"></i> Home</a></Link></li>
-                            <li style={{ marginBottom: '15px' }}><Link href="/about"><a onClick={closeMenu} style={{ display: 'block', padding: '12px 16px', fontSize: '16px', fontWeight: '500', color: 'var(--text-color)', textDecoration: 'none', borderRadius: '8px' }}><i className="fas fa-info-circle me-2"></i> About</a></Link></li>
-                            <li style={{ marginBottom: '15px' }}><Link href="/leaders"><a onClick={closeMenu} style={{ display: 'block', padding: '12px 16px', fontSize: '16px', fontWeight: '500', color: 'var(--text-color)', textDecoration: 'none', borderRadius: '8px' }}><i className="fas fa-users me-2"></i> Leaders</a></Link></li>
-                            <li style={{ marginBottom: '15px' }}><Link href="/members/register"><a onClick={closeMenu} style={{ display: 'block', padding: '12px 16px', fontSize: '16px', fontWeight: '500', color: 'var(--text-color)', textDecoration: 'none', borderRadius: '8px' }}><i className="fas fa-user-plus me-2"></i> Members</a></Link></li>
-                            <li style={{ marginBottom: '15px' }}>
-                                <button onClick={() => setMinistriesOpen(!ministriesOpen)} style={{ display: 'block', width: '100%', padding: '12px 16px', fontSize: '16px', fontWeight: '500', color: 'var(--text-color)', textAlign: 'left', background: 'none', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
-                                    <i className="fas fa-church me-2"></i> Ministries <i className={`fas fa-angle-${ministriesOpen ? 'up' : 'down'} float-end`}></i>
+                            <li style={{ marginBottom: '8px' }}>
+                                <Link href="/">
+                                    <a onClick={closeMenu} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '16px 20px',
+                                        fontSize: '18px',
+                                        fontWeight: '700',
+                                        color: 'var(--text-color)',
+                                        textDecoration: 'none',
+                                        borderRadius: '12px',
+                                        background: 'rgba(100, 50, 200, 0.08)',
+                                        border: '2px solid transparent',
+                                        transition: 'all 0.3s ease',
+                                    }}>
+                                        <i className="fas fa-home me-3" style={{ fontSize: '20px', width: '24px' }}></i>
+                                        <span>Home</span>
+                                    </a>
+                                </Link>
+                            </li>
+
+                            <li style={{ marginBottom: '8px' }}>
+                                <Link href="/about">
+                                    <a onClick={closeMenu} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '16px 20px',
+                                        fontSize: '18px',
+                                        fontWeight: '700',
+                                        color: 'var(--text-color)',
+                                        textDecoration: 'none',
+                                        borderRadius: '12px',
+                                        background: 'rgba(100, 50, 200, 0.08)',
+                                        border: '2px solid transparent',
+                                        transition: 'all 0.3s ease',
+                                    }}>
+                                        <i className="fas fa-info-circle me-3" style={{ fontSize: '20px', width: '24px' }}></i>
+                                        <span>About</span>
+                                    </a>
+                                </Link>
+                            </li>
+
+                            <li style={{ marginBottom: '8px' }}>
+                                <Link href="/leaders">
+                                    <a onClick={closeMenu} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '16px 20px',
+                                        fontSize: '18px',
+                                        fontWeight: '700',
+                                        color: 'var(--text-color)',
+                                        textDecoration: 'none',
+                                        borderRadius: '12px',
+                                        background: 'rgba(100, 50, 200, 0.08)',
+                                        border: '2px solid transparent',
+                                        transition: 'all 0.3s ease',
+                                    }}>
+                                        <i className="fas fa-users me-3" style={{ fontSize: '20px', width: '24px' }}></i>
+                                        <span>Leaders</span>
+                                    </a>
+                                </Link>
+                            </li>
+
+                            <li style={{ marginBottom: '8px' }}>
+                                <Link href="/members/register">
+                                    <a onClick={closeMenu} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '16px 20px',
+                                        fontSize: '18px',
+                                        fontWeight: '700',
+                                        color: 'var(--text-color)',
+                                        textDecoration: 'none',
+                                        borderRadius: '12px',
+                                        background: 'rgba(100, 50, 200, 0.08)',
+                                        border: '2px solid transparent',
+                                        transition: 'all 0.3s ease',
+                                    }}>
+                                        <i className="fas fa-user-plus me-3" style={{ fontSize: '20px', width: '24px' }}></i>
+                                        <span>Members</span>
+                                    </a>
+                                </Link>
+                            </li>
+
+                            {/* Ministries Dropdown */}
+                            <li style={{ marginBottom: '8px' }}>
+                                <button
+                                    onClick={() => setMinistriesOpen(!ministriesOpen)}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        width: '100%',
+                                        padding: '16px 20px',
+                                        fontSize: '18px',
+                                        fontWeight: '700',
+                                        color: 'var(--text-color)',
+                                        textAlign: 'left',
+                                        background: 'rgba(100, 50, 200, 0.12)',
+                                        border: '2px solid rgba(100, 50, 200, 0.2)',
+                                        borderRadius: '12px',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease',
+                                    }}
+                                >
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <i className="fas fa-church me-3" style={{ fontSize: '20px', width: '24px' }}></i>
+                                        <span>Ministries</span>
+                                    </div>
+                                    <i className={`fas fa-chevron-${ministriesOpen ? 'up' : 'down'}`} style={{ fontSize: '16px' }}></i>
                                 </button>
+
                                 {ministriesOpen && (
-                                    <ul style={{ listStyle: 'none', padding: '10px 0 0 20px', margin: 0 }}>
+                                    <ul style={{
+                                        listStyle: 'none',
+                                        padding: '12px 0 0 0',
+                                        margin: 0,
+                                        background: 'rgba(100, 50, 200, 0.05)',
+                                        borderRadius: '0 0 12px 12px',
+                                        marginTop: '-8px',
+                                        paddingTop: '16px',
+                                    }}>
                                         {[
-                                            { name: "Young Adult's Ministry", href: "/ministries/young-adults" },
-                                            { name: "Women's Ministry", href: "/ministries/women" },
-                                            { name: "Men's Ministry", href: "/ministries/men" },
-                                            { name: "Bible Study", href: "/ministries/bible-study" },
-                                            { name: "Family Ministry", href: "/ministries/family" },
-                                            { name: "Worship Art's Ministry", href: "/ministries/worship-arts" },
-                                            { name: "High School Ministry", href: "/ministries/high-school" },
-                                            { name: "Middle School Ministry", href: "/ministries/middle-school" },
-                                            { name: "Kid's Ministry", href: "/ministries/kids" },
-                                            { name: "Prayer Ministry", href: "/ministries/prayer" },
-                                            { name: "Evangelism Ministry", href: "/ministries/evangelism" },
-                                            { name: "Audio-Visual Ministry", href: "/ministries/audio-visual" },
-                                        ].map((m) => (
-                                            <li key={m.href} style={{ marginBottom: '8px' }}><Link href={m.href}><a onClick={closeMenu} style={{ display: 'block', padding: '10px 12px', fontSize: '14px', color: 'var(--text-color)', textDecoration: 'none', borderRadius: '6px', opacity: 0.9 }}>{m.name}</a></Link></li>
+                                            { name: "Young Adult's Ministry", href: "/ministries/young-adults", icon: "fa-fire" },
+                                            { name: "Women's Ministry", href: "/ministries/women", icon: "fa-female" },
+                                            { name: "Men's Ministry", href: "/ministries/men", icon: "fa-male" },
+                                            { name: "Bible Study", href: "/ministries/bible-study", icon: "fa-book-open" },
+                                            { name: "Family Ministry", href: "/ministries/family", icon: "fa-home-heart" },
+                                            { name: "Worship Art's", href: "/ministries/worship-arts", icon: "fa-music" },
+                                            { name: "High School", href: "/ministries/high-school", icon: "fa-graduation-cap" },
+                                            { name: "Middle School", href: "/ministries/middle-school", icon: "fa-school" },
+                                            { name: "Kid's Ministry", href: "/ministries/kids", icon: "fa-child" },
+                                            { name: "Prayer Ministry", href: "/ministries/prayer", icon: "fa-hands-praying" },
+                                            { name: "Evangelism", href: "/ministries/evangelism", icon: "fa-bullhorn" },
+                                            { name: "Audio-Visual", href: "/ministries/audio-visual", icon: "fa-video" },
+                                        ].map((ministry) => (
+                                            <li key={ministry.href} style={{ marginBottom: '6px', paddingLeft: '20px' }}>
+                                                <Link href={ministry.href}>
+                                                    <a onClick={closeMenu} style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        padding: '12px 16px',
+                                                        fontSize: '16px',
+                                                        fontWeight: '600',
+                                                        color: 'var(--text-color)',
+                                                        textDecoration: 'none',
+                                                        borderRadius: '8px',
+                                                        background: 'transparent',
+                                                        transition: 'all 0.2s ease',
+                                                    }}>
+                                                        <i className={`fas ${ministry.icon} me-3`} style={{ fontSize: '16px', width: '20px', opacity: 0.7 }}></i>
+                                                        <span>{ministry.name}</span>
+                                                    </a>
+                                                </Link>
+                                            </li>
                                         ))}
                                     </ul>
                                 )}
                             </li>
-                            <li style={{ marginBottom: '15px' }}><Link href="/contact"><a onClick={closeMenu} style={{ display: 'block', padding: '12px 16px', fontSize: '16px', fontWeight: '500', color: 'var(--text-color)', textDecoration: 'none', borderRadius: '8px' }}><i className="fas fa-envelope me-2"></i> Contact</a></Link></li>
-                            <li style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid rgba(0,0,0,0.1)' }}><div style={{ padding: '0 16px' }}><ThemeToggle /></div></li>
+
+                            <li style={{ marginBottom: '8px' }}>
+                                <Link href="/contact">
+                                    <a onClick={closeMenu} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '16px 20px',
+                                        fontSize: '18px',
+                                        fontWeight: '700',
+                                        color: 'var(--text-color)',
+                                        textDecoration: 'none',
+                                        borderRadius: '12px',
+                                        background: 'rgba(100, 50, 200, 0.08)',
+                                        border: '2px solid transparent',
+                                        transition: 'all 0.3s ease',
+                                    }}>
+                                        <i className="fas fa-envelope me-3" style={{ fontSize: '20px', width: '24px' }}></i>
+                                        <span>Contact</span>
+                                    </a>
+                                </Link>
+                            </li>
+
+                            {/* Theme Toggle */}
+                            <li style={{
+                                marginTop: '24px',
+                                paddingTop: '24px',
+                                borderTop: '2px solid rgba(100, 50, 200, 0.15)',
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}>
+                                <ThemeToggle />
+                            </li>
                         </ul>
                     </div>
                 )}
