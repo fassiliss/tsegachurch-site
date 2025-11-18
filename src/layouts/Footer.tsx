@@ -144,21 +144,28 @@ export default function Footer({ extraClass }: FooterProps) {
         <div className="theme_container">
           <div className="main-footer-bottom-inner">
             <ul>
-              <li>
-                <Link href="/about">
-                  <a>Terms of Use</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/about">
-                  <a>Privacy Policy</a>
-                </Link>
-              </li>
+                <li>
+                   <a
+                    href="https://www.fassiltsegaye.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                    color: '#667eea',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    transition: 'color 0.3s ease'
+                }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#764ba2'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#667eea'}
+                    >
+                    Developed by www.fassiltsegaye.com
+                </a>
+            </li>
+
             </ul>
             <div className="text">
               <p>
-                © {new Date().getFullYear()} Grace Ethiopian Evangelical Church
-                of Nashville. All rights reserved.
+                © {new Date().getFullYear()} GEECN All rights reserved
               </p>
             </div>
           </div>
