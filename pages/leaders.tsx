@@ -42,13 +42,13 @@ export default function LeadersPage() {
         {
             name: "Biniyam Tekle",
             role: "Pastor",
-            img: "/assets/images/leaders/sample6.png",
+            img: "/assets/images/leaders/bini1.png",
             bio: "Preaching, vision, and leadership of Tsega Church.",
         },
         {
             name: "Feleke Urgecha",
             role: "Pastor",
-            img: "/assets/images/leaders/sample5.png",
+            img: "/assets/images/leaders/fele2.png",
             bio: "Focused on youth ministry and discipleship.",
         },
     ];
