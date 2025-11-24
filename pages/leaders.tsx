@@ -9,13 +9,13 @@ export default function LeadersPage() {
         {
             name: "Henok Hailu",
             role: "Elder",
-            img: "/assets/images/leaders/henoknew1.png",
+            img: "/assets/images/leaders/henok4.png",
             bio: "Faithful servant and mentor to the community.",
         },
         {
             name: "Daniel Shita",
             role: "Elder",
-            img: "/assets/images/leaders/danny.png",
+            img: "/assets/images/leaders/danny6.png",
             bio: "Guiding families and supporting discipleship.",
         },
         {

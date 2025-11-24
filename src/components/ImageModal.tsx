@@ -14,13 +14,13 @@ export default function ImageModal({ src, alt, className = '', style = {} }: Ima
     return (
         <>
             {/* Clickable Image */}
-                <img
-                    src={src}
-                    alt={alt}
-                    className={className}
-                    style={{ ...style, cursor: 'pointer' }}
-                    onClick={() => setIsOpen(true)}
-                />
+            <img
+                src={src}
+                alt={alt}
+                className={className}
+                style={{ ...style, cursor: 'pointer' }}
+                onClick={() => setIsOpen(true)}
+            />
 
             {/* Modal */}
             {isOpen && typeof document !== 'undefined' && createPortal(
@@ -36,7 +36,7 @@ export default function ImageModal({ src, alt, className = '', style = {} }: Ima
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '20px',
+                        padding: '40px',
                     }}
                     onClick={() => setIsOpen(false)}
                 >
@@ -63,21 +63,28 @@ export default function ImageModal({ src, alt, className = '', style = {} }: Ima
                         ×
                     </button>
 
-                    {/* BIGGER Image - Force minimum size */}
-                    <img
-                        src={src}
-                        alt={alt}
+                    {/* Container to force larger size */}
+                    <div
                         style={{
-                            minWidth: '60%',
-                            minHeight: '60vh',
-                            maxWidth: '90%',
-                            maxHeight: '90vh',
-                            width: 'auto',
-                            height: 'auto',
-                            objectFit: 'contain',
+                            width: '70vw',
+                            height: '70vh',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                         }}
-                        onClick={(e) => e.stopPropagation()}
-                    />
+                    >
+                        <img
+                            src={src}
+                            alt={alt}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'contain',
+                                boxShadow: '0 10px 50px rgba(0,0,0,0.5)',
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </div>
                 </div>,
                 document.body
             )}
