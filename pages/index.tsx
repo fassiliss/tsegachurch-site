@@ -119,7 +119,7 @@ export default function Home() {
                         Nashville
                       </h6>
                       <h2 className="banner-slider-title text-center mb-30">
-                        <span>Worship • Get together • Love</span> <br /> እንኳን ወደ ግሬስ ኢትዮጵያ
+                        <span>Worship • Get together • Love</span> <br /> እንኳን ወደ ጸጋ ኢትዮጵያ
                         ወንጌላዊያን ቤተክርስቲያን በናሽቪል በደህና መጡ።
 
                       </h2>
