@@ -49,22 +49,22 @@ export default function AudioVisualMinistry() {
 
   const teamMembers = [
     {
-      name: "John Doe",
+      name: "Sileshi Tesfaye",
       role: "Audio Director",
       bio: "10+ years of sound engineering experience"
     },
     {
-      name: "Jane Smith",
+      name: "TBD",
       role: "Video Production Lead",
       bio: "Professional videographer and editor"
     },
     {
-      name: "Mike Johnson",
+      name: "Dawit Lema ",
       role: "Livestream Coordinator",
       bio: "Specialist in live streaming technology"
     },
     {
-      name: "Sarah Williams",
+      name: "TBD",
       role: "Lighting Designer",
       bio: "Creative lighting for worship environments"
     }
