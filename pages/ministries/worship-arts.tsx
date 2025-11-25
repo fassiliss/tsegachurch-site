@@ -57,19 +57,19 @@ export default function WorshipMinistry() {
             image: "/assets/images/worship/eso3.png"
         },
         {
-            name: " Fikru Urgecha",
+            name: " Fikru Befekadu",
             role: "Choir Director",
             bio: " worship leader",
             image: "/assets/images/worship/fikru2.png"
         },
         {
-            name: "Brother James",
+            name: "TBD",
             role: "Music Coordinator",
             bio: "Multi-instrumentalist and arranger"
         },
         {
-            name: "Sister Joy",
-            role: "Dance Ministry Leader",
+            name: "TBD",
+            role: " Ministry Leader",
             bio: "Expressing worship through movement"
         }
     ];

@@ -62,7 +62,6 @@ export default function Header() {
                                                 <li><Link href="/ministries/bible-study"><a>Bible Study</a></Link></li>
                                                 <li><Link href="/ministries/family"><a>Family Ministry</a></Link></li>
                                                 <li><Link href="/ministries/worship-arts"><a>Worship Art's Ministry</a></Link></li>
-                                                <li><Link href="/ministries/high-school"><a>High School Ministry</a></Link></li>
                                                 <li><Link href="/ministries/middle-school"><a>Middle School Ministry</a></Link></li>
                                                 <li><Link href="/ministries/kids"><a>Kid's Ministry</a></Link></li>
                                                 <li><Link href="/ministries/prayer"><a>Prayer Ministry</a></Link></li>

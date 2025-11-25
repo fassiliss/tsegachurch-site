@@ -49,22 +49,22 @@ export default function YoungAdultsMinistry() {
 
   const leaders = [
     {
-      name: "David Anderson",
+      name: "TBD",
       role: "Ministry Leader",
       bio: "Passionate about mentoring young adults"
     },
     {
-      name: "Sarah Martinez",
+      name: "TBD",
       role: "Worship Leader",
       bio: "Leading worship with authenticity"
     },
     {
-      name: "James Wilson",
+      name: "TBD",
       role: "Small Groups Coordinator",
       bio: "Building community through connection"
     },
     {
-      name: "Emily Chen",
+      name: "TBD",
       role: "Events Coordinator",
       bio: "Creating meaningful experiences"
     }
