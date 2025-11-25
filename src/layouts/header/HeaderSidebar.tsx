@@ -38,10 +38,10 @@ const HeaderSidebar = ({ open, close }) => {
                         24th January 2021
                       </p> */}
                       <h6>
-                          <a href="/worship-ministry">
+
                               Join our Worship Ministry <br />
                               and serve through music
-                          </a>
+
                       </h6>
                     </div>
                   </li>
@@ -55,10 +55,10 @@ const HeaderSidebar = ({ open, close }) => {
                         24th January 2021
                       </p> */}
                       <h6>
-                          <a href="/bible-study">
+
                               Grow deeper in God's Word <br />
                               through Bible study groups
-                          </a>
+
                       </h6>
                     </div>
                   </li>
