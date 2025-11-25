@@ -502,12 +502,12 @@ export default function Home() {
             <SwiperSlide className="column">
               <div className="block-thirty-one">
                 <div className="image">
-                  <img src="assets/images/resource/g1.png" alt="" />
+                  <img src="assets/images/resource/kebero.png" alt="" />
                 </div>
                 <div className="view-project">
                   <a
                     data-fancybox="example gallery"
-                    href="assets/images/resource/g1.png"
+                    href="assets/images/resource/kebero.png"
                     className="zoom-btn"
                   >
                     <i className="fab fa-instagram" />
