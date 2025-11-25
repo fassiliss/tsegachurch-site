@@ -9,13 +9,13 @@ export default function LeadersPage() {
         {
             name: "Henok Hailu",
             role: "Elder",
-            img: "/assets/images/leaders/henok4.png",
+            img: "/assets/images/leaders/henok-1.png",
             bio: "Faithful servant and mentor to the community.",
         },
         {
             name: "Daniel Shita",
             role: "Elder",
-            img: "/assets/images/leaders/danny6.png",
+            img: "/assets/images/leaders/danny-5.png",
             bio: "Guiding families and supporting discipleship.",
         },
         {
@@ -27,13 +27,13 @@ export default function LeadersPage() {
         {
             name: "Getachew Habte",
             role: "Elder",
-            img: "/assets/images/leaders/getu1.png",
+            img: "/assets/images/leaders/getusewa.png",
             bio: "Passionate about prayer and pastoral care.",
         },
         {
             name: "Elder 5",
             role: "Elder",
-            img: "/assets/images/leaders/sample8.png",
+            img: "/assets/images/leaders/fele2.png",
             bio: "Leading outreach and missions.",
         },
     ];
@@ -42,13 +42,13 @@ export default function LeadersPage() {
         {
             name: "Biniyam Tekle",
             role: "Pastor",
-            img: "/assets/images/leaders/bini1.png",
+            img: "/assets/images/leaders/biniurge.png",
             bio: "Preaching, vision, and leadership of Tsega Church.",
         },
         {
             name: "Feleke Urgecha",
             role: "Pastor",
-            img: "/assets/images/leaders/fele2.png",
+            img: "/assets/images/leaders/feleurge.png",
             bio: "Focused on youth ministry and discipleship.",
         },
     ];
