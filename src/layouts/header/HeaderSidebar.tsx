@@ -16,7 +16,7 @@ const HeaderSidebar = ({ open, close }) => {
             </div>
             <div className="about-widget widget">
               <div className="logo">
-                <img src="assets/images/logo-light1.png" alt="" />
+                <img src="assets/images/logo-light3.png" alt="" />
               </div>
               <div className="text">
                 Welcome to Grace Ethiopian Evangelical Church Nashville — a

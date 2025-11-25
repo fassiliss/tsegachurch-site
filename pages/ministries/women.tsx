@@ -49,22 +49,22 @@ export default function WomensMinistry() {
 
   const leaders = [
     {
-      name: "Grace Thompson",
+      name: "TBD",
       role: "Ministry Director",
       bio: "Leading women to discover their identity in Christ"
     },
     {
-      name: "Rachel Kim",
+      name: "TBD",
       role: "Bible Study Coordinator",
       bio: "Passionate about teaching God's Word"
     },
     {
-      name: "Mary Johnson",
+      name: "TBD",
       role: "Prayer Team Leader",
       bio: "Devoted to intercession and spiritual growth"
     },
     {
-      name: "Ruth Abebe",
+      name: "TBD",
       role: "Events Coordinator",
       bio: "Creating spaces for connection and fellowship"
     }
