@@ -250,6 +250,7 @@ export default function MembersRegister() {
                         <option>Transfer</option>
                         <option>Baptism</option>
                         <option>Volunteer</option>
+                          <option>Existing</option>
                       </select>
                     </div>
 
