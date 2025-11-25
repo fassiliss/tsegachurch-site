@@ -387,31 +387,31 @@ export default function Home() {
                 <div className="row">
                     {[
                         {
-                            date: "Dec 15",
-                            year: "2024",
+                            date: "Dec 28",
+                            year: "2025",
                             icon: "📅",
-                            title: "Family Movie Night",
-                            description: "Join us for popcorn, games, and a family-friendly film",
+                            title: "Couples Dinner Felowship Hall",
+                            description: "Join us for couples dinner at Fellowship Hall",
                             time: "6:00 PM - 9:00 PM",
                             location: "Fellowship Hall"
                         },
                         {
-                            date: "Jan 20-22",
-                            year: "2025",
+                            date: "To be announced",
+                            year: "2026",
                             icon: "💑",
-                            title: "Marriage Retreat",
-                            description: "Weekend getaway for couples to strengthen their marriage",
-                            time: "Weekend Getaway",
-                            location: "Mountain View Resort"
+                            title: "New Year Celebration",
+                            description: "Worship the Lord with us on New Year's Day",
+                            time: "New year's Eve",
+                            location: "GEECN"
                         },
                         {
-                            date: "Feb 2",
-                            year: "2025",
+                            date: "To be announced",
+                            year: "2026",
                             icon: "👶",
-                            title: "Child Dedication",
-                            description: "Dedicate your children to the Lord in a special ceremony",
-                            time: "During Sunday Service",
-                            location: "Main Sanctuary"
+                            title: "Upcoming Events will update soon",
+                            description: "all Upcoming events will be updated soon",
+                            time: "Soon",
+                            location: "GEECN"
                         }
                     ].map((event, index) => (
                         <div key={index} className="col-lg-4 col-md-6 mb-4">

@@ -5,53 +5,53 @@ import Footer from "src/layouts/Footer";
 export default function Events() {
     const allEvents = [
         {
-            date: "Dec 15",
-            year: "2024",
+            date: "Dec 28",
+            year: "2025",
             icon: "📅",
-            title: "Family Movie Night",
-            description: "Join us for popcorn, games, and a family-friendly film. A great evening for the whole family to enjoy together.",
+            title: "Couples Dinner Felowship Hall",
+            description: "Join us for couples dinner at Fellowship Hall",
             time: "6:00 PM - 9:00 PM",
             location: "Fellowship Hall"
         },
         {
-            date: "Jan 20-22",
-            year: "2025",
+            date: "To be announced",
+            year: "2026",
             icon: "💑",
-            title: "Marriage Retreat",
-            description: "Weekend getaway for couples to strengthen their marriage through teaching, fellowship, and relaxation.",
-            time: "Weekend Getaway",
-            location: "Mountain View Resort"
+            title: "New Year Celebration",
+            description: "Worship the Lord with us on New Year's Day",
+            time: "New year's Eve",
+            location: "GEECN"
         },
         {
-            date: "Feb 2",
-            year: "2025",
+            date: "To be announced",
+            year: "2026",
             icon: "👶",
-            title: "Child Dedication",
-            description: "Dedicate your children to the Lord in a special ceremony during our Sunday service.",
-            time: "During Sunday Service",
-            location: "Main Sanctuary"
+            title: "Upcoming Events will update soon",
+            description: "all Upcoming events will be updated soon",
+            time: "Soon",
+            location: "GEECN"
         },
         {
-            date: "Mar 15",
-            year: "2025",
+            date: "To be announced",
+            year: "2026",
             icon: "🎉",
             title: "Spring Family Picnic",
             description: "Food, games, fellowship, and fun for the whole family at our annual spring gathering.",
-            time: "12:00 PM - 4:00 PM",
-            location: "Community Park"
+            time: "To be announced",
+            location: "To be announced"
         },
         {
-            date: "Jun 10-14",
-            year: "2025",
+            date: "To be announced",
+            year: "2026",
             icon: "📖",
             title: "Vacation Bible School",
             description: "Summer program for kids with Bible stories, crafts, games, and activities.",
-            time: "9:00 AM - 12:00 PM",
+            time: "To be announced",
             location: "Church Campus"
         },
         {
-            date: "Aug 20",
-            year: "2025",
+            date: "To be announced",
+            year: "2026",
             icon: "🎒",
             title: "Back to School Blessing",
             description: "Praying over students, teachers, and families for the new school year.",
