@@ -120,7 +120,7 @@ export default function Footer({ extraClass }: FooterProps) {
                     </div>
                     <div className="text">
                       <a href="mailto:info@tsegachurch.org">
-                        info@tsegachurch.org
+                        gec5227@gmail.com
                       </a>
                     </div>
                   </li>

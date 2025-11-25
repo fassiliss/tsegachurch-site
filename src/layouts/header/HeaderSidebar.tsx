@@ -93,7 +93,7 @@ const HeaderSidebar = ({ open, close }) => {
                       <div className="icon">
                         <i className="far fa-envelope" />
                       </div>
-                      <div className="text">hotline@gmail.com</div>
+                      <div className="text">gec5227@gmail.com</div>
                     </li>
                     <li>
                       <div className="icon">
