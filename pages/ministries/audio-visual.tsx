@@ -59,7 +59,7 @@ export default function AudioVisualMinistry() {
       bio: "Professional videographer and editor"
     },
     {
-      name: "Dawit Lema ",
+      name: "Dawit Mekonnen ",
       role: "Livestream Coordinator",
       bio: "Specialist in live streaming technology"
     },
