@@ -18,62 +18,63 @@ export default function Home() {
         <Head>
             <title>Tsega Church — Home</title>
             <link rel="icon" href="/assets/images/grace-logo-new.png" />
-            <style jsx global>{`
-                /* FORCE SLIDER TO SHOW AND STYLE PROPERLY ON MOBILE */
-                .banner-section-one.style-three {
-                    display: block !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
-                    height: auto !important;
-                    min-height: 600px !important;
-                }
+            <style>{`
+    .banner-section-one.style-three {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      height: auto !important;
+      min-height: 600px !important;
+    }
 
-                .banner-section-one .swiper-slide {
-                    min-height: 600px !important;
-                }
+    .banner-section-one .swiper-slide {
+      min-height: 600px !important;
+    }
 
-                .banner-section-one .banner-block-one {
-                    min-height: 600px !important;
-                    position: relative !important;
-                }
+    .banner-section-one .banner-block-one {
+      min-height: 600px !important;
+      position: relative !important;
+    }
 
-                .banner-section-one .image-layer {
-                    position: absolute !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                    background-size: cover !important;
-                    background-position: center !important;
-                    background-repeat: no-repeat !important;
-                    z-index: 0 !important;
-                }
+    .event-card {
+      cursor: pointer;
+    }
+    
+    .event-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    .dark-mode .event-card {
+      background: #1a1a1a !important;
+    }
+    
+    .dark-mode .event-card > div:last-child {
+      background: #1a1a1a !important;
+    }
+    
+    .dark-mode .event-card h4 {
+      color: #fff !important;
+    }
+    
+    .dark-mode .event-card p {
+      color: #ccc !important;
+    }
 
-                .banner-section-one .theme_container {
-                    position: relative !important;
-                    z-index: 1 !important;
-                }
+    @media (max-width: 991px) {
+      .banner-section-one.style-three {
+        min-height: 500px !important;
+      }
 
-                .banner-section-one .content-box {
-                    position: relative !important;
-                    z-index: 2 !important;
-                }
+      .banner-section-one .swiper-slide {
+        min-height: 500px !important;
+      }
 
-                @media (max-width: 991px) {
-                    .banner-section-one.style-three {
-                        display: block !important;
-                        min-height: 500px !important;
-                    }
-
-                    .banner-section-one .swiper-slide {
-                        min-height: 500px !important;
-                    }
-
-                    .banner-section-one .banner-block-one {
-                        min-height: 500px !important;
-                    }
-                }
-            `}</style>
+      .banner-section-one .banner-block-one {
+        min-height: 500px !important;
+      }
+    }
+  `}</style>
         </Head>
 
       <Header />
@@ -120,7 +121,7 @@ export default function Home() {
                       <h2 className="banner-slider-title text-center mb-30">
                         <span>Worship • Get together • Love</span> <br /> እንኳን ወደ ግሬስ ኢትዮጵያ
                         ወንጌላዊያን ቤተክርስቲያን በናሽቪል በደህና መጡ።
-                    
+
                       </h2>
                       <div className="banner-slider-text">
                         Join us Sundays at Grace Ethiopian Evangelical Church of
@@ -371,6 +372,126 @@ export default function Home() {
         </div>
       </section>
 
+        {/* Upcoming Events Section */}
+        <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <div className="theme_container">
+                <div style={{ textAlign: "center", marginBottom: "60px" }}>
+                    <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        Upcoming Events
+                    </h2>
+                    <p style={{ fontSize: "1.1rem", color: "#666" }}>
+                        Join us for these exciting church activities
+                    </p>
+                </div>
+
+                <div className="row">
+                    {[
+                        {
+                            date: "Dec 15",
+                            year: "2024",
+                            icon: "📅",
+                            title: "Family Movie Night",
+                            description: "Join us for popcorn, games, and a family-friendly film",
+                            time: "6:00 PM - 9:00 PM",
+                            location: "Fellowship Hall"
+                        },
+                        {
+                            date: "Jan 20-22",
+                            year: "2025",
+                            icon: "💑",
+                            title: "Marriage Retreat",
+                            description: "Weekend getaway for couples to strengthen their marriage",
+                            time: "Weekend Getaway",
+                            location: "Mountain View Resort"
+                        },
+                        {
+                            date: "Feb 2",
+                            year: "2025",
+                            icon: "👶",
+                            title: "Child Dedication",
+                            description: "Dedicate your children to the Lord in a special ceremony",
+                            time: "During Sunday Service",
+                            location: "Main Sanctuary"
+                        }
+                    ].map((event, index) => (
+                        <div key={index} className="col-lg-4 col-md-6 mb-4">
+                            <div
+                                className="event-card"
+                                style={{
+                                    background: "white",
+                                    borderRadius: "12px",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+                                    transition: "transform 0.3s",
+                                    height: "100%"
+                                }}
+                            >
+                                <div style={{
+                                    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                                    padding: "30px",
+                                    color: "white",
+                                    textAlign: "center"
+                                }}>
+                                    <div style={{ fontSize: "3rem", marginBottom: "10px" }}>
+                                        {event.icon}
+                                    </div>
+                                    <h3 style={{
+                                        fontSize: "1.5rem",
+                                        marginBottom: "10px",
+                                        color: "white",
+                                        fontWeight: "600"
+                                    }}>
+                                        {event.date}
+                                    </h3>
+                                    <p style={{ fontSize: "0.9rem", opacity: 0.9 }}>
+                                        {event.year}
+                                    </p>
+                                </div>
+                                <div style={{ padding: "30px" }}>
+                                    <h4 style={{
+                                        fontSize: "1.3rem",
+                                        marginBottom: "15px",
+                                        fontWeight: "600"
+                                    }}>
+                                        {event.title}
+                                    </h4>
+                                    <p style={{
+                                        fontSize: "0.95rem",
+                                        color: "#666",
+                                        marginBottom: "15px",
+                                        lineHeight: "1.6"
+                                    }}>
+                                        {event.description}
+                                    </p>
+                                    <div style={{ fontSize: "0.9rem", color: "#667eea" }}>
+                                        <p style={{ marginBottom: "5px" }}>
+                                            ⏰ {event.time}
+                                        </p>
+                                        <p>📍 {event.location}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div style={{ textAlign: "center", marginTop: "40px" }}>
+                    <Link
+                        href="/events"
+                        className="primary_btn-two"
+                        style={{
+                            padding: "14px 40px",
+                            fontSize: "1.1rem",
+                            display: "inline-block",
+                            textDecoration: "none"
+                        }}
+                    >
+                        View All Events
+                    </Link>
+                </div>
+            </div>
+        </section>
+
       {/* GALLERY */}
       <section className="section-thirty-one">
         <div className="theme_container">
@@ -463,6 +584,8 @@ export default function Home() {
       </section>
 
       <Footer />
+
+
     </>
   );
 }
