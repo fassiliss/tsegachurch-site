@@ -518,12 +518,12 @@ export default function Home() {
             <SwiperSlide className="column">
               <div className="block-thirty-one">
                 <div className="image">
-                  <img src="assets/images/resource/g2.png" alt="" />
+                  <img src="assets/images/resource/satisfy5.png" alt="" />
                 </div>
                 <div className="view-project">
                   <a
                     data-fancybox="example gallery"
-                    href="assets/images/resource/g2.png"
+                    href="assets/images/resource/satisfy5.png"
                     className="zoom-btn"
                   >
                     <i className="fab fa-instagram" />
@@ -534,12 +534,12 @@ export default function Home() {
             <SwiperSlide className="column">
               <div className="block-thirty-one">
                 <div className="image">
-                  <img src="assets/images/resource/g3.png" alt="" />
+                  <img src="assets/images/resource/satisfy3.png" alt="" />
                 </div>
                 <div className="view-project">
                   <a
                     data-fancybox="example gallery"
-                    href="assets/images/resource/g3.png"
+                    href="assets/images/resource/satisfy3.png"
                     className="zoom-btn"
                   >
                     <i className="fab fa-instagram" />
@@ -550,12 +550,12 @@ export default function Home() {
             <SwiperSlide className="column">
               <div className="block-thirty-one">
                 <div className="image">
-                  <img src="assets/images/resource/g4.png" alt="" />
+                  <img src="assets/images/resource/satisfy2.png" alt="" />
                 </div>
                 <div className="view-project">
                   <a
                     data-fancybox="example gallery"
-                    href="assets/images/resource/g4.png"
+                    href="assets/images/resource/satisfy2.png"
                     className="zoom-btn"
                   >
                     <i className="fab fa-instagram" />
@@ -566,12 +566,12 @@ export default function Home() {
             <SwiperSlide className="column">
               <div className="block-thirty-one">
                 <div className="image">
-                  <img src="assets/images/resource/g5.png" alt="" />
+                  <img src="assets/images/resource/satisfy1.png" alt="" />
                 </div>
                 <div className="view-project">
                   <a
                     data-fancybox="example gallery"
-                    href="assets/images/resource/g5.png"
+                    href="assets/images/resource/satisfy1.png"
                     className="zoom-btn"
                   >
                     <i className="fab fa-instagram" />
