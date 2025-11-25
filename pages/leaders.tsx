@@ -46,7 +46,7 @@ export default function LeadersPage() {
             bio: "Preaching, vision, and leadership of Tsega Church.",
         },
         {
-            name: "Feleke ",
+            name: "Feleke Birru ",
             role: "Pastor",
             img: "/assets/images/leaders/feleurge.png",
             bio: "Focused on youth ministry and discipleship.",
