@@ -18,7 +18,33 @@ export default function About() {
 
       <Header />
 
-      {/* Top banner */}
+        {/* Page Banner */}
+        <section
+            className="page-title"
+            style={{
+                backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                padding: "100px 0",
+                textAlign: "center",
+                color: "white"
+            }}
+        >
+            <div className="theme_container">
+                <h1 style={{ fontSize: "3rem", marginBottom: "10px" }}>
+                    Kid's Ministry
+                </h1>
+                <p style={{ fontSize: "1.3rem", opacity: 0.9 }}>
+                    የሕፃናት አገልግሎት
+                </p>
+                <p style={{ maxWidth: "700px", margin: "0 auto", fontSize: "1.1rem", opacity: 0.85 }}>
+                    Loving and teaching the next generation about Christ
+                </p>
+            </div>
+        </section>
+
+
+        {/* Top banner */}
       <PageBanner
         pageName="About Us"
         pageTitle="Learn More About Tsega Church"
