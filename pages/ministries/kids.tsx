@@ -92,6 +92,7 @@ export default function KidsMinistry() {
               marginBottom: "40px",
             }}
           >
+
             Our Kids Teachers
           </h2>
           <div className="row justify-content-center">
