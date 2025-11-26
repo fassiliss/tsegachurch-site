@@ -85,3 +85,21 @@ div#chart {
         display: block !important;
     }
 }
+/* Default: at top = orange */
+.main-header.header-at-top {
+   /*background: #ff7a00 !important;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+/* After scroll: transparent glass */
+.main-header.header-scrolled {
+    background: rgba(0, 0, 0, 0.1) !important; /* or fully transparent: 0 */
+    /*backdrop-filter: blur(12px);*/
+    box-shadow: none !important;
+}
