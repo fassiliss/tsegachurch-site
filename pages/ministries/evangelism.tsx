@@ -694,8 +694,13 @@ export default function EvangelismMinistry() {
           color: #fff !important;
         }
         
-        .dark-mode section {
-          background: #0d0d0d !important;
+
+        .dark-mode input,
+        .dark-mode select,
+        .dark-mode textarea {
+            background: #2a2a2a !important;
+            border-color: #444 !important;
+            color: #fff !important;
         }
         
         .dark-mode section[style*="background: #f9f9f9"] {

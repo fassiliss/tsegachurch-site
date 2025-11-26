@@ -22,6 +22,7 @@ export default function About() {
       <PageBanner
         pageName="About Us"
         pageTitle="Learn More About Tsega Church"
+
       />
 
       {/* About section (template-style) */}

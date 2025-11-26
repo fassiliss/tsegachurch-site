@@ -683,9 +683,7 @@ export default function FamilyMinistry() {
           color: #fff !important;
         }
         
-        .dark-mode section {
-          background: #0d0d0d !important;
-        }
+        
         
         .dark-mode section[style*="background: #f9f9f9"] {
           background: #1a1a1a !important;

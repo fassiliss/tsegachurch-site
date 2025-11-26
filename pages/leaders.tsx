@@ -60,6 +60,25 @@ export default function LeadersPage() {
             </Head>
             <Header />
 
+            <section
+                className="page-title"
+                style={{
+                    backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    padding: "100px 0"
+                }}
+            >
+                <div className="theme_container">
+                    <div className="content-box" style={{ textAlign: "center" }}>
+                        <h1 style={{ color: "white", fontSize: "3rem", marginBottom: "15px" }}>
+                            Our Leaders
+                        </h1>
+
+                    </div>
+                </div>
+            </section>
+
             <main className="theme_container" style={{ padding: "60px 20px" }}>
                 <h1 className="text-center mb-5">Our Leaders</h1>
 

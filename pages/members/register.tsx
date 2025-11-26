@@ -119,6 +119,9 @@ export default function MembersRegister() {
         className="page-title"
         style={{
           backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
+          backgroundPosition: "center center",
+            backgroundSize: "cover",
+            position: "relative",
         }}
       >
         <div className="theme_container">
