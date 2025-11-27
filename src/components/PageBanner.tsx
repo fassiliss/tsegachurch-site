@@ -1,49 +1,67 @@
 // src/components/PageBanner.tsx
 import Link from "next/link";
 
-
 interface PageBannerProps {
-  pageName: string;
-  pageTitle?: string;
+    pageName: string;
+    pageTitle?: string;
+    subtitle?: string;
 }
 
-const PageBanner = ({ pageName, pageTitle }: PageBannerProps) => {
-  return (
-    <section
-      className="page-title"
-      style={{
-        backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
-      }}
-    >
-      <div className="theme_container">
-        <div className="content-box">
-          <div className="shape">
-            <img src="/assets/images/resource/star-icon-2.png" alt="" />
-          </div>
-          <div className="shape-two">
-            <img src="/assets/images/resource/page-title-1.png" alt="" />
-          </div>
-          <div className="shape-three">
-            <img src="/assets/images/resource/icon-3.png" alt="" />
-          </div>
-          <div className="content-wrapper">
-            <div className="title">
-              <h1>{pageTitle ? pageTitle : pageName}</h1>
-            </div>
-            <ul className="bread-crumb">
-              <li>
-                <Link href="/">
-                  <a>Home</a>
-                </Link>
-              </li>
+const PageBanner = ({ pageName, pageTitle, subtitle }: PageBannerProps) => {
+    return (
+        <section
+            className="page-title"
+            style={{
+                backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+                backgroundRepeat: "no-repeat",
+                padding: "160px 0 90px", // prevents header overlap
+                position: "relative",
+                zIndex: 1,
+                textAlign: "center",
+                color: "#fff",
+            }}
+        >
+            <div className="theme_container">
+                <h1 style={{ fontSize: "2.8rem", fontWeight: 700, marginBottom: 10 }}>
+                    {pageTitle || pageName}
+                </h1>
 
-              <li>{pageName}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+                {subtitle && (
+                    <p
+                        style={{
+                            fontSize: "1.1rem",
+                            opacity: 0.9,
+                            maxWidth: "700px",
+                            margin: "0 auto 15px",
+                        }}
+                    >
+                        {subtitle}
+                    </p>
+                )}
+
+                <ul
+                    className="bread-crumb"
+                    style={{
+                        display: "flex",
+                        gap: 8,
+                        justifyContent: "center",
+                        fontSize: "1rem",
+                        marginTop: 10,
+                    }}
+                >
+                    <li>
+                        <Link href="/" legacyBehavior>
+                            <a style={{ color: "#fff" }}>Home</a>
+                        </Link>
+                    </li>
+
+                    <li style={{ opacity: 0.7 }}>/ {pageName}</li>
+                </ul>
+            </div>
+        </section>
+    );
 };
 
 export default PageBanner;

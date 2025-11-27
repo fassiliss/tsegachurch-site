@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
+import PageBanner from "@/src/components/PageBanner";
 
 export default function Events() {
     const allEvents = [
@@ -67,27 +68,14 @@ export default function Events() {
             </Head>
             <Header />
 
-            {/* Hero Section */}
-            <section
-                className="page-title"
-                style={{
-                    backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    padding: "100px 0"
-                }}
-            >
-                <div className="theme_container">
-                    <div className="content-box" style={{ textAlign: "center" }}>
-                        <h1 style={{ color: "white", fontSize: "3rem", marginBottom: "15px" }}>
-                            Upcoming Events
-                        </h1>
-                        <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.1rem" }}>
-                            Join us for these exciting church activities
-                        </p>
-                    </div>
-                </div>
-            </section>
+            <PageBanner
+                pageName="Events"
+                pageTitle="Events"
+
+            />
+
+
+
 
             {/* All Events Section */}
             <section style={{ padding: "80px 0" }}>

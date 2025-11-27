@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
+import PageBanner from "@/src/components/PageBanner";
 
 export default function YoungAdultsMinistry() {
   const [formData, setFormData] = useState({
@@ -123,31 +124,15 @@ export default function YoungAdultsMinistry() {
         <title>Young Adults Ministry / የወጣቶች አገልግሎት — Tsega Church</title>
       </Head>
       <Header />
+        <PageBanner
+            pageName="Yong Adults Ministry"
+            pageTitle="Young Adults Ministry"
 
-      {/* Hero Section */}
-      <section
-        className="page-title"
-        style={{
-          backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          padding: "100px 0"
-        }}
-      >
-        <div className="theme_container">
-          <div className="content-box" style={{ textAlign: "center" }}>
-            <h1 style={{ color: "white", fontSize: "3rem", marginBottom: "15px" }}>
-              Young Adults Ministry
-            </h1>
-            <p style={{ color: "white", fontSize: "1.2rem", marginBottom: "10px" }}>
-              የወጣቶች አገልግሎት
-            </p>
-            <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
-              Growing in Faith, Building Community, Living on Purpose
-            </p>
-          </div>
-        </div>
-      </section>
+        />
+
+
+
+
 
       {/* Overview Section */}
       <section style={{ padding: "80px 0" }}>

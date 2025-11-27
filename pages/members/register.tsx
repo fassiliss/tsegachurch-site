@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
+import PageBanner from "@/src/components/PageBanner";
 
 type FormData = {
   firstName: string;
@@ -113,33 +114,15 @@ export default function MembersRegister() {
       </Head>
 
       <Header />
+        <PageBanner
+            pageName="Members Register"
+            pageTitle="Members Register"
 
-      {/* Page Banner */}
-      <section
-        className="page-title"
-        style={{
-          backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
-          backgroundPosition: "center center",
-            backgroundSize: "cover",
-            position: "relative",
-        }}
-      >
-        <div className="theme_container">
-          <div className="content-box">
-            <div className="content-wrapper">
-              <div className="title">
-                <h1>Members Register</h1>
-              </div>
-              <ul className="bread-crumb">
-                <li>
-                  <a href="/">Home</a>
-                </li>
-                <li>Members Register</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+
+
+        />
+
+
 
       {/* Form Section */}
       <section className="theme_container" style={{ padding: "56px 0" }}>

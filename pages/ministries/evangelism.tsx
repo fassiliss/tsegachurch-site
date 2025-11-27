@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
+import PageBanner from "@/src/components/PageBanner";
 
 export default function EvangelismMinistry() {
     const [formData, setFormData] = useState({
@@ -172,30 +173,14 @@ export default function EvangelismMinistry() {
             </Head>
             <Header />
 
+            <PageBanner
+                pageName="Evangelism Ministry"
+                pageTitle="Evangelism Ministry / የወንጌል ስርጭት አገልግሎት"
+
+            />
+
             {/* Hero Section */}
-            <section
-                className="page-title"
-                style={{
-                    backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    padding: "100px 0"
-                }}
-            >
-                <div className="theme_container">
-                    <div className="content-box" style={{ textAlign: "center" }}>
-                        <h1 style={{ color: "white", fontSize: "3rem", marginBottom: "15px" }}>
-                            Evangelism Ministry
-                        </h1>
-                        <p style={{ color: "white", fontSize: "1.2rem", marginBottom: "10px" }}>
-                            የወንጌል ስርጭት አገልግሎት
-                        </p>
-                        <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
-                            Sharing the Good News of Jesus Christ with Our Community and Beyond
-                        </p>
-                    </div>
-                </div>
-            </section>
+
 
             {/* Overview Section */}
             <section style={{ padding: "80px 0" }}>

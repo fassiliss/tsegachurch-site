@@ -3,6 +3,7 @@ import Head from "next/head";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
 import ImageModal from "../src/components/ImageModal";
+import PageBanner from "@/src/components/PageBanner";
 
 export default function LeadersPage() {
     const elders = [
@@ -59,25 +60,30 @@ export default function LeadersPage() {
                 <title>Tsega Church — Leaders</title>
             </Head>
             <Header />
+            <PageBanner
+                pageName="About Us"
+                pageTitle="Our Leaders"
 
-            <section
-                className="page-title"
-                style={{
-                    backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    padding: "100px 0"
-                }}
-            >
-                <div className="theme_container">
-                    <div className="content-box" style={{ textAlign: "center" }}>
-                        <h1 style={{ color: "white", fontSize: "3rem", marginBottom: "15px" }}>
-                            Our Leaders
-                        </h1>
+            />
 
-                    </div>
-                </div>
-            </section>
+            {/*<section*/}
+            {/*    className="page-title"*/}
+            {/*    style={{*/}
+            {/*        backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",*/}
+            {/*        backgroundSize: "cover",*/}
+            {/*        backgroundPosition: "center",*/}
+            {/*        padding: "100px 0"*/}
+            {/*    }}*/}
+            {/*>*/}
+            {/*    <div className="theme_container">*/}
+            {/*        <div className="content-box" style={{ textAlign: "center" }}>*/}
+            {/*            <h1 style={{ color: "white", fontSize: "3rem", marginBottom: "15px" }}>*/}
+            {/*                Our Leaders*/}
+            {/*            </h1>*/}
+
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</section>*/}
 
             <main className="theme_container" style={{ padding: "60px 20px" }}>
                 <h1 className="text-center mb-5">Our Leaders</h1>

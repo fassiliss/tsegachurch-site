@@ -52,7 +52,11 @@ export default function Contact() {
       </Head>
 
       <Header />
-      <PageBanner pageName="Contact" pageTitle="Get in Touch" />
+      <PageBanner
+          pageName="Get in Touch"
+          pageTitle="Get in Touch"
+
+      />
 
       {/* CONTACT CONTENT */}
       <section className="section-contact" style={{ padding: "60px 0" }}>

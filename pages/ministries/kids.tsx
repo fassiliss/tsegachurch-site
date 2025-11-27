@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
+import PageBanner from "@/src/components/PageBanner";
 
 export default function KidsMinistry() {
   const kidsTeachers = [
@@ -37,30 +38,13 @@ export default function KidsMinistry() {
       </Head>
       <Header />
 
-        {/* Page Banner */}
-        <section
-            className="page-title"
-            style={{
-                backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                padding: "100px 0",
-                textAlign: "center",
-                color: "white"
-            }}
-        >
-            <div className="theme_container">
-                <h1 style={{ fontSize: "3rem", marginBottom: "10px" }}>
-                    Kid's Ministry
-                </h1>
-                <p style={{ fontSize: "1.3rem", opacity: 0.9 }}>
-                    የሕፃናት አገልግሎት
-                </p>
-                <p style={{ maxWidth: "700px", margin: "0 auto", fontSize: "1.1rem", opacity: 0.85 }}>
-                    Loving and teaching the next generation about Christ
-                </p>
-            </div>
-        </section>
+        <PageBanner
+            pageName="Kid's Ministry"
+            pageTitle="Kid's Ministry / የሕፃናት አገልግሎት"
+
+        />
+
+
 
 
         <main className="theme_container">
