@@ -96,12 +96,18 @@ export default function AdminMediaPage() {
             HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
         >
     ) => {
-        const { name, value, type, checked } = e.target;
+        const target = e.target as HTMLInputElement;
+        const { name, value, type } = target;
+
+        const fieldValue =
+            type === "checkbox" ? target.checked : value;
+
         setForm((prev) => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: fieldValue,
         }));
     };
+
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const f = e.target.files?.[0] || null;
