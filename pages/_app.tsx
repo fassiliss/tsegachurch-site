@@ -3,7 +3,6 @@ import { SessionProvider } from "next-auth/react";
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/style.css";
-import "../styles/collection.css";
 import "../styles/custom.css";
 import "../styles/mfp.css";
 import "swiper/css";
