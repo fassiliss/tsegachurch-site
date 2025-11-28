@@ -1,15 +1,19 @@
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
-import "@/styles/globals.css";
-import "@/styles/mfp.css";
+import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "@/styles/style.css";
+import "../styles/default.css";
+import "../styles/style.css";
+import "../styles/responsive.css";
 import "swiper/css";
 
-export default function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+type AppPropsWithSession = AppProps & {
+  pageProps: {
+    session?: any;
+  };
+};
+
+export default function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithSession) {
   return (
     <SessionProvider session={session}>
       <Component {...pageProps} />
