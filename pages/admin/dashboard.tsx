@@ -1,28 +1,39 @@
-// pages/admin/dashboard.tsx
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
-import { supabase } from "src/lib/supabaseClient";
-import { useAdminGuard } from "src/hooks/useAdminGuard";
 import PageBanner from "src/components/PageBanner";
 
 export default function AdminDashboard() {
-    useAdminGuard();
+    const { status } = useSession();
     const router = useRouter();
 
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/admin/login");
+        }
+    }, [status, router]);
+
     const handleLogout = async () => {
-        try {
-            await supabase.auth.signOut();
-        } catch (err) {
-            console.error("Supabase signOut error:", err);
-        }
-        if (typeof window !== "undefined") {
-            localStorage.removeItem("isAdminLoggedIn");
-        }
-        router.push("/admin-login");
+        await signOut({ callbackUrl: "/admin/login" });
     };
+
+    if (status === "loading" || status === "unauthenticated") {
+        return (
+            <div style={{
+                minHeight: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "var(--bg-secondary)"
+            }}>
+                <p style={{ color: "var(--text-color)" }}>Loading...</p>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -39,7 +50,6 @@ export default function AdminDashboard() {
 
             <main style={{ padding: "40px 0 60px" }}>
                 <div className="theme_container">
-                    {/* Top row: intro + logout */}
                     <div
                         style={{
                             display: "flex",
@@ -74,7 +84,6 @@ export default function AdminDashboard() {
                         </button>
                     </div>
 
-                    {/* Nice cards */}
                     <div className="row admin-dashboard-row">
                         {/* Members */}
                         <div className="col-md-4 mb-4">
@@ -84,9 +93,7 @@ export default function AdminDashboard() {
                                         <i className="fas fa-users" />
                                     </div>
                                     <div className="admin-dashboard-body">
-                    <span className="admin-dashboard-pill">
-                      Members Manager
-                    </span>
+                                        <span className="admin-dashboard-pill">Members Manager</span>
                                         <h3>Members Manager</h3>
                                         <p>
                                             Add, update, and manage church members, visitors, and
@@ -109,9 +116,7 @@ export default function AdminDashboard() {
                                         <i className="fas fa-bullhorn" />
                                     </div>
                                     <div className="admin-dashboard-body">
-                    <span className="admin-dashboard-pill">
-                      Announcements
-                    </span>
+                                        <span className="admin-dashboard-pill">Announcements</span>
                                         <h3>Announcements</h3>
                                         <p>
                                             Create, schedule, and pin important church-wide messages
@@ -134,9 +139,7 @@ export default function AdminDashboard() {
                                         <i className="fas fa-photo-video" />
                                     </div>
                                     <div className="admin-dashboard-body">
-                    <span className="admin-dashboard-pill">
-                      Media Uploads
-                    </span>
+                                        <span className="admin-dashboard-pill">Media Uploads</span>
                                         <h3>Media Uploads</h3>
                                         <p>
                                             Upload and organize photos, sermon audio, and videos for
@@ -150,13 +153,34 @@ export default function AdminDashboard() {
                                 </a>
                             </Link>
                         </div>
+
+                        {/* Admin Management */}
+                        <div className="col-md-4 mb-4">
+                            <Link href="/admin/admins">
+                                <a className="admin-dashboard-card admin-dashboard-card--admins">
+                                    <div className="admin-dashboard-icon">
+                                        <i className="fas fa-user-shield" />
+                                    </div>
+                                    <div className="admin-dashboard-body">
+                                        <span className="admin-dashboard-pill">Admin Management</span>
+                                        <h3>Admin Management</h3>
+                                        <p>
+                                            Add, deactivate, and manage administrator accounts and permissions.
+                                        </p>
+                                    </div>
+                                    <div className="admin-dashboard-footer">
+                                        <span>Manage Admins</span>
+                                        <i className="far fa-arrow-right" />
+                                    </div>
+                                </a>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </main>
 
             <Footer />
 
-            {/* Styles just for the dashboard cards */}
             <style jsx global>{`
         .admin-dashboard-row {
           margin-top: 10px;
@@ -193,6 +217,10 @@ export default function AdminDashboard() {
 
         .admin-dashboard-card--media {
           border-top: 4px solid #14b8a6;
+        }
+
+        .admin-dashboard-card--admins {
+          border-top: 4px solid #8b5cf6;
         }
 
         .admin-dashboard-card:hover {
@@ -260,7 +288,6 @@ export default function AdminDashboard() {
           text-decoration: underline;
         }
 
-        /* Dark mode support */
         .dark-mode .admin-dashboard-card {
           background: radial-gradient(
             circle at top left,

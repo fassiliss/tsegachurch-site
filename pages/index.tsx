@@ -589,3 +589,6 @@ export default function Home() {
     </>
   );
 }
+
+// https://ivksffpdusfoipvggyoh.supabase.co
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2a3NmZnBkdXNmb2lwdmdneW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNDM4MjgsImV4cCI6MjA3OTkxOTgyOH0.rV1_MiNCGx4Ot8B7-1bHa2VtScCkftzp81RSF6sqinM

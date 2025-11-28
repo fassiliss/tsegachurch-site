@@ -1,13 +1,12 @@
-// pages/admin/media/index.tsx
 import Head from "next/head";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
 import PageBanner from "@/src/components/PageBanner";
-import { useAdminGuard } from "src/hooks/useAdminGuard";
 
 type MediaType = "image" | "audio" | "video" | "document";
-
 type MediaCategory =
     | "Sermon"
     | "Event"
@@ -17,7 +16,7 @@ type MediaCategory =
     | "General";
 
 type MediaItem = {
-    id: number;
+    id: string;
     title: string;
     type: MediaType;
     category: MediaCategory;
@@ -26,49 +25,42 @@ type MediaItem = {
     published: boolean;
 };
 
-const initialMedia: MediaItem[] = [
-    {
-        id: 1,
-        title: "Sunday Sermon – Faith in Action",
-        type: "audio",
-        category: "Sermon",
-        url: "faith-in-action-sermon.mp3",
-        createdAt: "2024-11-01",
-        published: true,
-    },
-    {
-        id: 2,
-        title: "Youth Night Highlights",
-        type: "video",
-        category: "Youth",
-        url: "youth-night-2024.mp4",
-        createdAt: "2024-10-20",
-        published: true,
-    },
-    {
-        id: 3,
-        title: "Kids Ministry Photo Set",
-        type: "image",
-        category: "Kids",
-        url: "kids-ministry-photos.zip",
-        createdAt: "2024-09-10",
-        published: false,
-    },
-];
-
 export default function AdminMediaPage() {
-    useAdminGuard();
-    const [media, setMedia] = useState<MediaItem[]>(initialMedia);
+    const { status } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/admin/login");
+        }
+    }, [status, router]);
+
+    if (status === "loading" || status === "unauthenticated") {
+        return (
+            <div style={{
+                minHeight: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+            }}>
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
+    return <AuthenticatedContent />;
+}
+
+function AuthenticatedContent() {
+    const [media, setMedia] = useState<MediaItem[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
     const [search, setSearch] = useState("");
     const [typeFilter, setTypeFilter] = useState<"" | MediaType>("");
-    const [categoryFilter, setCategoryFilter] =
-        useState<"" | MediaCategory>("");
+    const [categoryFilter, setCategoryFilter] = useState<"" | MediaCategory>("");
     const [editing, setEditing] = useState<MediaItem | null>(null);
-
     const [file, setFile] = useState<File | null>(null);
-
     const [form, setForm] = useState<{
-        id?: number;
         title: string;
         type: MediaType;
         category: MediaCategory;
@@ -80,606 +72,364 @@ export default function AdminMediaPage() {
         published: false,
     });
 
-    const resetForm = () => {
-        setEditing(null);
-        setFile(null);
-        setForm({
-            title: "",
-            type: "image",
-            category: "General",
-            published: false,
-        });
-    };
+    // Load media on mount
+    useEffect(() => {
+        loadMedia();
+    }, []);
 
-    const handleFormChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-        >
-    ) => {
-        const target = e.target as HTMLInputElement;
-        const { name, value, type } = target;
+    async function loadMedia() {
+        try {
+            setLoading(true);
+            const res = await fetch("/api/media");
+            if (!res.ok) throw new Error("Failed to load media");
+            const data = await res.json();
+            setMedia(data.media || []);
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
-        const fieldValue =
-            type === "checkbox" ? target.checked : value;
-
-        setForm((prev) => ({
-            ...prev,
-            [name]: fieldValue,
-        }));
-    };
-
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const f = e.target.files?.[0] || null;
-        setFile(f);
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+        setError("");
 
-        if (!form.title.trim()) {
-            alert("Title is required.");
-            return;
+        try {
+            if (editing) {
+                // Update existing
+                const res = await fetch(`/api/media/${editing.id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(form),
+                });
+
+                if (!res.ok) throw new Error("Failed to update media");
+                setEditing(null);
+            } else {
+                // Create new (for now, just use filename as URL - file upload coming in Priority 3)
+                const url = file ? file.name : "placeholder.file";
+                
+                const res = await fetch("/api/media", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ ...form, url }),
+                });
+
+                if (!res.ok) throw new Error("Failed to create media");
+            }
+
+            // Reset form
+            setForm({ title: "", type: "image", category: "General", published: false });
+            setFile(null);
+
+            // Reload media
+            loadMedia();
+        } catch (err: any) {
+            setError(err.message);
         }
+    }
 
-        const fileUrl = file ? file.name : editing?.url || "uploaded-file";
-
-        if (editing) {
-            setMedia((prev) =>
-                prev.map((m) =>
-                    m.id === editing.id
-                        ? {
-                            ...m,
-                            title: form.title.trim(),
-                            type: form.type,
-                            category: form.category,
-                            published: form.published,
-                            url: file ? fileUrl : m.url,
-                        }
-                        : m
-                )
-            );
-        } else {
-            const nextId = media.length
-                ? Math.max(...media.map((m) => m.id)) + 1
-                : 1;
-
-            const newMedia: MediaItem = {
-                id: nextId,
-                title: form.title.trim(),
-                type: form.type,
-                category: form.category,
-                url: fileUrl,
-                createdAt: new Date().toISOString().slice(0, 10),
-                published: form.published,
-            };
-
-            setMedia((prev) => [newMedia, ...prev]);
-        }
-
-        resetForm();
-    };
-
-    const handleEdit = (item: MediaItem) => {
+    function handleEdit(item: MediaItem) {
         setEditing(item);
-        setFile(null);
         setForm({
-            id: item.id,
             title: item.title,
             type: item.type,
             category: item.category,
             published: item.published,
         });
+    }
 
-        if (typeof window !== "undefined") {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+    async function handleDelete(id: string) {
+        if (!confirm("Are you sure you want to delete this media?")) {
+            return;
         }
-    };
 
-    const handleDelete = (id: number) => {
-        if (!confirm("Delete this media item?")) return;
-        setMedia((prev) => prev.filter((m) => m.id !== id));
-    };
+        try {
+            const res = await fetch(`/api/media/${id}`, {
+                method: "DELETE",
+            });
 
-    const togglePublish = (id: number) => {
-        setMedia((prev) =>
-            prev.map((m) =>
-                m.id === id ? { ...m, published: !m.published } : m
-            )
-        );
-    };
+            if (!res.ok) throw new Error("Failed to delete media");
+
+            loadMedia();
+        } catch (err: any) {
+            setError(err.message);
+        }
+    }
 
     const filteredMedia = useMemo(() => {
-        return media
-            .slice()
-            .sort(
-                (a, b) =>
-                    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-            )
-            .filter((m) => {
-                const matchesSearch = `${m.title} ${m.url}`
-                    .toLowerCase()
-                    .includes(search.toLowerCase());
-
-                const matchesType = typeFilter ? m.type === typeFilter : true;
-                const matchesCategory = categoryFilter
-                    ? m.category === categoryFilter
-                    : true;
-
-                return matchesSearch && matchesType && matchesCategory;
-            });
+        return media.filter((item) => {
+            const matchesSearch = item.title.toLowerCase().includes(search.toLowerCase());
+            const matchesType = typeFilter ? item.type === typeFilter : true;
+            const matchesCategory = categoryFilter ? item.category === categoryFilter : true;
+            return matchesSearch && matchesType && matchesCategory;
+        });
     }, [media, search, typeFilter, categoryFilter]);
 
-    const stats = useMemo(() => {
-        const total = media.length;
-        const images = media.filter((m) => m.type === "image").length;
-        const audio = media.filter((m) => m.type === "audio").length;
-        const video = media.filter((m) => m.type === "video").length;
-        return { total, images, audio, video };
-    }, [media]);
+    const inputStyle = {
+        width: "100%",
+        padding: "10px 12px",
+        border: "1px solid var(--border-color)",
+        borderRadius: "6px",
+        fontSize: "15px",
+        backgroundColor: "var(--input-bg)",
+        color: "var(--text-color)"
+    };
+
+    const labelStyle = {
+        display: "block" as const,
+        marginBottom: "6px",
+        fontWeight: "500" as const,
+        color: "var(--text-color)"
+    };
 
     return (
         <>
             <Head>
-                <title>Admin — Media Uploads | Tsega Church</title>
+                <title>Media Manager — Admin</title>
             </Head>
             <Header />
+            <PageBanner pageName="Media" pageTitle="Manage Media Library" />
 
-            <PageBanner
-                pageName="Media "
-                pageTitle="Media Uploads"
-
-            />
-
-
-
-
-            {/* MAIN CONTENT */}
-            <main style={{ padding: "50px 0" }}>
+            <main style={{ padding: "40px 0 60px", backgroundColor: "var(--bg-secondary)" }}>
                 <div className="theme_container">
-                    {/* Stats */}
-                    <div className="row mb-4">
-                        <div className="col-md-3 mb-3">
-                            <div className="admin-stat-card">
-                                <h4>Total Media</h4>
-                                <p>{stats.total}</p>
-                            </div>
+                    {error && (
+                        <div style={{
+                            padding: "12px 16px",
+                            backgroundColor: "#fee",
+                            color: "#c33",
+                            borderRadius: "8px",
+                            marginBottom: "20px"
+                        }}>
+                            {error}
                         </div>
-                        <div className="col-md-3 mb-3">
-                            <div className="admin-stat-card">
-                                <h4>Images</h4>
-                                <p>{stats.images}</p>
-                            </div>
-                        </div>
-                        <div className="col-md-3 mb-3">
-                            <div className="admin-stat-card">
-                                <h4>Audio</h4>
-                                <p>{stats.audio}</p>
-                            </div>
-                        </div>
-                        <div className="col-md-3 mb-3">
-                            <div className="admin-stat-card">
-                                <h4>Videos</h4>
-                                <p>{stats.video}</p>
-                            </div>
-                        </div>
-                    </div>
+                    )}
 
-                    <div className="row">
-                        {/* Upload Form */}
-                        <div className="col-lg-4 mb-4">
-                            <div className="admin-card">
-                                <h3 style={{ fontSize: "1.3rem", marginBottom: "10px" }}>
-                                    {editing ? "Edit Media Item" : "Upload New Media"}
-                                </h3>
+                    <div style={{
+                        backgroundColor: "var(--bg-color)",
+                        borderRadius: "12px",
+                        padding: "30px",
+                        marginBottom: "30px",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                        border: "1px solid var(--border-color)"
+                    }}>
+                        <h2 style={{ fontSize: "1.5rem", marginBottom: 16, color: "var(--text-color)" }}>
+                            {editing ? "Edit Media" : "Upload New Media"}
+                        </h2>
 
-                                <p style={{ fontSize: "0.9rem", color: "#6b7280" }}>
-                                    {editing
-                                        ? "Update the selected media item."
-                                        : "Upload a photo, audio, or video for church use."}
-                                </p>
+                        <form onSubmit={handleSubmit}>
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label style={labelStyle}>Title *</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={form.title}
+                                        onChange={(e) => setForm({ ...form, title: e.target.value })}
+                                        style={inputStyle}
+                                    />
+                                </div>
 
-                                <form onSubmit={handleSubmit}>
-                                    <div className="mb-2">
-                                        <label className="admin-label">Title *</label>
-                                        <input
-                                            type="text"
-                                            name="title"
-                                            value={form.title}
-                                            onChange={handleFormChange}
-                                            className="admin-input"
-                                            required
-                                        />
-                                    </div>
+                                <div className="col-md-3 mb-3">
+                                    <label style={labelStyle}>Type</label>
+                                    <select
+                                        value={form.type}
+                                        onChange={(e) => setForm({ ...form, type: e.target.value as MediaType })}
+                                        style={inputStyle}
+                                    >
+                                        <option value="image">Image</option>
+                                        <option value="audio">Audio</option>
+                                        <option value="video">Video</option>
+                                        <option value="document">Document</option>
+                                    </select>
+                                </div>
 
-                                    <div className="mb-2">
-                                        <label className="admin-label">Type</label>
-                                        <select
-                                            name="type"
-                                            value={form.type}
-                                            onChange={handleFormChange}
-                                            className="admin-input"
-                                        >
-                                            <option value="image">Image</option>
-                                            <option value="audio">Audio</option>
-                                            <option value="video">Video</option>
-                                            <option value="document">Document</option>
-                                        </select>
-                                    </div>
+                                <div className="col-md-3 mb-3">
+                                    <label style={labelStyle}>Category</label>
+                                    <select
+                                        value={form.category}
+                                        onChange={(e) =>
+                                            setForm({ ...form, category: e.target.value as MediaCategory })
+                                        }
+                                        style={inputStyle}
+                                    >
+                                        <option>General</option>
+                                        <option>Sermon</option>
+                                        <option>Event</option>
+                                        <option>Kids</option>
+                                        <option>Youth</option>
+                                        <option>Worship</option>
+                                    </select>
+                                </div>
 
-                                    <div className="mb-2">
-                                        <label className="admin-label">Category</label>
-                                        <select
-                                            name="category"
-                                            value={form.category}
-                                            onChange={handleFormChange}
-                                            className="admin-input"
-                                        >
-                                            <option value="General">General</option>
-                                            <option value="Sermon">Sermon</option>
-                                            <option value="Event">Event</option>
-                                            <option value="Kids">Kids</option>
-                                            <option value="Youth">Youth</option>
-                                            <option value="Worship">Worship</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="mb-2">
-                                        <label className="admin-label">File</label>
+                                {!editing && (
+                                    <div className="col-md-12 mb-3">
+                                        <label style={labelStyle}>File (Note: Actual upload coming soon - for now just saves filename)</label>
                                         <input
                                             type="file"
-                                            onChange={handleFileChange}
-                                            className="admin-input"
-                                            style={{ padding: "6px 8px" }}
+                                            onChange={(e) => setFile(e.target.files?.[0] || null)}
+                                            style={inputStyle}
                                         />
-                                        {editing && !file && (
-                                            <small style={{ fontSize: "0.75rem", color: "#9ca3af" }}>
-                                                Current file: {editing.url}
-                                            </small>
-                                        )}
                                     </div>
+                                )}
 
-                                    <div className="mb-3" style={{ display: "flex", gap: 8 }}>
+                                <div className="col-md-12 mb-3">
+                                    <label style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--text-color)" }}>
                                         <input
                                             type="checkbox"
-                                            id="published"
-                                            name="published"
                                             checked={form.published}
-                                            onChange={handleFormChange}
+                                            onChange={(e) => setForm({ ...form, published: e.target.checked })}
                                         />
-                                        <label
-                                            htmlFor="published"
-                                            className="admin-label"
-                                            style={{ marginBottom: 0 }}
-                                        >
-                                            Mark as published (visible on site)
-                                        </label>
-                                    </div>
-
-                                    <div style={{ display: "flex", gap: "10px" }}>
-                                        <button type="submit" className="primary_btn-two">
-                                            {editing ? "Update Media" : "Upload Media"}
-                                        </button>
-                                        {editing && (
-                                            <button
-                                                type="button"
-                                                onClick={resetForm}
-                                                className="admin-secondary-btn"
-                                            >
-                                                Cancel
-                                            </button>
-                                        )}
-                                    </div>
-
-                                    <p
-                                        style={{
-                                            fontSize: "0.8rem",
-                                            color: "#9ca3af",
-                                            marginTop: "8px",
-                                        }}
-                                    >
-                                        Demo only: files are not uploaded.
-                                        We just store the file name in browser memory.
-                                    </p>
-                                </form>
+                                        <span>Publish immediately</span>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Media List */}
-                        <div className="col-lg-8 mb-4">
-                            <div className="admin-card">
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: "10px",
-                                        justifyContent: "space-between",
-                                        marginBottom: "15px",
+                            <button type="submit" className="primary_btn-two">
+                                {editing ? "Update Media" : "Upload Media"}
+                            </button>
+                            {editing && (
+                                <button
+                                    type="button"
+                                    className="admin-secondary-btn"
+                                    style={{ marginLeft: 12 }}
+                                    onClick={() => {
+                                        setEditing(null);
+                                        setForm({ title: "", type: "image", category: "General", published: false });
                                     }}
                                 >
-                                    <h3
-                                        style={{
-                                            fontSize: "1.3rem",
-                                            margin: 0,
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "6px",
-                                        }}
-                                    >
-                                        <i className="fas fa-photo-video" /> Media Library
-                                    </h3>
+                                    Cancel
+                                </button>
+                            )}
+                        </form>
+                    </div>
 
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            gap: "10px",
-                                            flexWrap: "wrap",
-                                            justifyContent: "flex-end",
-                                        }}
-                                    >
-                                        <input
-                                            type="text"
-                                            placeholder="Search title or file..."
-                                            value={search}
-                                            onChange={(e) => setSearch(e.target.value)}
-                                            className="admin-input"
-                                            style={{ maxWidth: "230px" }}
-                                        />
+                    <div style={{
+                        backgroundColor: "var(--bg-color)",
+                        borderRadius: "12px",
+                        padding: "30px",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                        border: "1px solid var(--border-color)"
+                    }}>
+                        <div style={{ marginBottom: 20 }}>
+                            <h2 style={{ fontSize: "1.5rem", marginBottom: 16, color: "var(--text-color)" }}>
+                                Media Library ({filteredMedia.length})
+                            </h2>
 
-                                        <select
-                                            value={typeFilter}
-                                            onChange={(e) =>
-                                                setTypeFilter(e.target.value as "" | MediaType)
-                                            }
-                                            className="admin-input"
-                                            style={{ maxWidth: "150px" }}
-                                        >
-                                            <option value="">All Types</option>
-                                            <option value="image">Image</option>
-                                            <option value="audio">Audio</option>
-                                            <option value="video">Video</option>
-                                            <option value="document">Document</option>
-                                        </select>
-
-                                        <select
-                                            value={categoryFilter}
-                                            onChange={(e) =>
-                                                setCategoryFilter(
-                                                    e.target.value as "" | MediaCategory
-                                                )
-                                            }
-                                            className="admin-input"
-                                            style={{ maxWidth: "150px" }}
-                                        >
-                                            <option value="">All Categories</option>
-                                            <option value="General">General</option>
-                                            <option value="Sermon">Sermon</option>
-                                            <option value="Event">Event</option>
-                                            <option value="Kids">Kids</option>
-                                            <option value="Youth">Youth</option>
-                                            <option value="Worship">Worship</option>
-                                        </select>
-                                    </div>
+                            <div className="row">
+                                <div className="col-md-4 mb-3">
+                                    <input
+                                        type="text"
+                                        placeholder="Search media..."
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        style={inputStyle}
+                                    />
                                 </div>
-
-                                <div className="table-responsive">
-                                    <table className="table admin-table">
-                                        <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Type</th>
-                                            <th>Category</th>
-                                            <th>File</th>
-                                            <th>Created</th>
-                                            <th>Published</th>
-                                            <th style={{ width: "180px" }}>Actions</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        {filteredMedia.length === 0 && (
-                                            <tr>
-                                                <td colSpan={7} style={{ textAlign: "center" }}>
-                                                    No media items found.
-                                                </td>
-                                            </tr>
-                                        )}
-
-                                        {filteredMedia.map((m) => (
-                                            <tr key={m.id}>
-                                                <td>
-                                                    <strong>{m.title}</strong>
-                                                </td>
-                                                <td style={{ textTransform: "capitalize" }}>
-                                                    {m.type}
-                                                </td>
-                                                <td>{m.category}</td>
-                                                <td>
-                            <span
-                                style={{
-                                    fontSize: "0.85rem",
-                                    color: "#6b7280",
-                                }}
-                            >
-                              {m.url}
-                            </span>
-                                                </td>
-                                                <td>
-                                                    {new Date(m.createdAt).toLocaleDateString(
-                                                        "en-US"
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {m.published ? (
-                                                        <span className="badge badge-active">Yes</span>
-                                                    ) : (
-                                                        <span className="badge badge-inactive">
-                                Draft
-                              </span>
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    <button
-                                                        className="btn btn-sm btn-outline-primary me-1 mb-1"
-                                                        type="button"
-                                                        onClick={() => togglePublish(m.id)}
-                                                    >
-                                                        {m.published ? "Set Draft" : "Publish"}
-                                                    </button>
-
-                                                    <button
-                                                        className="btn btn-sm btn-outline-secondary me-1 mb-1"
-                                                        type="button"
-                                                        onClick={() => handleEdit(m)}
-                                                    >
-                                                        Edit
-                                                    </button>
-
-                                                    <button
-                                                        className="btn btn-sm btn-outline-danger mb-1"
-                                                        type="button"
-                                                        onClick={() => handleDelete(m.id)}
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                        </tbody>
-                                    </table>
+                                <div className="col-md-4 mb-3">
+                                    <select
+                                        value={typeFilter}
+                                        onChange={(e) => setTypeFilter(e.target.value as "" | MediaType)}
+                                        style={inputStyle}
+                                    >
+                                        <option value="">All Types</option>
+                                        <option value="image">Images</option>
+                                        <option value="audio">Audio</option>
+                                        <option value="video">Videos</option>
+                                        <option value="document">Documents</option>
+                                    </select>
+                                </div>
+                                <div className="col-md-4 mb-3">
+                                    <select
+                                        value={categoryFilter}
+                                        onChange={(e) => setCategoryFilter(e.target.value as "" | MediaCategory)}
+                                        style={inputStyle}
+                                    >
+                                        <option value="">All Categories</option>
+                                        <option>General</option>
+                                        <option>Sermon</option>
+                                        <option>Event</option>
+                                        <option>Kids</option>
+                                        <option>Youth</option>
+                                        <option>Worship</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+
+                        {loading ? (
+                            <p style={{ color: "var(--text-color)", textAlign: "center", padding: "40px 0" }}>
+                                Loading media...
+                            </p>
+                        ) : filteredMedia.length === 0 ? (
+                            <p style={{ color: "var(--text-muted)", textAlign: "center", padding: "40px 0" }}>
+                                No media found
+                            </p>
+                        ) : (
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: 16 }}>
+                                {filteredMedia.map((item) => (
+                                    <div
+                                        key={item.id}
+                                        style={{
+                                            border: "1px solid var(--border-color)",
+                                            borderRadius: 8,
+                                            padding: 12,
+                                            backgroundColor: "var(--bg-color)",
+                                        }}
+                                    >
+                                        <div style={{ marginBottom: 8 }}>
+                                            <span
+                                                style={{
+                                                    background: "#e0e7ff",
+                                                    padding: "2px 8px",
+                                                    borderRadius: 4,
+                                                    fontSize: "0.75rem",
+                                                    marginRight: 8,
+                                                }}
+                                            >
+                                                {item.type}
+                                            </span>
+                                            <span
+                                                style={{
+                                                    background: item.published ? "#d1fae5" : "#f3f4f6",
+                                                    padding: "2px 8px",
+                                                    borderRadius: 4,
+                                                    fontSize: "0.75rem",
+                                                }}
+                                            >
+                                                {item.published ? "Published" : "Draft"}
+                                            </span>
+                                        </div>
+                                        <h3 style={{ fontSize: "1rem", marginBottom: 4, color: "var(--text-color)" }}>{item.title}</h3>
+                                        <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: 8 }}>
+                                            {item.category} • {new Date(item.createdAt).toLocaleDateString()}
+                                        </p>
+                                        <div style={{ display: "flex", gap: 8 }}>
+                                            <button
+                                                className="admin-secondary-btn"
+                                                style={{ fontSize: "0.85rem", padding: "4px 12px" }}
+                                                onClick={() => handleEdit(item)}
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="admin-secondary-btn"
+                                                style={{ fontSize: "0.85rem", padding: "4px 12px", background: "#dc2626", color: "white" }}
+                                                onClick={() => handleDelete(item.id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </main>
 
             <Footer />
-
-            {/* Reuse same admin styles */}
-            <style jsx global>{`
-        .admin-card {
-          background: #ffffff;
-          border-radius: 14px;
-          padding: 20px 20px 24px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-        }
-
-        .admin-stat-card {
-          background: #ffffff;
-          border-radius: 12px;
-          padding: 16px 18px;
-          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-        }
-
-        .admin-stat-card h4 {
-          font-size: 0.95rem;
-          font-weight: 600;
-          color: #6b7280;
-          margin-bottom: 4px;
-        }
-
-        .admin-stat-card p {
-          font-size: 1.5rem;
-          font-weight: 700;
-          margin: 0;
-        }
-
-        .admin-label {
-          display: block;
-          font-size: 0.85rem;
-          font-weight: 600;
-          margin-bottom: 4px;
-          color: #4b5563;
-        }
-
-        .admin-input {
-          width: 100%;
-          border-radius: 8px;
-          border: 1px solid #e5e7eb;
-          padding: 8px 10px;
-          font-size: 0.95rem;
-          outline: none;
-          transition: border-color 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .admin-input:focus {
-          border-color: #4f46e5;
-          box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
-        }
-
-        .admin-secondary-btn {
-          border-radius: 999px;
-          border: 1px solid #d1d5db;
-          background: #f9fafb;
-          padding: 8px 16px;
-          font-size: 0.9rem;
-          font-weight: 500;
-          cursor: pointer;
-        }
-
-        .admin-secondary-btn:hover {
-          background: #e5e7eb;
-        }
-
-        .admin-table th {
-          font-size: 0.85rem;
-          text-transform: uppercase;
-          letter-spacing: 0.03em;
-          color: #6b7280;
-          border-bottom: 1px solid #e5e7eb;
-        }
-
-        .admin-table td {
-          vertical-align: middle;
-          font-size: 0.92rem;
-        }
-
-        .badge {
-          display: inline-block;
-          padding: 3px 10px;
-          border-radius: 999px;
-          font-size: 0.75rem;
-          font-weight: 600;
-        }
-
-        .badge-active {
-          background: #dcfce7;
-          color: #166534;
-        }
-
-        .badge-inactive {
-          background: #fef3c7;
-          color: #92400e;
-        }
-
-        .dark-mode .admin-card,
-        .dark-mode .admin-stat-card {
-          background: #111827 !important;
-          color: #e5e7eb !important;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
-        }
-
-        .dark-mode .admin-input {
-          background: #111827 !important;
-          border-color: #374151 !important;
-          color: #e5e7eb !important;
-        }
-
-        .dark-mode .admin-input:focus {
-          border-color: #4f46e5 !important;
-          box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.4) !important;
-        }
-
-        .dark-mode .admin-table th {
-          border-bottom-color: #374151 !important;
-          color: #9ca3af !important;
-        }
-
-        .dark-mode .admin-table td {
-          border-color: #1f2937 !important;
-        }
-      `}</style>
         </>
     );
 }
