@@ -1,250 +1,378 @@
-// pages/media/index.tsx
 import Head from "next/head";
-import { useMemo, useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
-
-type MediaType = "image" | "audio" | "video" | "document";
-type MediaCategory = "Sermon" | "Event" | "Kids" | "Youth" | "Worship" | "General";
+import PageBanner from "@/src/components/PageBanner";
 
 type MediaItem = {
-    id: number;
+    id: string;
     title: string;
-    type: MediaType;
-    category: MediaCategory;
+    type: string;
+    category: string;
     url: string;
     createdAt: string;
-    published: boolean;
 };
 
-// 🔹 For now, same seed data as admin page (later we’ll connect a real DB)
-const sampleMedia: MediaItem[] = [
-    {
-        id: 1,
-        title: "Sunday Sermon – Faith in Action",
-        type: "audio",
-        category: "Sermon",
-        url: "faith-in-action-sermon.mp3",
-        createdAt: "2024-11-01",
-        published: true,
-    },
-    {
-        id: 2,
-        title: "Youth Night Highlights",
-        type: "video",
-        category: "Youth",
-        url: "youth-night-2024.mp4",
-        createdAt: "2024-10-20",
-        published: true,
-    },
-    {
-        id: 3,
-        title: "Kids Ministry Photo Set",
-        type: "image",
-        category: "Kids",
-        url: "kids-ministry-photos.zip",
-        createdAt: "2024-09-10",
-        published: false, // this one won't show
-    },
-];
+export default function MediaGalleryPage() {
+    const [media, setMedia] = useState<MediaItem[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [typeFilter, setTypeFilter] = useState<string>("");
+    const [categoryFilter, setCategoryFilter] = useState<string>("");
 
-export default function MediaPage() {
-    const [search, setSearch] = useState("");
-    const [typeFilter, setTypeFilter] = useState<"" | MediaType>("");
-    const [categoryFilter, setCategoryFilter] = useState<"" | MediaCategory>("");
+    useEffect(() => {
+        loadMedia();
+    }, []);
 
-    const visibleMedia = useMemo(() => {
-        return sampleMedia
-            .filter((m) => m.published) // only published items are public
-            .filter((m) => {
-                const matchesSearch = `${m.title} ${m.url}`
-                    .toLowerCase()
-                    .includes(search.toLowerCase());
+    async function loadMedia() {
+        try {
+            const res = await fetch("/api/public/media");
+            if (!res.ok) throw new Error("Failed to load media");
+            const data = await res.json();
+            setMedia(data.media || []);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }
 
-                const matchesType = typeFilter ? m.type === typeFilter : true;
-                const matchesCategory = categoryFilter
-                    ? m.category === categoryFilter
-                    : true;
+    const filteredMedia = media.filter((item) => {
+        const matchesType = typeFilter ? item.type === typeFilter : true;
+        const matchesCategory = categoryFilter ? item.category === categoryFilter : true;
+        return matchesType && matchesCategory;
+    });
 
-                return matchesSearch && matchesType && matchesCategory;
-            })
-            .sort(
-                (a, b) =>
-                    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-            );
-    }, [search, typeFilter, categoryFilter]);
+    const types = [...new Set(media.map((m) => m.type))];
+    const categories = [...new Set(media.map((m) => m.category))];
 
     return (
         <>
             <Head>
-                <title>Media / Sermons & Messages — Tsega Church</title>
+                <title>Media Gallery | GEECN</title>
+                <meta name="description" content="Browse sermons, photos, videos, and more from Grace Ethiopian Evangelical Church of Nashville" />
             </Head>
+
             <Header />
 
-            {/* Banner */}
-            <section
-                className="page-title"
-                style={{
-                    backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    padding: "110px 0 70px",
-                    color: "white",
-                    textAlign: "center",
-                }}
-            >
-                <div className="theme_container">
-                    <h1 style={{ fontSize: "2.4rem", fontWeight: 700, marginBottom: 8 }}>
-                        Media Library
-                    </h1>
-                    <p style={{ fontSize: "1.05rem", opacity: 0.9 }}>
-                        Listen, watch, and catch up on what God is doing at Tsega Church.
-                    </p>
-                </div>
-            </section>
+            <PageBanner pageName="Media" pageTitle="Media Gallery" />
 
-            <main style={{ padding: "50px 0" }}>
+            <main style={{ padding: "60px 0", backgroundColor: "var(--bg-secondary)" }}>
                 <div className="theme_container">
                     {/* Filters */}
-                    <div
-                        className="media-filters admin-card"
-                        style={{
-                            marginBottom: "30px",
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: "10px",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <h2
+                    <div style={{ 
+                        display: "flex", 
+                        gap: "20px", 
+                        marginBottom: "30px", 
+                        flexWrap: "wrap",
+                        justifyContent: "center"
+                    }}>
+                        <select
+                            value={typeFilter}
+                            onChange={(e) => setTypeFilter(e.target.value)}
                             style={{
-                                fontSize: "1.4rem",
-                                margin: 0,
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "8px",
+                                padding: "10px 20px",
+                                borderRadius: "8px",
+                                border: "1px solid var(--border-color)",
+                                backgroundColor: "var(--input-bg)",
+                                color: "var(--text-color)",
+                                fontSize: "15px",
+                                cursor: "pointer",
+                                minWidth: "150px"
                             }}
                         >
-                            <i className="fas fa-photo-video" /> Latest Media
-                        </h2>
+                            <option value="">All Types</option>
+                            {types.map((type) => (
+                                <option key={type} value={type}>
+                                    {type.charAt(0).toUpperCase() + type.slice(1)}s
+                                </option>
+                            ))}
+                        </select>
 
-                        <div
+                        <select
+                            value={categoryFilter}
+                            onChange={(e) => setCategoryFilter(e.target.value)}
                             style={{
-                                display: "flex",
-                                gap: "10px",
-                                flexWrap: "wrap",
-                                justifyContent: "flex-end",
+                                padding: "10px 20px",
+                                borderRadius: "8px",
+                                border: "1px solid var(--border-color)",
+                                backgroundColor: "var(--input-bg)",
+                                color: "var(--text-color)",
+                                fontSize: "15px",
+                                cursor: "pointer",
+                                minWidth: "150px"
                             }}
                         >
-                            <input
-                                type="text"
-                                placeholder="Search title..."
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                className="admin-input"
-                                style={{ maxWidth: "230px" }}
-                            />
+                            <option value="">All Categories</option>
+                            {categories.map((cat) => (
+                                <option key={cat} value={cat}>{cat}</option>
+                            ))}
+                        </select>
 
-                            <select
-                                value={typeFilter}
-                                onChange={(e) =>
-                                    setTypeFilter(e.target.value as "" | MediaType)
-                                }
-                                className="admin-input"
-                                style={{ maxWidth: "160px" }}
+                        {(typeFilter || categoryFilter) && (
+                            <button
+                                onClick={() => { setTypeFilter(""); setCategoryFilter(""); }}
+                                style={{
+                                    padding: "10px 20px",
+                                    borderRadius: "8px",
+                                    border: "none",
+                                    backgroundColor: "#dc2626",
+                                    color: "white",
+                                    fontSize: "15px",
+                                    cursor: "pointer",
+                                    fontWeight: "500"
+                                }}
                             >
-                                <option value="">All Types</option>
-                                <option value="audio">Audio</option>
-                                <option value="video">Video</option>
-                                <option value="image">Images</option>
-                                <option value="document">Documents</option>
-                            </select>
-
-                            <select
-                                value={categoryFilter}
-                                onChange={(e) =>
-                                    setCategoryFilter(e.target.value as "" | MediaCategory)
-                                }
-                                className="admin-input"
-                                style={{ maxWidth: "160px" }}
-                            >
-                                <option value="">All Categories</option>
-                                <option value="General">General</option>
-                                <option value="Sermon">Sermon</option>
-                                <option value="Event">Event</option>
-                                <option value="Kids">Kids</option>
-                                <option value="Youth">Youth</option>
-                                <option value="Worship">Worship</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    {/* Media Grid */}
-                    <div className="row">
-                        {visibleMedia.length === 0 && (
-                            <div className="col-12">
-                                <div className="admin-card" style={{ textAlign: "center" }}>
-                                    <p style={{ marginBottom: 0 }}>
-                                        No media found. Please check back soon!
-                                    </p>
-                                </div>
-                            </div>
+                                Clear Filters
+                            </button>
                         )}
-
-                        {visibleMedia.map((m) => (
-                            <div key={m.id} className="col-md-4 mb-4">
-                                <div className="admin-card h-100">
-                                    <div
-                                        style={{
-                                            fontSize: "0.8rem",
-                                            color: "#9ca3af",
-                                            marginBottom: "6px",
-                                        }}
-                                    >
-                                        {new Date(m.createdAt).toLocaleDateString("en-US")} ·{" "}
-                                        <span style={{ textTransform: "capitalize" }}>{m.type}</span>{" "}
-                                        · {m.category}
-                                    </div>
-                                    <h3 style={{ fontSize: "1.1rem", marginBottom: "8px" }}>
-                                        {m.title}
-                                    </h3>
-
-                                    <p
-                                        style={{
-                                            fontSize: "0.9rem",
-                                            color: "#6b7280",
-                                            marginBottom: "14px",
-                                        }}
-                                    >
-                                        {/* Short description based on type */}
-                                        {m.type === "audio" && "Audio sermon message"}
-                                        {m.type === "video" && "Video highlight or sermon"}
-                                        {m.type === "image" && "Photo or gallery file"}
-                                        {m.type === "document" && "Downloadable resource"}
-                                    </p>
-
-                                    {/* In a real app, these would be real URLs / players */}
-                                    <a
-                                        href="#"
-                                        style={{
-                                            display: "inline-flex",
-                                            alignItems: "center",
-                                            gap: "6px",
-                                            fontSize: "0.9rem",
-                                        }}
-                                    >
-                                        <i className="fas fa-download" />
-                                        <span>Download / Open: {m.url}</span>
-                                    </a>
-                                </div>
-                            </div>
-                        ))}
                     </div>
+
+                    <p style={{ textAlign: "center", marginBottom: "20px", color: "var(--text-muted)" }}>
+                        Showing {filteredMedia.length} {filteredMedia.length === 1 ? 'item' : 'items'}
+                    </p>
+
+                    {loading ? (
+                        <div style={{ textAlign: "center", padding: "60px 0" }}>
+                            <p style={{ color: "var(--text-color)", fontSize: "18px" }}>Loading media...</p>
+                        </div>
+                    ) : filteredMedia.length === 0 ? (
+                        <div style={{ textAlign: "center", padding: "60px 0" }}>
+                            <p style={{ color: "var(--text-muted)", fontSize: "18px" }}>No media found.</p>
+                        </div>
+                    ) : (
+                        <div style={{ 
+                            display: "grid", 
+                            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", 
+                            gap: "25px" 
+                        }}>
+                            {filteredMedia.map((item) => (
+                                <MediaCard key={item.id} item={item} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </main>
 
             <Footer />
         </>
+    );
+}
+
+function MediaCard({ item }: { item: MediaItem }) {
+    const [imageError, setImageError] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    const getTypeIcon = (type: string) => {
+        switch (type) {
+            case 'image': return '🖼️';
+            case 'video': return '🎬';
+            case 'audio': return '🎵';
+            case 'document': return '📄';
+            default: return '📁';
+        }
+    };
+
+    const getTypeColor = (type: string) => {
+        switch (type) {
+            case 'image': return '#10b981';
+            case 'video': return '#f43f5e';
+            case 'audio': return '#8b5cf6';
+            case 'document': return '#f59e0b';
+            default: return '#6b7280';
+        }
+    };
+
+    const isYouTube = (url: string) => {
+        return url && (url.includes('youtube.com') || url.includes('youtu.be'));
+    };
+
+    const getYouTubeVideoId = (url: string) => {
+        const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/);
+        return match ? match[1] : null;
+    };
+
+    const getYouTubeThumbnail = (url: string) => {
+        const videoId = getYouTubeVideoId(url);
+        return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
+    };
+
+    const isValidUrl = (url: string) => {
+        return url && (url.startsWith('http://') || url.startsWith('https://'));
+    };
+
+    const showImage = item.type === "image" && isValidUrl(item.url) && !imageError;
+    const showYouTube = item.type === "video" && isYouTube(item.url);
+    const youtubeThumbnail = showYouTube ? getYouTubeThumbnail(item.url) : null;
+
+    return (
+        <div
+            style={{
+                backgroundColor: "var(--bg-color)",
+                borderRadius: "12px",
+                overflow: "hidden",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+                border: "1px solid var(--border-color)",
+                transition: "transform 0.3s, box-shadow 0.3s"
+            }}
+        >
+            {/* Media Preview */}
+            <div style={{
+                height: "220px",
+                backgroundColor: "#f3f4f6",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                position: "relative"
+            }}>
+                {showImage ? (
+                    <>
+                        {!imageLoaded && (
+                            <span style={{ fontSize: "40px", position: "absolute" }}>⏳</span>
+                        )}
+                        <img 
+                            src={item.url} 
+                            alt={item.title}
+                            onLoad={() => setImageLoaded(true)}
+                            onError={() => setImageError(true)}
+                            style={{ 
+                                width: "100%", 
+                                height: "100%", 
+                                objectFit: "cover",
+                                display: imageLoaded ? "block" : "none"
+                            }}
+                        />
+                    </>
+                ) : showYouTube && youtubeThumbnail ? (
+                    <a 
+                        href={item.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            position: "relative",
+                            display: "block"
+                        }}
+                    >
+                        <img 
+                            src={youtubeThumbnail}
+                            alt={item.title}
+                            style={{ 
+                                width: "100%", 
+                                height: "100%", 
+                                objectFit: "cover"
+                            }}
+                        />
+                        {/* Play Button Overlay */}
+                        <div style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "70px",
+                            height: "70px",
+                            backgroundColor: "rgba(255, 0, 0, 0.9)",
+                            borderRadius: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            boxShadow: "0 4px 15px rgba(0,0,0,0.3)"
+                        }}>
+                            <span style={{ 
+                                fontSize: "30px", 
+                                color: "white",
+                                marginLeft: "5px"
+                            }}>▶</span>
+                        </div>
+                    </a>
+                ) : item.type === "audio" && isValidUrl(item.url) ? (
+                    <div style={{ textAlign: "center", padding: "20px", width: "100%" }}>
+                        <span style={{ fontSize: "50px", display: "block", marginBottom: "10px" }}>🎵</span>
+                        <audio controls style={{ width: "90%" }}>
+                            <source src={item.url} />
+                        </audio>
+                    </div>
+                ) : (
+                    <span style={{ fontSize: "60px" }}>{getTypeIcon(item.type)}</span>
+                )}
+
+                {/* Type Badge */}
+                <span style={{
+                    position: "absolute",
+                    top: "10px",
+                    left: "10px",
+                    backgroundColor: getTypeColor(item.type),
+                    color: "white",
+                    padding: "4px 12px",
+                    borderRadius: "20px",
+                    fontSize: "11px",
+                    fontWeight: "600",
+                    textTransform: "uppercase",
+                    zIndex: 10
+                }}>
+                    {item.type}
+                </span>
+            </div>
+
+            {/* Media Info */}
+            <div style={{ padding: "20px" }}>
+                <span style={{
+                    backgroundColor: "#e0e7ff",
+                    color: "#4338ca",
+                    padding: "3px 10px",
+                    borderRadius: "12px",
+                    fontSize: "11px",
+                    fontWeight: "500"
+                }}>
+                    {item.category}
+                </span>
+
+                <h3 style={{ 
+                    fontSize: "1.15rem", 
+                    fontWeight: "600", 
+                    color: "var(--text-color)",
+                    margin: "12px 0 8px",
+                    lineHeight: "1.4"
+                }}>
+                    {item.title}
+                </h3>
+
+                <p style={{ 
+                    color: "var(--text-muted)", 
+                    fontSize: "13px",
+                    marginBottom: "15px"
+                }}>
+                    {new Date(item.createdAt).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    })}
+                </p>
+
+                {isValidUrl(item.url) && (
+                    <a 
+                        href={item.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{
+                            display: "inline-block",
+                            padding: "8px 20px",
+                            backgroundColor: showYouTube ? "#ff0000" : "#6432c8",
+                            color: "white",
+                            borderRadius: "6px",
+                            textDecoration: "none",
+                            fontSize: "14px",
+                            fontWeight: "500"
+                        }}
+                    >
+                        {item.type === "image" ? "View Full Size" : 
+                         item.type === "video" ? "▶ Watch Video" :
+                         item.type === "audio" ? "Download Audio" :
+                         item.type === "document" ? "Download" : "Open"}
+                    </a>
+                )}
+            </div>
+        </div>
     );
 }

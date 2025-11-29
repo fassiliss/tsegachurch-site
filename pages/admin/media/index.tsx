@@ -59,20 +59,20 @@ function AuthenticatedContent() {
     const [typeFilter, setTypeFilter] = useState<"" | MediaType>("");
     const [categoryFilter, setCategoryFilter] = useState<"" | MediaCategory>("");
     const [editing, setEditing] = useState<MediaItem | null>(null);
-    const [file, setFile] = useState<File | null>(null);
     const [form, setForm] = useState<{
         title: string;
         type: MediaType;
         category: MediaCategory;
+        url: string;
         published: boolean;
     }>({
         title: "",
         type: "image",
         category: "General",
+        url: "",
         published: false,
     });
 
-    // Load media on mount
     useEffect(() => {
         loadMedia();
     }, []);
@@ -95,9 +95,13 @@ function AuthenticatedContent() {
         e.preventDefault();
         setError("");
 
+        if (!form.url) {
+            setError("Please enter a URL for the media");
+            return;
+        }
+
         try {
             if (editing) {
-                // Update existing
                 const res = await fetch(`/api/media/${editing.id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -107,23 +111,16 @@ function AuthenticatedContent() {
                 if (!res.ok) throw new Error("Failed to update media");
                 setEditing(null);
             } else {
-                // Create new (for now, just use filename as URL - file upload coming in Priority 3)
-                const url = file ? file.name : "placeholder.file";
-                
                 const res = await fetch("/api/media", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ ...form, url }),
+                    body: JSON.stringify(form),
                 });
 
                 if (!res.ok) throw new Error("Failed to create media");
             }
 
-            // Reset form
-            setForm({ title: "", type: "image", category: "General", published: false });
-            setFile(null);
-
-            // Reload media
+            setForm({ title: "", type: "image", category: "General", url: "", published: false });
             loadMedia();
         } catch (err: any) {
             setError(err.message);
@@ -136,6 +133,7 @@ function AuthenticatedContent() {
             title: item.title,
             type: item.type,
             category: item.category,
+            url: item.url,
             published: item.published,
         });
     }
@@ -151,7 +149,6 @@ function AuthenticatedContent() {
             });
 
             if (!res.ok) throw new Error("Failed to delete media");
-
             loadMedia();
         } catch (err: any) {
             setError(err.message);
@@ -182,6 +179,16 @@ function AuthenticatedContent() {
         marginBottom: "6px",
         fontWeight: "500" as const,
         color: "var(--text-color)"
+    };
+
+    const getTypeIcon = (type: string) => {
+        switch (type) {
+            case 'image': return '🖼️';
+            case 'video': return '🎬';
+            case 'audio': return '🎵';
+            case 'document': return '📄';
+            default: return '📁';
+        }
     };
 
     return (
@@ -215,7 +222,7 @@ function AuthenticatedContent() {
                         border: "1px solid var(--border-color)"
                     }}>
                         <h2 style={{ fontSize: "1.5rem", marginBottom: 16, color: "var(--text-color)" }}>
-                            {editing ? "Edit Media" : "Upload New Media"}
+                            {editing ? "Edit Media" : "Add New Media"}
                         </h2>
 
                         <form onSubmit={handleSubmit}>
@@ -227,12 +234,13 @@ function AuthenticatedContent() {
                                         required
                                         value={form.title}
                                         onChange={(e) => setForm({ ...form, title: e.target.value })}
+                                        placeholder="Enter media title"
                                         style={inputStyle}
                                     />
                                 </div>
 
                                 <div className="col-md-3 mb-3">
-                                    <label style={labelStyle}>Type</label>
+                                    <label style={labelStyle}>Type *</label>
                                     <select
                                         value={form.type}
                                         onChange={(e) => setForm({ ...form, type: e.target.value as MediaType })}
@@ -263,13 +271,37 @@ function AuthenticatedContent() {
                                     </select>
                                 </div>
 
-                                {!editing && (
+                                <div className="col-md-12 mb-3">
+                                    <label style={labelStyle}>Media URL *</label>
+                                    <input
+                                        type="url"
+                                        required
+                                        value={form.url}
+                                        onChange={(e) => setForm({ ...form, url: e.target.value })}
+                                        placeholder="https://example.com/image.jpg or YouTube link"
+                                        style={inputStyle}
+                                    />
+                                    <small style={{ color: "var(--text-muted)", fontSize: "13px" }}>
+                                        Paste image URL, YouTube link, Google Drive link, or any media URL
+                                    </small>
+                                </div>
+
+                                {/* Preview */}
+                                {form.url && form.type === "image" && (
                                     <div className="col-md-12 mb-3">
-                                        <label style={labelStyle}>File (Note: Actual upload coming soon - for now just saves filename)</label>
-                                        <input
-                                            type="file"
-                                            onChange={(e) => setFile(e.target.files?.[0] || null)}
-                                            style={inputStyle}
+                                        <label style={labelStyle}>Preview</label>
+                                        <img 
+                                            src={form.url} 
+                                            alt="Preview" 
+                                            style={{ 
+                                                maxWidth: "300px", 
+                                                maxHeight: "200px", 
+                                                borderRadius: "8px",
+                                                border: "1px solid var(--border-color)"
+                                            }}
+                                            onError={(e) => {
+                                                (e.target as HTMLImageElement).style.display = 'none';
+                                            }}
                                         />
                                     </div>
                                 )}
@@ -287,7 +319,7 @@ function AuthenticatedContent() {
                             </div>
 
                             <button type="submit" className="primary_btn-two">
-                                {editing ? "Update Media" : "Upload Media"}
+                                {editing ? "Update Media" : "Add Media"}
                             </button>
                             {editing && (
                                 <button
@@ -296,7 +328,7 @@ function AuthenticatedContent() {
                                     style={{ marginLeft: 12 }}
                                     onClick={() => {
                                         setEditing(null);
-                                        setForm({ title: "", type: "image", category: "General", published: false });
+                                        setForm({ title: "", type: "image", category: "General", url: "", published: false });
                                     }}
                                 >
                                     Cancel
@@ -367,59 +399,88 @@ function AuthenticatedContent() {
                                 No media found
                             </p>
                         ) : (
-                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: 16 }}>
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
                                 {filteredMedia.map((item) => (
                                     <div
                                         key={item.id}
                                         style={{
                                             border: "1px solid var(--border-color)",
                                             borderRadius: 8,
-                                            padding: 12,
+                                            overflow: "hidden",
                                             backgroundColor: "var(--bg-color)",
                                         }}
                                     >
-                                        <div style={{ marginBottom: 8 }}>
-                                            <span
-                                                style={{
-                                                    background: "#e0e7ff",
-                                                    padding: "2px 8px",
-                                                    borderRadius: 4,
-                                                    fontSize: "0.75rem",
-                                                    marginRight: 8,
-                                                }}
-                                            >
-                                                {item.type}
-                                            </span>
-                                            <span
-                                                style={{
-                                                    background: item.published ? "#d1fae5" : "#f3f4f6",
-                                                    padding: "2px 8px",
-                                                    borderRadius: 4,
-                                                    fontSize: "0.75rem",
-                                                }}
-                                            >
-                                                {item.published ? "Published" : "Draft"}
-                                            </span>
+                                        {/* Thumbnail */}
+                                        <div style={{
+                                            height: "150px",
+                                            backgroundColor: "#f3f4f6",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            overflow: "hidden"
+                                        }}>
+                                            {item.type === "image" && item.url.startsWith("http") ? (
+                                                <img 
+                                                    src={item.url} 
+                                                    alt={item.title}
+                                                    style={{ 
+                                                        width: "100%", 
+                                                        height: "100%", 
+                                                        objectFit: "cover" 
+                                                    }}
+                                                    onError={(e) => {
+                                                        (e.target as HTMLImageElement).outerHTML = `<span style="font-size: 50px">${getTypeIcon(item.type)}</span>`;
+                                                    }}
+                                                />
+                                            ) : (
+                                                <span style={{ fontSize: "50px" }}>{getTypeIcon(item.type)}</span>
+                                            )}
                                         </div>
-                                        <h3 style={{ fontSize: "1rem", marginBottom: 4, color: "var(--text-color)" }}>{item.title}</h3>
-                                        <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: 8 }}>
-                                            {item.category} • {new Date(item.createdAt).toLocaleDateString()}
-                                        </p>
-                                        <div style={{ display: "flex", gap: 8 }}>
-                                            <button
-                                                className="admin-secondary-btn"
-                                                style={{ fontSize: "0.85rem", padding: "4px 12px" }}
-                                                onClick={() => handleEdit(item)}
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                className="admin-secondary-btn"
-                                                style={{ fontSize: "0.85rem", padding: "4px 12px", background: "#dc2626", color: "white" }}
-                                                onClick={() => handleDelete(item.id)}
-                                            >
-                                                Delete
-                                            </button>
+
+                                        <div style={{ padding: 12 }}>
+                                            <div style={{ marginBottom: 8 }}>
+                                                <span
+                                                    style={{
+                                                        background: "#e0e7ff",
+                                                        padding: "2px 8px",
+                                                        borderRadius: 4,
+                                                        fontSize: "0.75rem",
+                                                        marginRight: 8,
+                                                    }}
+                                                >
+                                                    {item.type}
+                                                </span>
+                                                <span
+                                                    style={{
+                                                        background: item.published ? "#d1fae5" : "#f3f4f6",
+                                                        padding: "2px 8px",
+                                                        borderRadius: 4,
+                                                        fontSize: "0.75rem",
+                                                    }}
+                                                >
+                                                    {item.published ? "Published" : "Draft"}
+                                                </span>
+                                            </div>
+                                            <h3 style={{ fontSize: "1rem", marginBottom: 4, color: "var(--text-color)" }}>{item.title}</h3>
+                                            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: 8 }}>
+                                                {item.category} • {new Date(item.createdAt).toLocaleDateString()}
+                                            </p>
+                                            <div style={{ display: "flex", gap: 8 }}>
+                                                <button
+                                                    className="admin-secondary-btn"
+                                                    style={{ fontSize: "0.85rem", padding: "4px 12px" }}
+                                                    onClick={() => handleEdit(item)}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    className="admin-secondary-btn"
+                                                    style={{ fontSize: "0.85rem", padding: "4px 12px", background: "#dc2626", color: "white" }}
+                                                    onClick={() => handleDelete(item.id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}

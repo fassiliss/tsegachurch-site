@@ -19,16 +19,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'PUT') {
     try {
-      const { title, type, category, url, published } = req.body;
+      const { title, description, eventDate, eventTime, location, icon, category, isFeatured, status } = req.body;
 
       const { data, error } = await supabase
-        .from('media')
+        .from('events')
         .update({
           title,
-          type,
+          description,
+          event_date: eventDate,
+          event_time: eventTime,
+          location,
+          icon,
           category,
-          url,
-          published,
+          is_featured: isFeatured,
+          status,
           updated_at: new Date().toISOString(),
         })
         .eq('id', id)
@@ -37,19 +41,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (error) throw error;
 
-      const mediaItem = {
+      const event = {
         id: data.id,
         title: data.title,
-        type: data.type,
+        description: data.description,
+        eventDate: data.event_date,
+        eventTime: data.event_time,
+        location: data.location,
+        icon: data.icon,
         category: data.category,
-        url: data.url,
-        published: data.published,
+        isFeatured: data.is_featured,
+        status: data.status,
         createdAt: data.created_at,
       };
 
-      return res.status(200).json({ media: mediaItem });
+      return res.status(200).json({ event });
     } catch (error: any) {
-      console.error('Update media error:', error);
+      console.error('Update event error:', error);
       return res.status(500).json({ error: error.message || 'Internal server error' });
     }
   }
@@ -57,7 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'DELETE') {
     try {
       const { error } = await supabase
-        .from('media')
+        .from('events')
         .delete()
         .eq('id', id);
 
@@ -65,7 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       return res.status(204).end();
     } catch (error: any) {
-      console.error('Delete media error:', error);
+      console.error('Delete event error:', error);
       return res.status(500).json({ error: error.message || 'Internal server error' });
     }
   }

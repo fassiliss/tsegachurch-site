@@ -6,9 +6,9 @@ import ThemeToggle from "src/components/ThemeToggle";
 export default function Header() {
     const [navOpen, setNavOpen] = useState(false);
     const [ministriesOpen, setMinistriesOpen] = useState(false);
+    const [eventsOpen, setEventsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
-    // 🔹 Detect scroll to switch header style
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
@@ -20,6 +20,7 @@ export default function Header() {
     const closeMenu = () => {
         setNavOpen(false);
         setMinistriesOpen(false);
+        setEventsOpen(false);
     };
 
     return (
@@ -32,22 +33,19 @@ export default function Header() {
                 <div className="header-upper">
                     <div className="header-container-box">
                         <div className="inner-container d-flex align-items-center justify-content-between">
-
-                            {/* LEFT: Logo + Desktop Nav */}
                             <div className="left-column d-flex align-items-center">
                                 <div className="logo me-3">
                                     <Link href="/">
                                         <a onClick={closeMenu}>
                                             <img
                                                 src="/assets/images/grace-logo-new.png"
-                                                alt="Tsega Church"
+                                                alt="GEECN"
                                                 style={{ maxHeight: "60px" }}
                                             />
                                         </a>
                                     </Link>
                                 </div>
 
-                                {/* Mobile Menu Toggle */}
                                 <button
                                     aria-label="Toggle navigation"
                                     className="mobile-nav-toggler btn btn-link p-0 d-lg-none"
@@ -62,23 +60,20 @@ export default function Header() {
                                     <i className={navOpen ? "fas fa-times" : "fas fa-bars"}></i>
                                 </button>
 
-                                {/* Desktop Navigation */}
                                 <nav className="main-menu d-none d-lg-block">
                                     <ul className="navigation d-flex mb-0">
                                         <li><Link href="/"><a className="nav-link">Home</a></Link></li>
                                         <li><Link href="/about"><a className="nav-link">About</a></Link></li>
                                         <li><Link href="/leaders"><a className="nav-link">Leaders</a></Link></li>
                                         <li><Link href="/members/register"><a className="nav-link">Members</a></Link></li>
-
-                                        {/* Ministries Dropdown */}
                                         <li className="dropdown">
                                             <a className="nav-link">
                                                 Ministries <i className="fa fa-angle-down ms-1"></i>
                                             </a>
                                             <ul className="submenu">
-                                                <li><Link href="/ministries/young-adults"><a>Young Adult’s Ministry</a></Link></li>
-                                                <li><Link href="/ministries/women"><a>Women’s Ministry</a></Link></li>
-                                                <li><Link href="/ministries/men"><a>Men’s Ministry</a></Link></li>
+                                                <li><Link href="/ministries/young-adults"><a>Young Adults Ministry</a></Link></li>
+                                                <li><Link href="/ministries/women"><a>Womens Ministry</a></Link></li>
+                                                <li><Link href="/ministries/men"><a>Mens Ministry</a></Link></li>
                                                 <li><Link href="/ministries/bible-study"><a>Bible Study</a></Link></li>
                                                 <li><Link href="/ministries/family"><a>Family Ministry</a></Link></li>
                                                 <li><Link href="/ministries/worship-arts"><a>Worship Arts Ministry</a></Link></li>
@@ -88,16 +83,23 @@ export default function Header() {
                                                 <li><Link href="/ministries/audio-visual"><a>Audio-Visual Ministry</a></Link></li>
                                             </ul>
                                         </li>
-
+                                        <li className="dropdown">
+                                            <a className="nav-link">
+                                                Events <i className="fa fa-angle-down ms-1"></i>
+                                            </a>
+                                            <ul className="submenu">
+                                                <li><Link href="/events"><a>Upcoming Events</a></Link></li>
+                                                <li><Link href="/media"><a>Media Gallery</a></Link></li>
+                                                <li><Link href="/announcements"><a>Announcements</a></Link></li>
+                                            </ul>
+                                        </li>
                                         <li><Link href="/contact"><a className="nav-link">Contact</a></Link></li>
                                     </ul>
                                 </nav>
                             </div>
 
-                            {/* RIGHT: Theme toggle + Admin */}
                             <div className="right-column d-none d-lg-flex align-items-center gap-3">
                                 <ThemeToggle />
-
                                 <Link href="/admin">
                                     <a
                                         className="btn btn-sm"
@@ -115,12 +117,10 @@ export default function Header() {
                                     </a>
                                 </Link>
                             </div>
-
                         </div>
                     </div>
                 </div>
 
-                {/* MOBILE MENU */}
                 {navOpen && (
                     <div
                         className="mobile-menu-overlay d-lg-none"
@@ -138,8 +138,6 @@ export default function Header() {
                         }}
                     >
                         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-
-                            {/* MOBILE: Home */}
                             <li style={{ marginBottom: "10px" }}>
                                 <Link href="/">
                                     <a onClick={closeMenu} className="mobile-link">
@@ -147,8 +145,6 @@ export default function Header() {
                                     </a>
                                 </Link>
                             </li>
-
-                            {/* MOBILE: About */}
                             <li style={{ marginBottom: "10px" }}>
                                 <Link href="/about">
                                     <a onClick={closeMenu} className="mobile-link">
@@ -156,8 +152,6 @@ export default function Header() {
                                     </a>
                                 </Link>
                             </li>
-
-                            {/* MOBILE: Leaders */}
                             <li style={{ marginBottom: "10px" }}>
                                 <Link href="/leaders">
                                     <a onClick={closeMenu} className="mobile-link">
@@ -165,8 +159,6 @@ export default function Header() {
                                     </a>
                                 </Link>
                             </li>
-
-                            {/* MOBILE: Members */}
                             <li style={{ marginBottom: "10px" }}>
                                 <Link href="/members/register">
                                     <a onClick={closeMenu} className="mobile-link">
@@ -174,52 +166,105 @@ export default function Header() {
                                     </a>
                                 </Link>
                             </li>
-
-                            {/* MOBILE Ministries Dropdown */}
                             <li style={{ marginBottom: "10px" }}>
                                 <button
                                     onClick={() => setMinistriesOpen(!ministriesOpen)}
                                     className="mobile-link"
-                                    style={{
-                                        width: "100%",
-                                        textAlign: "left",
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                    }}
+                                    style={{ width: "100%", textAlign: "left", display: "flex", justifyContent: "space-between" }}
                                 >
                                     <span><i className="fas fa-church me-3"></i> Ministries</span>
-                                    <i className={`fas fa-chevron-${ministriesOpen ? "up" : "down"}`}></i>
+                                    <i className={ministriesOpen ? "fas fa-chevron-up" : "fas fa-chevron-down"}></i>
                                 </button>
-
                                 {ministriesOpen && (
                                     <ul style={{ listStyle: "none", marginTop: "10px" }}>
-                                        {[
-                                            { name: "Young Adults", href: "/ministries/young-adults" },
-                                            { name: "Women", href: "/ministries/women" },
-                                            { name: "Men", href: "/ministries/men" },
-                                            { name: "Bible Study", href: "/ministries/bible-study" },
-                                            { name: "Family", href: "/ministries/family" },
-                                            { name: "Worship Arts", href: "/ministries/worship-arts" },
-                                            { name: "Kids Ministry", href: "/ministries/kids" },
-                                            { name: "Prayer", href: "/ministries/prayer" },
-                                            { name: "Evangelism", href: "/ministries/evangelism" },
-                                            { name: "Audio Visual", href: "/ministries/audio-visual" }
-                                        ].map((item) => (
-                                            <li key={item.href} style={{ paddingLeft: "20px" }}>
-                                                <Link href={item.href}>
-                                                    <a onClick={closeMenu} className="mobile-link">
-                                                        {item.name}
-                                                    </a>
-                                                </Link>
-                                            </li>
-                                        ))}
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/young-adults">
+                                                <a onClick={closeMenu} className="mobile-link">Young Adults</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/women">
+                                                <a onClick={closeMenu} className="mobile-link">Women</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/men">
+                                                <a onClick={closeMenu} className="mobile-link">Men</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/bible-study">
+                                                <a onClick={closeMenu} className="mobile-link">Bible Study</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/family">
+                                                <a onClick={closeMenu} className="mobile-link">Family</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/worship-arts">
+                                                <a onClick={closeMenu} className="mobile-link">Worship Arts</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/kids">
+                                                <a onClick={closeMenu} className="mobile-link">Kids Ministry</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/prayer">
+                                                <a onClick={closeMenu} className="mobile-link">Prayer</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/evangelism">
+                                                <a onClick={closeMenu} className="mobile-link">Evangelism</a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/ministries/audio-visual">
+                                                <a onClick={closeMenu} className="mobile-link">Audio Visual</a>
+                                            </Link>
+                                        </li>
                                     </ul>
                                 )}
                             </li>
-                            <li><Link href="/media"><a className="nav-link">Media</a></Link></li>
-
-
-                            {/* MOBILE: Contact */}
+                            <li style={{ marginBottom: "10px" }}>
+                                <button
+                                    onClick={() => setEventsOpen(!eventsOpen)}
+                                    className="mobile-link"
+                                    style={{ width: "100%", textAlign: "left", display: "flex", justifyContent: "space-between" }}
+                                >
+                                    <span><i className="fas fa-calendar-alt me-3"></i> Events</span>
+                                    <i className={eventsOpen ? "fas fa-chevron-up" : "fas fa-chevron-down"}></i>
+                                </button>
+                                {eventsOpen && (
+                                    <ul style={{ listStyle: "none", marginTop: "10px" }}>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/events">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    <i className="fas fa-calendar-check me-2"></i> Upcoming Events
+                                                </a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/media">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    <i className="fas fa-photo-video me-2"></i> Media Gallery
+                                                </a>
+                                            </Link>
+                                        </li>
+                                        <li style={{ paddingLeft: "20px" }}>
+                                            <Link href="/announcements">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    <i className="fas fa-bullhorn me-2"></i> Announcements
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
+                            </li>
                             <li style={{ marginBottom: "10px" }}>
                                 <Link href="/contact">
                                     <a onClick={closeMenu} className="mobile-link">
@@ -227,8 +272,6 @@ export default function Header() {
                                     </a>
                                 </Link>
                             </li>
-
-                            {/* MOBILE: Admin */}
                             <li style={{ marginTop: "20px" }}>
                                 <Link href="/admin">
                                     <a
@@ -243,23 +286,17 @@ export default function Header() {
                                             alignItems: "center"
                                         }}
                                     >
-                                        <i className="fas fa-user-shield me-3"></i>
-                                        Admin
+                                        <i className="fas fa-user-shield me-3"></i> Admin
                                     </a>
                                 </Link>
                             </li>
-
-                            {/* MOBILE: Theme toggle */}
                             <li style={{ marginTop: "30px", textAlign: "center" }}>
                                 <ThemeToggle />
                             </li>
-
                         </ul>
                     </div>
                 )}
             </header>
-
-            {/* Spacer so content doesn’t hide behind header */}
             <div style={{ height: "80px" }}></div>
         </>
     );

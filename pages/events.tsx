@@ -1,149 +1,228 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
 import PageBanner from "@/src/components/PageBanner";
 
-export default function Events() {
-    const allEvents = [
-        {
-            date: "Dec 28",
-            year: "2025",
-            icon: "📅",
-            title: "Couples Dinner Felowship Hall",
-            description: "Join us for couples dinner at Fellowship Hall",
-            time: "6:00 PM - 9:00 PM",
-            location: "Fellowship Hall"
-        },
-        {
-            date: "To be announced",
-            year: "2026",
-            icon: "💑",
-            title: "New Year Celebration",
-            description: "Worship the Lord with us on New Year's Day",
-            time: "New year's Eve",
-            location: "GEECN"
-        },
-        {
-            date: "To be announced",
-            year: "2026",
-            icon: "👶",
-            title: "Upcoming Events will update soon",
-            description: "all Upcoming events will be updated soon",
-            time: "Soon",
-            location: "GEECN"
-        },
-        {
-            date: "To be announced",
-            year: "2026",
-            icon: "🎉",
-            title: "Spring Family Picnic",
-            description: "Food, games, fellowship, and fun for the whole family at our annual spring gathering.",
-            time: "To be announced",
-            location: "To be announced"
-        },
-        {
-            date: "To be announced",
-            year: "2026",
-            icon: "📖",
-            title: "Vacation Bible School",
-            description: "Summer program for kids with Bible stories, crafts, games, and activities.",
-            time: "To be announced",
-            location: "Church Campus"
-        },
-        {
-            date: "To be announced",
-            year: "2026",
-            icon: "🎒",
-            title: "Back to School Blessing",
-            description: "Praying over students, teachers, and families for the new school year.",
-            time: "After Sunday Service",
-            location: "Main Sanctuary"
+type Event = {
+    id: string;
+    title: string;
+    description: string;
+    eventDate: string;
+    eventTime: string;
+    location: string;
+    icon: string;
+    category: string;
+    isFeatured: boolean;
+};
+
+export default function EventsPage() {
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState("");
+
+    useEffect(() => {
+        loadEvents();
+    }, []);
+
+    async function loadEvents() {
+        try {
+            const res = await fetch("/api/public/events");
+            if (!res.ok) throw new Error("Failed to load events");
+            const data = await res.json();
+            setEvents(data.events || []);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
         }
-    ];
+    }
+
+    const categories = [...new Set(events.map((e) => e.category))];
+    const filteredEvents = filter ? events.filter((e) => e.category === filter) : events;
+
+    const formatDate = (dateStr: string) => {
+        if (!dateStr) return "TBA";
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    };
 
     return (
         <>
             <Head>
-                <title>Events — Tsega Church</title>
+                <title>Events | GEECN</title>
+                <meta name="description" content="Upcoming events at Grace Ethiopian Evangelical Church of Nashville" />
             </Head>
+
             <Header />
 
-            <PageBanner
-                pageName="Events"
-                pageTitle="Events"
+            <PageBanner pageName="Events" pageTitle="Upcoming Events" />
 
-            />
-
-
-
-
-            {/* All Events Section */}
-            <section style={{ padding: "80px 0" }}>
+            <main style={{ padding: "60px 0", backgroundColor: "var(--bg-secondary)" }}>
                 <div className="theme_container">
-                    <div className="row">
-                        {allEvents.map((event, index) => (
-                            <div key={index} className="col-lg-4 col-md-6 mb-4">
-                                <div
-                                    className="event-card"
+                    
+                    {/* Filter Buttons */}
+                    {categories.length > 1 && (
+                        <div style={{ marginBottom: "30px", textAlign: "center" }}>
+                            <button
+                                onClick={() => setFilter("")}
+                                style={{
+                                    padding: "8px 20px",
+                                    margin: "5px",
+                                    border: "none",
+                                    borderRadius: "20px",
+                                    backgroundColor: filter === "" ? "#6432c8" : "var(--bg-color)",
+                                    color: filter === "" ? "white" : "var(--text-color)",
+                                    cursor: "pointer",
+                                    fontWeight: "500",
+                                    transition: "all 0.3s"
+                                }}
+                            >
+                                All Events
+                            </button>
+                            {categories.map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setFilter(cat)}
                                     style={{
-                                        background: "white",
-                                        borderRadius: "12px",
-                                        overflow: "hidden",
-                                        boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
-                                        transition: "transform 0.3s",
-                                        height: "100%"
+                                        padding: "8px 20px",
+                                        margin: "5px",
+                                        border: "none",
+                                        borderRadius: "20px",
+                                        backgroundColor: filter === cat ? "#6432c8" : "var(--bg-color)",
+                                        color: filter === cat ? "white" : "var(--text-color)",
+                                        cursor: "pointer",
+                                        fontWeight: "500",
+                                        transition: "all 0.3s"
                                     }}
                                 >
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Events Grid */}
+                    {loading ? (
+                        <div style={{ textAlign: "center", padding: "60px 0" }}>
+                            <p style={{ color: "var(--text-color)", fontSize: "18px" }}>Loading events...</p>
+                        </div>
+                    ) : filteredEvents.length === 0 ? (
+                        <div style={{ textAlign: "center", padding: "60px 0" }}>
+                            <p style={{ color: "var(--text-muted)", fontSize: "18px" }}>No upcoming events at this time. Check back soon!</p>
+                        </div>
+                    ) : (
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))", gap: "25px" }}>
+                            {filteredEvents.map((event) => (
+                                <div
+                                    key={event.id}
+                                    style={{
+                                        backgroundColor: "var(--bg-color)",
+                                        borderRadius: "16px",
+                                        overflow: "hidden",
+                                        boxShadow: event.isFeatured 
+                                            ? "0 8px 30px rgba(100, 50, 200, 0.2)" 
+                                            : "0 4px 15px rgba(0,0,0,0.08)",
+                                        border: event.isFeatured 
+                                            ? "2px solid #6432c8" 
+                                            : "1px solid var(--border-color)",
+                                        transition: "transform 0.3s, box-shadow 0.3s",
+                                        position: "relative"
+                                    }}
+                                >
+                                    {/* Featured Badge */}
+                                    {event.isFeatured && (
+                                        <div style={{
+                                            position: "absolute",
+                                            top: "15px",
+                                            right: "15px",
+                                            backgroundColor: "#6432c8",
+                                            color: "white",
+                                            padding: "4px 12px",
+                                            borderRadius: "20px",
+                                            fontSize: "12px",
+                                            fontWeight: "600"
+                                        }}>
+                                            ⭐ Featured
+                                        </div>
+                                    )}
+
+                                    {/* Icon Header */}
                                     <div style={{
-                                        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                                        background: "linear-gradient(135deg, #6432c8 0%, #8b5cf6 100%)",
                                         padding: "30px",
-                                        color: "white",
                                         textAlign: "center"
                                     }}>
-                                        <div style={{ fontSize: "3rem", marginBottom: "10px" }}>
-                                            {event.icon}
-                                        </div>
-                                        <h3 style={{
-                                            fontSize: "1.5rem",
-                                            marginBottom: "10px",
-                                            color: "white",
-                                            fontWeight: "600"
-                                        }}>
-                                            {event.date}
-                                        </h3>
-                                        <p style={{ fontSize: "0.9rem", opacity: 0.9 }}>
-                                            {event.year}
-                                        </p>
+                                        <span style={{ fontSize: "4rem" }}>{event.icon}</span>
                                     </div>
-                                    <div style={{ padding: "30px" }}>
-                                        <h4 style={{
-                                            fontSize: "1.3rem",
-                                            marginBottom: "15px",
-                                            fontWeight: "600"
+
+                                    {/* Event Details */}
+                                    <div style={{ padding: "25px" }}>
+                                        <span style={{
+                                            backgroundColor: "#e0e7ff",
+                                            color: "#4338ca",
+                                            padding: "4px 12px",
+                                            borderRadius: "12px",
+                                            fontSize: "12px",
+                                            fontWeight: "500"
+                                        }}>
+                                            {event.category}
+                                        </span>
+
+                                        <h3 style={{
+                                            fontSize: "1.4rem",
+                                            fontWeight: "700",
+                                            color: "var(--text-color)",
+                                            margin: "15px 0 10px",
+                                            lineHeight: "1.3"
                                         }}>
                                             {event.title}
-                                        </h4>
-                                        <p style={{
-                                            fontSize: "0.95rem",
-                                            color: "#666",
-                                            marginBottom: "15px",
-                                            lineHeight: "1.6"
-                                        }}>
-                                            {event.description}
-                                        </p>
-                                        <div style={{ fontSize: "0.9rem", color: "#667eea" }}>
-                                            <p style={{ marginBottom: "5px" }}>
-                                                ⏰ {event.time}
+                                        </h3>
+
+                                        {event.description && (
+                                            <p style={{
+                                                color: "var(--text-muted)",
+                                                fontSize: "15px",
+                                                lineHeight: "1.6",
+                                                marginBottom: "20px"
+                                            }}>
+                                                {event.description}
                                             </p>
-                                            <p>📍 {event.location}</p>
+                                        )}
+
+                                        <div style={{
+                                            borderTop: "1px solid var(--border-color)",
+                                            paddingTop: "15px",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: "8px"
+                                        }}>
+                                            <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "var(--text-color)" }}>
+                                                <span style={{ fontSize: "1.2rem" }}>📅</span>
+                                                <span style={{ fontWeight: "600" }}>{formatDate(event.eventDate)}</span>
+                                            </div>
+                                            
+                                            {event.eventTime && (
+                                                <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "var(--text-muted)" }}>
+                                                    <span style={{ fontSize: "1.2rem" }}>⏰</span>
+                                                    <span>{event.eventTime}</span>
+                                                </div>
+                                            )}
+                                            
+                                            {event.location && (
+                                                <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "var(--text-muted)" }}>
+                                                    <span style={{ fontSize: "1.2rem" }}>📍</span>
+                                                    <span>{event.location}</span>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
-            </section>
+            </main>
 
             <Footer />
         </>
