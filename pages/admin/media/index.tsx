@@ -1,28 +1,19 @@
 import Head from "next/head";
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
 import PageBanner from "@/src/components/PageBanner";
 
-type MediaType = "image" | "audio" | "video" | "document";
-type MediaCategory =
-    | "Sermon"
-    | "Event"
-    | "Kids"
-    | "Youth"
-    | "Worship"
-    | "General";
-
-type MediaItem = {
+type Media = {
     id: string;
     title: string;
-    type: MediaType;
-    category: MediaCategory;
+    type: string;
+    category: string;
     url: string;
-    createdAt: string;
     published: boolean;
+    createdAt: string;
 };
 
 export default function AdminMediaPage() {
@@ -37,12 +28,7 @@ export default function AdminMediaPage() {
 
     if (status === "loading" || status === "unauthenticated") {
         return (
-            <div style={{
-                minHeight: "100vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-            }}>
+            <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <p>Loading...</p>
             </div>
         );
@@ -52,25 +38,18 @@ export default function AdminMediaPage() {
 }
 
 function AuthenticatedContent() {
-    const [media, setMedia] = useState<MediaItem[]>([]);
+    const [media, setMedia] = useState<Media[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [search, setSearch] = useState("");
-    const [typeFilter, setTypeFilter] = useState<"" | MediaType>("");
-    const [categoryFilter, setCategoryFilter] = useState<"" | MediaCategory>("");
-    const [editing, setEditing] = useState<MediaItem | null>(null);
-    const [form, setForm] = useState<{
-        title: string;
-        type: MediaType;
-        category: MediaCategory;
-        url: string;
-        published: boolean;
-    }>({
+    const [editing, setEditing] = useState<Media | null>(null);
+    const [typeFilter, setTypeFilter] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState("");
+    const [form, setForm] = useState({
         title: "",
         type: "image",
         category: "General",
         url: "",
-        published: false,
+        published: true,
     });
 
     useEffect(() => {
@@ -95,11 +74,6 @@ function AuthenticatedContent() {
         e.preventDefault();
         setError("");
 
-        if (!form.url) {
-            setError("Please enter a URL for the media");
-            return;
-        }
-
         try {
             if (editing) {
                 const res = await fetch(`/api/media/${editing.id}`, {
@@ -107,7 +81,6 @@ function AuthenticatedContent() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(form),
                 });
-
                 if (!res.ok) throw new Error("Failed to update media");
                 setEditing(null);
             } else {
@@ -116,38 +89,32 @@ function AuthenticatedContent() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(form),
                 });
-
                 if (!res.ok) throw new Error("Failed to create media");
             }
 
-            setForm({ title: "", type: "image", category: "General", url: "", published: false });
+            setForm({ title: "", type: "image", category: "General", url: "", published: true });
             loadMedia();
         } catch (err: any) {
             setError(err.message);
         }
     }
 
-    function handleEdit(item: MediaItem) {
+    function handleEdit(item: Media) {
         setEditing(item);
         setForm({
             title: item.title,
             type: item.type,
             category: item.category,
-            url: item.url,
+            url: item.url || "",
             published: item.published,
         });
     }
 
     async function handleDelete(id: string) {
-        if (!confirm("Are you sure you want to delete this media?")) {
-            return;
-        }
+        if (!confirm("Are you sure you want to delete this media?")) return;
 
         try {
-            const res = await fetch(`/api/media/${id}`, {
-                method: "DELETE",
-            });
-
+            const res = await fetch(`/api/media/${id}`, { method: "DELETE" });
             if (!res.ok) throw new Error("Failed to delete media");
             loadMedia();
         } catch (err: any) {
@@ -155,14 +122,44 @@ function AuthenticatedContent() {
         }
     }
 
-    const filteredMedia = useMemo(() => {
-        return media.filter((item) => {
-            const matchesSearch = item.title.toLowerCase().includes(search.toLowerCase());
-            const matchesType = typeFilter ? item.type === typeFilter : true;
-            const matchesCategory = categoryFilter ? item.category === categoryFilter : true;
-            return matchesSearch && matchesType && matchesCategory;
-        });
-    }, [media, search, typeFilter, categoryFilter]);
+    const getTypeIcon = (type: string) => {
+        switch (type) {
+            case "image": return "🖼️";
+            case "video": return "🎬";
+            case "audio": return "🎵";
+            case "document": return "📄";
+            default: return "📁";
+        }
+    };
+
+    const getTypeColor = (type: string) => {
+        switch (type) {
+            case "image": return "#10b981";
+            case "video": return "#f43f5e";
+            case "audio": return "#8b5cf6";
+            case "document": return "#f59e0b";
+            default: return "#6b7280";
+        }
+    };
+
+    const isYouTube = (url: string) => {
+        return url && (url.includes("youtube.com") || url.includes("youtu.be"));
+    };
+
+    const getYouTubeThumbnail = (url: string) => {
+        const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/);
+        return match ? `https://img.youtube.com/vi/${match[1]}/mqdefault.jpg` : null;
+    };
+
+    const isValidImageUrl = (url: string) => {
+        return url && (url.startsWith("http://") || url.startsWith("https://"));
+    };
+
+    const filteredMedia = media.filter((item) => {
+        const matchesType = typeFilter ? item.type === typeFilter : true;
+        const matchesCategory = categoryFilter ? item.category === categoryFilter : true;
+        return matchesType && matchesCategory;
+    });
 
     const inputStyle = {
         width: "100%",
@@ -181,46 +178,24 @@ function AuthenticatedContent() {
         color: "var(--text-color)"
     };
 
-    const getTypeIcon = (type: string) => {
-        switch (type) {
-            case 'image': return '🖼️';
-            case 'video': return '🎬';
-            case 'audio': return '🎵';
-            case 'document': return '📄';
-            default: return '📁';
-        }
-    };
-
     return (
         <>
             <Head>
                 <title>Media Manager — Admin</title>
             </Head>
             <Header />
-            <PageBanner pageName="Media" pageTitle="Manage Media Library" />
+            <PageBanner pageName="Media" pageTitle="Manage Media" />
 
             <main style={{ padding: "40px 0 60px", backgroundColor: "var(--bg-secondary)" }}>
                 <div className="theme_container">
                     {error && (
-                        <div style={{
-                            padding: "12px 16px",
-                            backgroundColor: "#fee",
-                            color: "#c33",
-                            borderRadius: "8px",
-                            marginBottom: "20px"
-                        }}>
+                        <div style={{ padding: "12px 16px", backgroundColor: "#fee", color: "#c33", borderRadius: "8px", marginBottom: "20px" }}>
                             {error}
                         </div>
                     )}
 
-                    <div style={{
-                        backgroundColor: "var(--bg-color)",
-                        borderRadius: "12px",
-                        padding: "30px",
-                        marginBottom: "30px",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                        border: "1px solid var(--border-color)"
-                    }}>
+                    {/* Upload Form */}
+                    <div style={{ backgroundColor: "var(--bg-color)", borderRadius: "12px", padding: "30px", marginBottom: "30px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", border: "1px solid var(--border-color)" }}>
                         <h2 style={{ fontSize: "1.5rem", marginBottom: 16, color: "var(--text-color)" }}>
                             {editing ? "Edit Media" : "Add New Media"}
                         </h2>
@@ -229,23 +204,12 @@ function AuthenticatedContent() {
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label style={labelStyle}>Title *</label>
-                                    <input
-                                        type="text"
-                                        required
-                                        value={form.title}
-                                        onChange={(e) => setForm({ ...form, title: e.target.value })}
-                                        placeholder="Enter media title"
-                                        style={inputStyle}
-                                    />
+                                    <input type="text" required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} style={inputStyle} />
                                 </div>
 
                                 <div className="col-md-3 mb-3">
                                     <label style={labelStyle}>Type *</label>
-                                    <select
-                                        value={form.type}
-                                        onChange={(e) => setForm({ ...form, type: e.target.value as MediaType })}
-                                        style={inputStyle}
-                                    >
+                                    <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} style={inputStyle}>
                                         <option value="image">Image</option>
                                         <option value="audio">Audio</option>
                                         <option value="video">Video</option>
@@ -255,13 +219,7 @@ function AuthenticatedContent() {
 
                                 <div className="col-md-3 mb-3">
                                     <label style={labelStyle}>Category</label>
-                                    <select
-                                        value={form.category}
-                                        onChange={(e) =>
-                                            setForm({ ...form, category: e.target.value as MediaCategory })
-                                        }
-                                        style={inputStyle}
-                                    >
+                                    <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} style={inputStyle}>
                                         <option>General</option>
                                         <option>Sermon</option>
                                         <option>Event</option>
@@ -273,46 +231,22 @@ function AuthenticatedContent() {
 
                                 <div className="col-md-12 mb-3">
                                     <label style={labelStyle}>Media URL *</label>
-                                    <input
-                                        type="url"
-                                        required
-                                        value={form.url}
-                                        onChange={(e) => setForm({ ...form, url: e.target.value })}
-                                        placeholder="https://example.com/image.jpg or YouTube link"
+                                    <input 
+                                        type="url" 
+                                        required 
+                                        value={form.url} 
+                                        onChange={(e) => setForm({ ...form, url: e.target.value })} 
                                         style={inputStyle}
+                                        placeholder="https://example.com/image.jpg or YouTube link"
                                     />
-                                    <small style={{ color: "var(--text-muted)", fontSize: "13px" }}>
+                                    <small style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>
                                         Paste image URL, YouTube link, Google Drive link, or any media URL
                                     </small>
                                 </div>
 
-                                {/* Preview */}
-                                {form.url && form.type === "image" && (
-                                    <div className="col-md-12 mb-3">
-                                        <label style={labelStyle}>Preview</label>
-                                        <img 
-                                            src={form.url} 
-                                            alt="Preview" 
-                                            style={{ 
-                                                maxWidth: "300px", 
-                                                maxHeight: "200px", 
-                                                borderRadius: "8px",
-                                                border: "1px solid var(--border-color)"
-                                            }}
-                                            onError={(e) => {
-                                                (e.target as HTMLImageElement).style.display = 'none';
-                                            }}
-                                        />
-                                    </div>
-                                )}
-
                                 <div className="col-md-12 mb-3">
                                     <label style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--text-color)" }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={form.published}
-                                            onChange={(e) => setForm({ ...form, published: e.target.checked })}
-                                        />
+                                        <input type="checkbox" checked={form.published} onChange={(e) => setForm({ ...form, published: e.target.checked })} />
                                         <span>Publish immediately</span>
                                     </label>
                                 </div>
@@ -322,167 +256,60 @@ function AuthenticatedContent() {
                                 {editing ? "Update Media" : "Add Media"}
                             </button>
                             {editing && (
-                                <button
-                                    type="button"
-                                    className="admin-secondary-btn"
-                                    style={{ marginLeft: 12 }}
-                                    onClick={() => {
-                                        setEditing(null);
-                                        setForm({ title: "", type: "image", category: "General", url: "", published: false });
-                                    }}
-                                >
+                                <button type="button" className="admin-secondary-btn" style={{ marginLeft: 12 }} onClick={() => {
+                                    setEditing(null);
+                                    setForm({ title: "", type: "image", category: "General", url: "", published: true });
+                                }}>
                                     Cancel
                                 </button>
                             )}
                         </form>
                     </div>
 
-                    <div style={{
-                        backgroundColor: "var(--bg-color)",
-                        borderRadius: "12px",
-                        padding: "30px",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                        border: "1px solid var(--border-color)"
-                    }}>
-                        <div style={{ marginBottom: 20 }}>
-                            <h2 style={{ fontSize: "1.5rem", marginBottom: 16, color: "var(--text-color)" }}>
+                    {/* Media Library */}
+                    <div style={{ backgroundColor: "var(--bg-color)", borderRadius: "12px", padding: "30px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", border: "1px solid var(--border-color)" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "15px", marginBottom: "20px" }}>
+                            <h2 style={{ fontSize: "1.5rem", margin: 0, color: "var(--text-color)" }}>
                                 Media Library ({filteredMedia.length})
                             </h2>
-
-                            <div className="row">
-                                <div className="col-md-4 mb-3">
-                                    <input
-                                        type="text"
-                                        placeholder="Search media..."
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
-                                        style={inputStyle}
-                                    />
-                                </div>
-                                <div className="col-md-4 mb-3">
-                                    <select
-                                        value={typeFilter}
-                                        onChange={(e) => setTypeFilter(e.target.value as "" | MediaType)}
-                                        style={inputStyle}
-                                    >
-                                        <option value="">All Types</option>
-                                        <option value="image">Images</option>
-                                        <option value="audio">Audio</option>
-                                        <option value="video">Videos</option>
-                                        <option value="document">Documents</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-4 mb-3">
-                                    <select
-                                        value={categoryFilter}
-                                        onChange={(e) => setCategoryFilter(e.target.value as "" | MediaCategory)}
-                                        style={inputStyle}
-                                    >
-                                        <option value="">All Categories</option>
-                                        <option>General</option>
-                                        <option>Sermon</option>
-                                        <option>Event</option>
-                                        <option>Kids</option>
-                                        <option>Youth</option>
-                                        <option>Worship</option>
-                                    </select>
-                                </div>
+                            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                                <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} style={{ ...inputStyle, width: "auto", minWidth: "120px" }}>
+                                    <option value="">All Types</option>
+                                    <option value="image">Images</option>
+                                    <option value="audio">Audio</option>
+                                    <option value="video">Videos</option>
+                                    <option value="document">Documents</option>
+                                </select>
+                                <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} style={{ ...inputStyle, width: "auto", minWidth: "120px" }}>
+                                    <option value="">All Categories</option>
+                                    <option>General</option>
+                                    <option>Sermon</option>
+                                    <option>Event</option>
+                                    <option>Kids</option>
+                                    <option>Youth</option>
+                                    <option>Worship</option>
+                                </select>
                             </div>
                         </div>
 
                         {loading ? (
-                            <p style={{ color: "var(--text-color)", textAlign: "center", padding: "40px 0" }}>
-                                Loading media...
-                            </p>
+                            <p style={{ color: "var(--text-color)", textAlign: "center", padding: "40px 0" }}>Loading media...</p>
                         ) : filteredMedia.length === 0 ? (
-                            <p style={{ color: "var(--text-muted)", textAlign: "center", padding: "40px 0" }}>
-                                No media found
-                            </p>
+                            <p style={{ color: "var(--text-muted)", textAlign: "center", padding: "40px 0" }}>No media found. Add some above!</p>
                         ) : (
-                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: 16 }}>
                                 {filteredMedia.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        style={{
-                                            border: "1px solid var(--border-color)",
-                                            borderRadius: 8,
-                                            overflow: "hidden",
-                                            backgroundColor: "var(--bg-color)",
-                                        }}
-                                    >
-                                        {/* Thumbnail */}
-                                        <div style={{
-                                            height: "150px",
-                                            backgroundColor: "#f3f4f6",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            overflow: "hidden"
-                                        }}>
-                                            {item.type === "image" && item.url.startsWith("http") ? (
-                                                <img 
-                                                    src={item.url} 
-                                                    alt={item.title}
-                                                    style={{ 
-                                                        width: "100%", 
-                                                        height: "100%", 
-                                                        objectFit: "cover" 
-                                                    }}
-                                                    onError={(e) => {
-                                                        (e.target as HTMLImageElement).outerHTML = `<span style="font-size: 50px">${getTypeIcon(item.type)}</span>`;
-                                                    }}
-                                                />
-                                            ) : (
-                                                <span style={{ fontSize: "50px" }}>{getTypeIcon(item.type)}</span>
-                                            )}
-                                        </div>
-
-                                        <div style={{ padding: 12 }}>
-                                            <div style={{ marginBottom: 8 }}>
-                                                <span
-                                                    style={{
-                                                        background: "#e0e7ff",
-                                                        padding: "2px 8px",
-                                                        borderRadius: 4,
-                                                        fontSize: "0.75rem",
-                                                        marginRight: 8,
-                                                    }}
-                                                >
-                                                    {item.type}
-                                                </span>
-                                                <span
-                                                    style={{
-                                                        background: item.published ? "#d1fae5" : "#f3f4f6",
-                                                        padding: "2px 8px",
-                                                        borderRadius: 4,
-                                                        fontSize: "0.75rem",
-                                                    }}
-                                                >
-                                                    {item.published ? "Published" : "Draft"}
-                                                </span>
-                                            </div>
-                                            <h3 style={{ fontSize: "1rem", marginBottom: 4, color: "var(--text-color)" }}>{item.title}</h3>
-                                            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: 8 }}>
-                                                {item.category} • {new Date(item.createdAt).toLocaleDateString()}
-                                            </p>
-                                            <div style={{ display: "flex", gap: 8 }}>
-                                                <button
-                                                    className="admin-secondary-btn"
-                                                    style={{ fontSize: "0.85rem", padding: "4px 12px" }}
-                                                    onClick={() => handleEdit(item)}
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    className="admin-secondary-btn"
-                                                    style={{ fontSize: "0.85rem", padding: "4px 12px", background: "#dc2626", color: "white" }}
-                                                    onClick={() => handleDelete(item.id)}
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <MediaCard 
+                                        key={item.id} 
+                                        item={item} 
+                                        onEdit={handleEdit} 
+                                        onDelete={handleDelete}
+                                        getTypeIcon={getTypeIcon}
+                                        getTypeColor={getTypeColor}
+                                        isYouTube={isYouTube}
+                                        getYouTubeThumbnail={getYouTubeThumbnail}
+                                        isValidImageUrl={isValidImageUrl}
+                                    />
                                 ))}
                             </div>
                         )}
@@ -492,5 +319,140 @@ function AuthenticatedContent() {
 
             <Footer />
         </>
+    );
+}
+
+function MediaCard({ item, onEdit, onDelete, getTypeIcon, getTypeColor, isYouTube, getYouTubeThumbnail, isValidImageUrl }: any) {
+    const [imgError, setImgError] = useState(false);
+
+    const showImage = item.type === "image" && isValidImageUrl(item.url) && !imgError;
+    const showYouTube = item.type === "video" && isYouTube(item.url);
+    const youtubeThumbnail = showYouTube ? getYouTubeThumbnail(item.url) : null;
+
+    return (
+        <div style={{ 
+            border: "1px solid var(--border-color)", 
+            borderRadius: 12, 
+            overflow: "hidden",
+            backgroundColor: "var(--bg-color)"
+        }}>
+            {/* Thumbnail Area */}
+            <div style={{ 
+                height: "140px", 
+                backgroundColor: "#f3f4f6",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                overflow: "hidden"
+            }}>
+                {showImage ? (
+                    <img 
+                        src={item.url} 
+                        alt={item.title}
+                        onError={() => setImgError(true)}
+                        style={{ 
+                            width: "100%", 
+                            height: "100%", 
+                            objectFit: "cover" 
+                        }}
+                    />
+                ) : showYouTube && youtubeThumbnail ? (
+                    <>
+                        <img 
+                            src={youtubeThumbnail} 
+                            alt={item.title}
+                            style={{ 
+                                width: "100%", 
+                                height: "100%", 
+                                objectFit: "cover" 
+                            }}
+                        />
+                        {/* Play button overlay */}
+                        <div style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: "50px",
+                            height: "50px",
+                            backgroundColor: "rgba(255, 0, 0, 0.9)",
+                            borderRadius: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}>
+                            <span style={{ color: "white", fontSize: "20px", marginLeft: "3px" }}>▶</span>
+                        </div>
+                    </>
+                ) : (
+                    <span style={{ fontSize: "3rem" }}>{getTypeIcon(item.type)}</span>
+                )}
+
+                {/* Type Badge */}
+                <span style={{
+                    position: "absolute",
+                    top: 8,
+                    left: 8,
+                    backgroundColor: getTypeColor(item.type),
+                    color: "white",
+                    padding: "3px 10px",
+                    borderRadius: 12,
+                    fontSize: "0.7rem",
+                    fontWeight: 600,
+                    textTransform: "uppercase"
+                }}>
+                    {item.type}
+                </span>
+
+                {/* Published Badge */}
+                <span style={{
+                    position: "absolute",
+                    top: 8,
+                    right: 8,
+                    backgroundColor: item.published ? "#10b981" : "#6b7280",
+                    color: "white",
+                    padding: "3px 10px",
+                    borderRadius: 12,
+                    fontSize: "0.7rem",
+                    fontWeight: 600
+                }}>
+                    {item.published ? "Published" : "Draft"}
+                </span>
+            </div>
+
+            {/* Info Area */}
+            <div style={{ padding: 16 }}>
+                <h4 style={{ 
+                    fontSize: "1rem", 
+                    marginBottom: 6, 
+                    color: "var(--text-color)",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                }}>
+                    {item.title}
+                </h4>
+                <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: 12 }}>
+                    {item.category} • {new Date(item.createdAt).toLocaleDateString()}
+                </p>
+                <div style={{ display: "flex", gap: 8 }}>
+                    <button 
+                        className="admin-secondary-btn" 
+                        style={{ fontSize: "0.85rem", padding: "6px 14px" }}
+                        onClick={() => onEdit(item)}
+                    >
+                        Edit
+                    </button>
+                    <button 
+                        className="admin-secondary-btn" 
+                        style={{ fontSize: "0.85rem", padding: "6px 14px", background: "#dc2626", color: "white" }}
+                        onClick={() => onDelete(item.id)}
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 }
