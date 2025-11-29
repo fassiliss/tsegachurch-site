@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Nav, Tab } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect } from "react";
+import HomeEventsSection from "src/components/HomeEventsSection";
 // your layouts
 import Header from "src/layouts/header/Header";
 import Footer from "src/layouts/Footer";
@@ -371,126 +372,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-        {/* Upcoming Events Section */}
-        <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
-            <div className="theme_container">
-                <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                    <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
-                        Upcoming Events
-                    </h2>
-                    <p style={{ fontSize: "1.1rem", color: "#666" }}>
-                        Join us for these exciting church activities
-                    </p>
-                </div>
-
-                <div className="row">
-                    {[
-                        {
-                            date: "Dec 28",
-                            year: "2025",
-                            icon: "📅",
-                            title: "Couples Dinner Felowship Hall",
-                            description: "Join us for couples dinner at Fellowship Hall",
-                            time: "6:00 PM - 9:00 PM",
-                            location: "Fellowship Hall"
-                        },
-                        {
-                            date: "To be announced",
-                            year: "2026",
-                            icon: "💑",
-                            title: "New Year Celebration",
-                            description: "Worship the Lord with us on New Year's Day",
-                            time: "New year's Eve",
-                            location: "GEECN"
-                        },
-                        {
-                            date: "To be announced",
-                            year: "2026",
-                            icon: "👶",
-                            title: "Upcoming Events will update soon",
-                            description: "all Upcoming events will be updated soon",
-                            time: "Soon",
-                            location: "GEECN"
-                        }
-                    ].map((event, index) => (
-                        <div key={index} className="col-lg-4 col-md-6 mb-4">
-                            <div
-                                className="event-card"
-                                style={{
-                                    background: "white",
-                                    borderRadius: "12px",
-                                    overflow: "hidden",
-                                    boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
-                                    transition: "transform 0.3s",
-                                    height: "100%"
-                                }}
-                            >
-                                <div style={{
-                                    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                                    padding: "30px",
-                                    color: "white",
-                                    textAlign: "center"
-                                }}>
-                                    <div style={{ fontSize: "3rem", marginBottom: "10px" }}>
-                                        {event.icon}
-                                    </div>
-                                    <h3 style={{
-                                        fontSize: "1.5rem",
-                                        marginBottom: "10px",
-                                        color: "white",
-                                        fontWeight: "600"
-                                    }}>
-                                        {event.date}
-                                    </h3>
-                                    <p style={{ fontSize: "0.9rem", opacity: 0.9 }}>
-                                        {event.year}
-                                    </p>
-                                </div>
-                                <div style={{ padding: "30px" }}>
-                                    <h4 style={{
-                                        fontSize: "1.3rem",
-                                        marginBottom: "15px",
-                                        fontWeight: "600"
-                                    }}>
-                                        {event.title}
-                                    </h4>
-                                    <p style={{
-                                        fontSize: "0.95rem",
-                                        color: "#666",
-                                        marginBottom: "15px",
-                                        lineHeight: "1.6"
-                                    }}>
-                                        {event.description}
-                                    </p>
-                                    <div style={{ fontSize: "0.9rem", color: "#667eea" }}>
-                                        <p style={{ marginBottom: "5px" }}>
-                                            ⏰ {event.time}
-                                        </p>
-                                        <p>📍 {event.location}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <div style={{ textAlign: "center", marginTop: "40px" }}>
-                    <Link
-                        href="/events"
-                        className="primary_btn-two"
-                        style={{
-                            padding: "14px 40px",
-                            fontSize: "1.1rem",
-                            display: "inline-block",
-                            textDecoration: "none"
-                        }}
-                    >
-                        View All Events
-                    </Link>
-                </div>
-            </div>
-        </section>
+        {/* Upcoming Events Section - Dynamic from Database */}
+        <HomeEventsSection />
 
       {/* GALLERY */}
       <section className="section-thirty-one">
