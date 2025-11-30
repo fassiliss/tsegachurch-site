@@ -37,6 +37,17 @@ export default function Home() {
       position: relative !important;
     }
 
+    .banner-slider-title,
+    .banner-slider-sub-title,
+    .banner-slider-text {
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.7);
+      color: #ffffff !important;
+    }
+
+    .banner-slider-title span {
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.7);
+    }
+
     .event-card {
       cursor: pointer;
     }
@@ -75,7 +86,7 @@ export default function Home() {
         min-height: 500px !important;
       }
     }
-  `}</style>
+`}</style>
         </Head>
 
       <Header />
@@ -103,6 +114,18 @@ export default function Home() {
                               width: '100%',
                               height: '100%',
                               objectFit: 'cover',
+                              zIndex: 0
+                          }}
+                      />
+                      {/* Dark overlay for text visibility */}
+                      <div
+                          style={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: '100%',
+                              height: '100%',
+                              background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.4) 100%)',
                               zIndex: 0
                           }}
                       />
