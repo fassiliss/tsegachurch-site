@@ -99,8 +99,32 @@ export default function AdminDashboard() {
                                 Use the cards below to manage site content.
                             </p>
                         </div>
-                        <button onClick={handleLogout} className="admin-secondary-btn">
-                            <i className="fas fa-sign-out-alt me-2"></i>
+                        <button
+                            onClick={handleLogout}
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                                padding: "12px 24px",
+                                backgroundColor: "transparent",
+                                color: "#dc2626",
+                                border: "2px solid #dc2626",
+                                borderRadius: "8px",
+                                fontSize: "15px",
+                                fontWeight: "600",
+                                cursor: "pointer",
+                                transition: "all 0.2s ease"
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = "#dc2626";
+                                e.currentTarget.style.color = "white";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = "transparent";
+                                e.currentTarget.style.color = "#dc2626";
+                            }}
+                        >
+                            <i className="fas fa-sign-out-alt"></i>
                             Logout
                         </button>
                     </div>
