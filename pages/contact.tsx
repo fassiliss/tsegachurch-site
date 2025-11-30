@@ -48,6 +48,35 @@ export default function Contact() {
   return (
     <>
       <Head>
+          <style>{`
+  .dark-mode .section-contact {
+    background-color: #1a1a1a !important;
+  }
+  
+  .dark-mode .contact-card,
+  .dark-mode .form-card {
+    background-color: #2d2d2d !important;
+    color: #fff !important;
+  }
+  
+  .dark-mode .contact-card h3,
+  .dark-mode .form-card h3,
+  .dark-mode .form-label {
+    color: #fff !important;
+  }
+  
+  .dark-mode .contact-card p,
+  .dark-mode .contact-list span,
+  .dark-mode .contact-list a {
+    color: #ccc !important;
+  }
+  
+  .dark-mode .form-control {
+    background-color: #3d3d3d !important;
+    border-color: #4d4d4d !important;
+    color: #fff !important;
+  }
+`}</style>
         <title>Tsega Church — Contact</title>
       </Head>
 
@@ -59,7 +88,10 @@ export default function Contact() {
       />
 
       {/* CONTACT CONTENT */}
-      <section className="section-contact" style={{ padding: "60px 0" }}>
+      <section className="section-contact"
+               style={{
+                   padding: "60px 0",
+               background: "var(--bg-color, #ffffff"}}>
         <div className="theme_container">
           <div className="row">
             {/* Left: Contact Info */}
