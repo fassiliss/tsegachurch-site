@@ -156,6 +156,21 @@ export default function AdminMembers() {
   return (
     <>
       <Head>
+        <style>{`
+          @media print {
+            body * { visibility: hidden; }
+            .print-area, .print-area * { visibility: visible; }
+            .print-area { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none !important; }
+            table { width: 100%; border-collapse: collapse; font-size: 12px; }
+            th, td { border: 1px solid #333; padding: 8px; text-align: left; }
+            th { background-color: #f0f0f0 !important; -webkit-print-color-adjust: exact; }
+            h2 { font-size: 18px; margin-bottom: 10px; }
+            .print-header { text-align: center; margin-bottom: 20px; }
+            .print-header h1 { font-size: 24px; margin-bottom: 5px; }
+            .print-header p { font-size: 14px; color: #666; }
+          }
+        `}</style>
         <title>Admin — Members Manager | Tsega Church</title>
       </Head>
       <Header />
@@ -483,11 +498,21 @@ export default function AdminMembers() {
             boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
             border: "1px solid var(--border-color)"
           }}>
+            {/* Print Header - only shows when printing */}
+            <div className="print-header" style={{ display: "none" }}>
+              <h1 style={{ fontSize: "24px", marginBottom: "5px" }}>GEECN Members List</h1>
+              <p style={{ fontSize: "14px", color: "#666" }}>Total: {members.length} members</p>
+            </div>
+            {/* Print Button */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }} className="no-print">
+              <h3 style={{ margin: 0, color: "var(--text-color)" }}>All Members</h3>
+              <button onClick={() => window.print()} style={{ padding: "10px 20px", backgroundColor: "#10b981", color: "white", border: "none", borderRadius: "6px", fontSize: "14px", fontWeight: "600", cursor: "pointer" }}>🖨️ Print List</button>
+            </div>
             {loading ? (
               <p style={{ color: "var(--text-color)" }}>Loading members...</p>
             ) : (
               <>
-                <div style={{ overflowX: "auto" }}>
+                <div className="print-area" style={{ overflowX: "auto" }}>
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ borderBottom: "2px solid var(--border-color)" }}>
