@@ -133,39 +133,6 @@ export default function EvangelismMinistry() {
         }
     ];
 
-    const cardStyle = {
-        background: "white",
-        padding: "40px 30px",
-        borderRadius: "12px",
-        textAlign: "center" as const,
-        height: "100%",
-        boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
-        transition: "transform 0.3s"
-    };
-
-    const activityCardStyle = {
-        background: "white",
-        padding: "30px",
-        borderRadius: "12px",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-        height: "100%",
-        textAlign: "left" as const
-    };
-
-    const formContainerStyle = {
-        background: "#f9f9f9",
-        padding: "40px",
-        borderRadius: "12px"
-    };
-
-    const inputStyle = {
-        width: "100%",
-        padding: "12px",
-        border: "1px solid #ddd",
-        borderRadius: "6px",
-        fontSize: "1rem"
-    };
-
     return (
         <>
             <Head>
@@ -176,28 +143,24 @@ export default function EvangelismMinistry() {
             <PageBanner
                 pageName="Evangelism Ministry"
                 pageTitle="Evangelism Ministry / የወንጌል ስርጭት አገልግሎት"
-
             />
 
-            {/* Hero Section */}
-
-
             {/* Overview Section */}
-            <section style={{ padding: "80px 0" }}>
+            <section className="evangelism-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div className="row align-items-center">
                         <div className="col-lg-6">
                             <div style={{ paddingRight: "30px" }}>
-                                <h2 style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
+                                <h2 className="evangelism-title" style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
                                     Our Mission
                                 </h2>
-                                <p style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "20px" }}>
+                                <p className="evangelism-text" style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "20px" }}>
                                     The Evangelism Ministry exists to fulfill the Great Commission—to go and make
                                     disciples of all nations. We are passionate about sharing the love of Jesus Christ
                                     with our neighbors, our community, and the world through practical service and
                                     bold proclamation of the Gospel.
                                 </p>
-                                <p style={{ fontSize: "1.05rem", lineHeight: "1.8", marginBottom: "20px" }}>
+                                <p className="evangelism-text" style={{ fontSize: "1.05rem", lineHeight: "1.8", marginBottom: "20px" }}>
                                     Whether through street evangelism, community outreach, mission trips, or personal
                                     witnessing, we believe every believer is called to be a witness for Christ. We
                                     equip, train, and mobilize our members to share their faith effectively.
@@ -208,7 +171,7 @@ export default function EvangelismMinistry() {
                             </div>
                         </div>
                         <div className="col-lg-6">
-                            <div className="evangelism-card" style={cardStyle}>
+                            <div className="evangelism-card">
                                 <div style={{ fontSize: "4rem", marginBottom: "20px" }}>📣</div>
                                 <h3 style={{ fontSize: "1.8rem", marginBottom: "15px" }}>
                                     The Great Commission
@@ -224,13 +187,13 @@ export default function EvangelismMinistry() {
             </section>
 
             {/* Outreach Programs Section */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="evangelism-section-alt" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        <h2 className="evangelism-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                             Our Outreach Programs
                         </h2>
-                        <p style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
+                        <p className="evangelism-text" style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
                             Multiple ways to share the Gospel and serve our community
                         </p>
                     </div>
@@ -238,7 +201,7 @@ export default function EvangelismMinistry() {
                     <div className="row">
                         {outreachPrograms.map((program, index) => (
                             <div key={index} className="col-lg-3 col-md-6 mb-4">
-                                <div className="evangelism-card" style={cardStyle}>
+                                <div className="evangelism-card">
                                     <div style={{ fontSize: "3rem", marginBottom: "20px" }}>{program.icon}</div>
                                     <h3 style={{ fontSize: "1.4rem", marginBottom: "15px" }}>
                                         {program.title}
@@ -254,13 +217,13 @@ export default function EvangelismMinistry() {
             </section>
 
             {/* Team Leaders Section */}
-            <section style={{ padding: "80px 0" }}>
+            <section className="evangelism-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        <h2 className="evangelism-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                             Meet Our Leaders
                         </h2>
-                        <p style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
+                        <p className="evangelism-text" style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
                             Passionate about reaching the lost for Christ
                         </p>
                     </div>
@@ -283,7 +246,7 @@ export default function EvangelismMinistry() {
                                     }}>
                                         👤
                                     </div>
-                                    <h3 style={{ fontSize: "1.3rem", marginBottom: "8px" }}>
+                                    <h3 className="evangelism-title" style={{ fontSize: "1.3rem", marginBottom: "8px" }}>
                                         {member.name}
                                     </h3>
                                     <p style={{
@@ -294,7 +257,7 @@ export default function EvangelismMinistry() {
                                     }}>
                                         {member.role}
                                     </p>
-                                    <p style={{ fontSize: "0.9rem" }}>
+                                    <p className="evangelism-text" style={{ fontSize: "0.9rem" }}>
                                         {member.bio}
                                     </p>
                                 </div>
@@ -305,13 +268,13 @@ export default function EvangelismMinistry() {
             </section>
 
             {/* Activities Schedule Section */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="evangelism-section-alt" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        <h2 className="evangelism-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                             Outreach Activities
                         </h2>
-                        <p style={{ fontSize: "1.1rem" }}>
+                        <p className="evangelism-text" style={{ fontSize: "1.1rem" }}>
                             Join us in reaching our community with the Gospel
                         </p>
                     </div>
@@ -319,18 +282,18 @@ export default function EvangelismMinistry() {
                     <div className="row">
                         {outreachActivities.map((activity, index) => (
                             <div key={index} className="col-lg-4 col-md-6 mb-4">
-                                <div className="activity-card" style={activityCardStyle}>
+                                <div className="activity-card">
                                     <h4 style={{ fontSize: "1.4rem", marginBottom: "15px", color: "#667eea" }}>
                                         {activity.name}
                                     </h4>
                                     <div style={{ fontSize: "0.95rem", lineHeight: "1.8" }}>
-                                        <p style={{ marginBottom: "8px" }}>
+                                        <p className="evangelism-text" style={{ marginBottom: "8px" }}>
                                             <strong>📅 Schedule:</strong> {activity.schedule}
                                         </p>
-                                        <p style={{ marginBottom: "8px" }}>
+                                        <p className="evangelism-text" style={{ marginBottom: "8px" }}>
                                             <strong>🎯 Focus:</strong> {activity.focus}
                                         </p>
-                                        <p style={{ marginBottom: "0" }}>
+                                        <p className="evangelism-text" style={{ marginBottom: "0" }}>
                                             <strong>📍 Location:</strong> {activity.location}
                                         </p>
                                     </div>
@@ -342,37 +305,32 @@ export default function EvangelismMinistry() {
             </section>
 
             {/* Mission Trips Section */}
-            <section style={{ padding: "80px 0" }}>
+            <section className="evangelism-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div className="row align-items-center">
                         <div className="col-lg-6 mb-4">
-                            <h2 style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
+                            <h2 className="evangelism-title" style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
                                 Mission Trips
                             </h2>
-                            <p style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "25px" }}>
+                            <p className="evangelism-text" style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "25px" }}>
                                 Experience the joy of serving God beyond borders. Our church organizes short-term
                                 mission trips to partner with ministries both domestically and internationally,
                                 bringing the Gospel to unreached areas.
                             </p>
-                            <div style={{
-                                background: "#f9f9f9",
-                                padding: "30px",
-                                borderRadius: "12px",
-                                marginBottom: "20px"
-                            }}>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
+                            <div className="info-box">
+                                <h4 className="evangelism-title" style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
                                     Upcoming Mission Opportunities
                                 </h4>
                                 <ul style={{ listStyle: "none", padding: 0, fontSize: "1rem" }}>
-                                    <li style={{ marginBottom: "12px", paddingLeft: "25px", position: "relative" }}>
+                                    <li className="evangelism-text" style={{ marginBottom: "12px", paddingLeft: "25px", position: "relative" }}>
                                         <span style={{ position: "absolute", left: 0 }}>✈️</span>
                                         <strong>Ethiopia Mission:</strong> Medical outreach and church planting
                                     </li>
-                                    <li style={{ marginBottom: "12px", paddingLeft: "25px", position: "relative" }}>
+                                    <li className="evangelism-text" style={{ marginBottom: "12px", paddingLeft: "25px", position: "relative" }}>
                                         <span style={{ position: "absolute", left: 0 }}>✈️</span>
                                         <strong>Local Mission:</strong> Community service in underserved neighborhoods
                                     </li>
-                                    <li style={{ marginBottom: "12px", paddingLeft: "25px", position: "relative" }}>
+                                    <li className="evangelism-text" style={{ marginBottom: "12px", paddingLeft: "25px", position: "relative" }}>
                                         <span style={{ position: "absolute", left: 0 }}>✈️</span>
                                         <strong>Youth Mission Trip:</strong> Summer missions for teens and young adults
                                     </li>
@@ -381,17 +339,12 @@ export default function EvangelismMinistry() {
                         </div>
 
                         <div className="col-lg-6 mb-4">
-                            <div className="evangelism-card" style={{
-                                ...cardStyle,
-                                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                                color: "white",
-                                textAlign: "left" as const
-                            }}>
+                            <div className="evangelism-card-gradient">
                                 <div style={{ fontSize: "4rem", marginBottom: "20px", textAlign: "center" }}>🌍</div>
                                 <h3 style={{ fontSize: "1.8rem", marginBottom: "20px", color: "white", textAlign: "center" }}>
                                     Go and Make Disciples
                                 </h3>
-                                <p style={{ fontSize: "1.05rem", lineHeight: "1.7", marginBottom: "20px" }}>
+                                <p style={{ fontSize: "1.05rem", lineHeight: "1.7", marginBottom: "20px", color: "rgba(255,255,255,0.9)" }}>
                                     Mission trips are life-changing experiences that deepen your faith, broaden
                                     your perspective, and allow you to be the hands and feet of Jesus.
                                 </p>
@@ -399,7 +352,8 @@ export default function EvangelismMinistry() {
                                     listStyle: "none",
                                     padding: 0,
                                     fontSize: "0.95rem",
-                                    lineHeight: "2"
+                                    lineHeight: "2",
+                                    color: "rgba(255,255,255,0.9)"
                                 }}>
                                     <li>✓ Training and preparation provided</li>
                                     <li>✓ Team support and mentorship</li>
@@ -414,67 +368,49 @@ export default function EvangelismMinistry() {
             </section>
 
             {/* Resources Section */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="evangelism-section-alt" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        <h2 className="evangelism-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                             Evangelism Resources
                         </h2>
-                        <p style={{ fontSize: "1.1rem" }}>
+                        <p className="evangelism-text" style={{ fontSize: "1.1rem" }}>
                             Tools to help you share your faith effectively
                         </p>
                     </div>
 
                     <div className="row">
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="evangelism-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>📖</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Training Materials
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Comprehensive guides on personal evangelism, apologetics, and sharing your testimony
-                                </p>
+                        {[
+                            { icon: "📖", title: "Training Materials", desc: "Comprehensive guides on personal evangelism, apologetics, and sharing your testimony" },
+                            { icon: "📋", title: "Gospel Tracts", desc: "Multi-language tracts and literature to share the Gospel message clearly" },
+                            { icon: "🎓", title: "Training Classes", desc: "Regular evangelism training sessions to equip you for effective witnessing" }
+                        ].map((resource, index) => (
+                            <div key={index} className="col-lg-4 col-md-6 mb-4">
+                                <div className="evangelism-card">
+                                    <div style={{ fontSize: "3rem", marginBottom: "20px" }}>{resource.icon}</div>
+                                    <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
+                                        {resource.title}
+                                    </h4>
+                                    <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
+                                        {resource.desc}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="evangelism-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>📋</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Gospel Tracts
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Multi-language tracts and literature to share the Gospel message clearly
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="evangelism-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>🎓</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Training Classes
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Regular evangelism training sessions to equip you for effective witnessing
-                                </p>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* Join the Team Form */}
-            <section style={{ padding: "80px 0" }}>
+            <section className="evangelism-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div className="row justify-content-center">
                         <div className="col-lg-8">
                             <div style={{ textAlign: "center", marginBottom: "50px" }}>
-                                <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                                <h2 className="evangelism-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                                     Join Our Evangelism Team
                                 </h2>
-                                <p style={{ fontSize: "1.1rem" }}>
+                                <p className="evangelism-text" style={{ fontSize: "1.1rem" }}>
                                     Be part of reaching your community and the world for Christ
                                 </p>
                             </div>
@@ -493,10 +429,10 @@ export default function EvangelismMinistry() {
                                 </div>
                             )}
 
-                            <form onSubmit={handleSubmit} style={formContainerStyle}>
+                            <form onSubmit={handleSubmit} className="evangelism-form">
                                 <div className="row">
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="evangelism-label">
                                             Full Name *
                                         </label>
                                         <input
@@ -505,12 +441,12 @@ export default function EvangelismMinistry() {
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
-                                            style={inputStyle}
+                                            className="evangelism-input"
                                         />
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="evangelism-label">
                                             Email *
                                         </label>
                                         <input
@@ -519,12 +455,12 @@ export default function EvangelismMinistry() {
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
-                                            style={inputStyle}
+                                            className="evangelism-input"
                                         />
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="evangelism-label">
                                             Phone
                                         </label>
                                         <input
@@ -532,19 +468,19 @@ export default function EvangelismMinistry() {
                                             name="phone"
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            style={inputStyle}
+                                            className="evangelism-input"
                                         />
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="evangelism-label">
                                             Availability
                                         </label>
                                         <select
                                             name="availability"
                                             value={formData.availability}
                                             onChange={handleChange}
-                                            style={inputStyle}
+                                            className="evangelism-input"
                                         >
                                             <option value="">Select...</option>
                                             <option value="weekdays">Weekdays</option>
@@ -555,12 +491,12 @@ export default function EvangelismMinistry() {
                                     </div>
 
                                     <div className="col-12 mb-3">
-                                        <label style={{ display: "block", marginBottom: "12px", fontWeight: "600" }}>
+                                        <label className="evangelism-label" style={{ marginBottom: "12px" }}>
                                             Areas of Interest (check all that apply)
                                         </label>
                                         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
                                             {["Street Evangelism", "Door-to-Door", "Hospital Ministry", "Prison Ministry", "Community Service", "Mission Trips"].map(interest => (
-                                                <label key={interest} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+                                                <label key={interest} className="evangelism-checkbox-label">
                                                     <input
                                                         type="checkbox"
                                                         checked={formData.interests.includes(interest)}
@@ -574,7 +510,7 @@ export default function EvangelismMinistry() {
                                     </div>
 
                                     <div className="col-12 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="evangelism-label">
                                             Tell us about your heart for evangelism
                                         </label>
                                         <textarea
@@ -582,7 +518,8 @@ export default function EvangelismMinistry() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             rows={5}
-                                            style={{...inputStyle, resize: "vertical"}}
+                                            className="evangelism-input"
+                                            style={{ resize: "vertical" }}
                                             placeholder="Share your testimony, evangelism experience, or why you want to join..."
                                         />
                                     </div>
@@ -614,7 +551,7 @@ export default function EvangelismMinistry() {
                 textAlign: "center"
             }}>
                 <div className="theme_container">
-                    <h2 style={{ fontSize: "2.2rem", marginBottom: "20px" }}>
+                    <h2 style={{ fontSize: "2.2rem", marginBottom: "20px", color: "white" }}>
                         Questions About Evangelism?
                     </h2>
                     <p style={{ fontSize: "1.1rem", marginBottom: "25px", opacity: 0.9 }}>
@@ -634,68 +571,186 @@ export default function EvangelismMinistry() {
             <Footer />
 
             <style jsx global>{`
-        .evangelism-card,
-        .activity-card {
-          transition: transform 0.3s;
-        }
-        
-        .evangelism-card:hover,
-        .activity-card:hover {
-          transform: translateY(-5px);
-        }
-        
-        /* Dark Mode Support */
-        .dark-mode .evangelism-card,
-        .dark-mode .activity-card {
-          background: #1a1a1a !important;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-        }
-        
-        .dark-mode form {
-          background: #1a1a1a !important;
-        }
-        
-        .dark-mode input,
-        .dark-mode select,
-        .dark-mode textarea {
-          background: #2a2a2a !important;
-          border-color: #444 !important;
-          color: #fff !important;
-        }
-        
-        .dark-mode h1,
-        .dark-mode h2,
-        .dark-mode h3,
-        .dark-mode h4 {
-          color: #fff !important;
-        }
-        
-        .dark-mode p,
-        .dark-mode li {
-          color: #ccc !important;
-        }
-        
-        .dark-mode label {
-          color: #fff !important;
-        }
-        
-
-        .dark-mode input,
-        .dark-mode select,
-        .dark-mode textarea {
-            background: #2a2a2a !important;
-            border-color: #444 !important;
-            color: #fff !important;
-        }
-        
-        .dark-mode section[style*="background: #f9f9f9"] {
-          background: #1a1a1a !important;
-        }
-        
-        .dark-mode div[style*="background: #f9f9f9"] {
-          background: #2a2a2a !important;
-        }
-      `}</style>
+                /* Light Mode Defaults */
+                .evangelism-section {
+                    background: #ffffff;
+                }
+                
+                .evangelism-section-alt {
+                    background: #f9f9f9;
+                }
+                
+                .evangelism-title {
+                    color: #333;
+                }
+                
+                .evangelism-text {
+                    color: #666;
+                }
+                
+                .evangelism-card {
+                    background: white;
+                    padding: 40px 30px;
+                    border-radius: 12px;
+                    text-align: center;
+                    height: 100%;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                    transition: transform 0.3s;
+                }
+                
+                .evangelism-card:hover {
+                    transform: translateY(-5px);
+                }
+                
+                .evangelism-card h3,
+                .evangelism-card h4 {
+                    color: #333;
+                }
+                
+                .evangelism-card p {
+                    color: #666;
+                }
+                
+                .evangelism-card-gradient {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    padding: 40px 30px;
+                    border-radius: 12px;
+                    text-align: left;
+                    color: white;
+                    height: 100%;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                    transition: transform 0.3s;
+                }
+                
+                .evangelism-card-gradient:hover {
+                    transform: translateY(-5px);
+                }
+                
+                .activity-card {
+                    background: white;
+                    padding: 30px;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+                    height: 100%;
+                    text-align: left;
+                    transition: transform 0.3s;
+                }
+                
+                .activity-card:hover {
+                    transform: translateY(-5px);
+                }
+                
+                .info-box {
+                    background: #f9f9f9;
+                    padding: 30px;
+                    border-radius: 12px;
+                    margin-bottom: 20px;
+                }
+                
+                .evangelism-form {
+                    background: #f9f9f9;
+                    padding: 40px;
+                    border-radius: 12px;
+                }
+                
+                .evangelism-label {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-weight: 600;
+                    color: #333;
+                }
+                
+                .evangelism-input {
+                    width: 100%;
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                    border-radius: 6px;
+                    font-size: 1rem;
+                    background: white;
+                    color: #333;
+                }
+                
+                .evangelism-checkbox-label {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    color: #333;
+                }
+                
+                /* Dark Mode Styles */
+                .dark-mode .evangelism-section {
+                    background: #121212 !important;
+                }
+                
+                .dark-mode .evangelism-section-alt {
+                    background: #1a1a1a !important;
+                }
+                
+                .dark-mode .evangelism-title {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .evangelism-text {
+                    color: #cccccc !important;
+                }
+                
+                .dark-mode .evangelism-card {
+                    background: #2a2a2a !important;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+                }
+                
+                .dark-mode .evangelism-card h3,
+                .dark-mode .evangelism-card h4 {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .evangelism-card p {
+                    color: #cccccc !important;
+                }
+                
+                .dark-mode .activity-card {
+                    background: #2a2a2a !important;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+                }
+                
+                .dark-mode .activity-card h4 {
+                    color: #667eea !important;
+                }
+                
+                .dark-mode .info-box {
+                    background: #2a2a2a !important;
+                }
+                
+                .dark-mode .info-box h4 {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .evangelism-form {
+                    background: #1a1a1a !important;
+                }
+                
+                .dark-mode .evangelism-label {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .evangelism-input {
+                    background: #2a2a2a !important;
+                    border-color: #444 !important;
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .evangelism-input::placeholder {
+                    color: #888 !important;
+                }
+                
+                .dark-mode .evangelism-checkbox-label {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .evangelism-checkbox-label span {
+                    color: #cccccc !important;
+                }
+            `}</style>
         </>
     );
 }

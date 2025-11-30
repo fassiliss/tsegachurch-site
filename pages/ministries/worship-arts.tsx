@@ -149,39 +149,6 @@ export default function WorshipMinistry() {
         "Traditional Instruments"
     ];
 
-    const cardStyle = {
-        background: "white",
-        padding: "40px 30px",
-        borderRadius: "12px",
-        textAlign: "center" as const,
-        height: "100%",
-        boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
-        transition: "transform 0.3s"
-    };
-
-    const teamCardStyle = {
-        background: "white",
-        padding: "30px",
-        borderRadius: "12px",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-        height: "100%",
-        textAlign: "left" as const
-    };
-
-    const formContainerStyle = {
-        background: "#f9f9f9",
-        padding: "40px",
-        borderRadius: "12px"
-    };
-
-    const inputStyle = {
-        width: "100%",
-        padding: "12px",
-        border: "1px solid #ddd",
-        borderRadius: "6px",
-        fontSize: "1rem"
-    };
-
     return (
         <>
             <Head>
@@ -192,25 +159,23 @@ export default function WorshipMinistry() {
             <PageBanner
                 pageName="Worship Ministry "
                 pageTitle="Worship Ministry / የአምልኮ አገልግሎት"
-
             />
 
-
             {/* Overview Section */}
-            <section style={{ padding: "80px 0" }}>
+            <section className="worship-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div className="row align-items-center">
                         <div className="col-lg-6">
                             <div style={{ paddingRight: "30px" }}>
-                                <h2 style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
+                                <h2 className="worship-title" style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
                                     Our Mission
                                 </h2>
-                                <p style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "20px" }}>
+                                <p className="worship-text" style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "20px" }}>
                                     The Worship Ministry exists to create an atmosphere where God's presence is welcomed
                                     and His people can encounter Him freely. We believe worship is more than music—it's
                                     a lifestyle of honoring God with our whole hearts, both on stage and off.
                                 </p>
-                                <p style={{ fontSize: "1.05rem", lineHeight: "1.8", marginBottom: "20px" }}>
+                                <p className="worship-text" style={{ fontSize: "1.05rem", lineHeight: "1.8", marginBottom: "20px" }}>
                                     Through song, dance, instruments, and creative expression, we aim to lead our
                                     congregation into genuine encounters with the living God. Every note, every lyric,
                                     and every movement is offered as an act of devotion and praise.
@@ -222,7 +187,7 @@ export default function WorshipMinistry() {
                             </div>
                         </div>
                         <div className="col-lg-6">
-                            <div className="worship-card" style={cardStyle}>
+                            <div className="worship-card">
                                 <div style={{ fontSize: "4rem", marginBottom: "20px" }}>🙌</div>
                                 <h3 style={{ fontSize: "1.8rem", marginBottom: "15px" }}>
                                     Worship in Spirit & Truth
@@ -239,13 +204,13 @@ export default function WorshipMinistry() {
             </section>
 
             {/* Worship Programs Section */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="worship-section-alt" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        <h2 className="worship-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                             Our Worship Teams
                         </h2>
-                        <p style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
+                        <p className="worship-text" style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
                             Multiple expressions of worship for every generation
                         </p>
                     </div>
@@ -253,7 +218,7 @@ export default function WorshipMinistry() {
                     <div className="row">
                         {worshipPrograms.map((program, index) => (
                             <div key={index} className="col-lg-3 col-md-6 mb-4">
-                                <div className="worship-card" style={cardStyle}>
+                                <div className="worship-card">
                                     <div style={{ fontSize: "3rem", marginBottom: "20px" }}>{program.icon}</div>
                                     <h3 style={{ fontSize: "1.4rem", marginBottom: "15px" }}>
                                         {program.title}
@@ -269,14 +234,13 @@ export default function WorshipMinistry() {
             </section>
 
             {/* Team Leaders Section */}
-            {/* Team Leaders Section */}
-            <section style={{ padding: "80px 0" }}>
+            <section className="worship-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        <h2 className="worship-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                             Meet Our Leaders
                         </h2>
-                        <p style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
+                        <p className="worship-text" style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
                             Passionate worship leaders serving with excellence
                         </p>
                     </div>
@@ -315,7 +279,7 @@ export default function WorshipMinistry() {
                                             👤
                                         </div>
                                     )}
-                                    <h3 style={{ fontSize: "1.3rem", marginBottom: "8px" }}>
+                                    <h3 className="worship-title" style={{ fontSize: "1.3rem", marginBottom: "8px" }}>
                                         {member.name}
                                     </h3>
                                     <p style={{
@@ -326,7 +290,7 @@ export default function WorshipMinistry() {
                                     }}>
                                         {member.role}
                                     </p>
-                                    <p style={{ fontSize: "0.9rem" }}>
+                                    <p className="worship-text" style={{ fontSize: "0.9rem" }}>
                                         {member.bio}
                                     </p>
                                 </div>
@@ -337,13 +301,13 @@ export default function WorshipMinistry() {
             </section>
 
             {/* Worship Schedule Section */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="worship-section-alt" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        <h2 className="worship-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                             Worship Schedule
                         </h2>
-                        <p style={{ fontSize: "1.1rem" }}>
+                        <p className="worship-text" style={{ fontSize: "1.1rem" }}>
                             Join us for worship services and team practices
                         </p>
                     </div>
@@ -351,18 +315,18 @@ export default function WorshipMinistry() {
                     <div className="row">
                         {worshipTeams.map((team, index) => (
                             <div key={index} className="col-lg-4 col-md-6 mb-4">
-                                <div className="team-schedule-card" style={teamCardStyle}>
+                                <div className="team-schedule-card">
                                     <h4 style={{ fontSize: "1.4rem", marginBottom: "15px", color: "#667eea" }}>
                                         {team.name}
                                     </h4>
                                     <div style={{ fontSize: "0.95rem", lineHeight: "1.8" }}>
-                                        <p style={{ marginBottom: "8px" }}>
+                                        <p className="worship-text" style={{ marginBottom: "8px" }}>
                                             <strong>🎵 Service:</strong> {team.schedule}
                                         </p>
-                                        <p style={{ marginBottom: "8px" }}>
+                                        <p className="worship-text" style={{ marginBottom: "8px" }}>
                                             <strong>🎯 Focus:</strong> {team.focus}
                                         </p>
-                                        <p style={{ marginBottom: "0" }}>
+                                        <p className="worship-text" style={{ marginBottom: "0" }}>
                                             <strong>🎼 Practice:</strong> {team.practice}
                                         </p>
                                     </div>
@@ -374,14 +338,14 @@ export default function WorshipMinistry() {
             </section>
 
             {/* Instruments Needed Section */}
-            <section style={{ padding: "80px 0" }}>
+            <section className="worship-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div className="row align-items-center">
                         <div className="col-lg-6 mb-4">
-                            <h2 style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
+                            <h2 className="worship-title" style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
                                 Instruments We Need
                             </h2>
-                            <p style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "25px" }}>
+                            <p className="worship-text" style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "25px" }}>
                                 Are you a musician? We're always looking for skilled instrumentalists to join our
                                 worship teams. Whether you're a seasoned professional or an enthusiastic beginner
                                 willing to grow, there's a place for you in our ministry.
@@ -392,13 +356,7 @@ export default function WorshipMinistry() {
                                 gap: "15px"
                             }}>
                                 {instrumentsNeeded.map((instrument, index) => (
-                                    <div key={index} style={{
-                                        background: "#f9f9f9",
-                                        padding: "15px 20px",
-                                        borderRadius: "8px",
-                                        fontSize: "1rem",
-                                        fontWeight: "500"
-                                    }}>
+                                    <div key={index} className="instrument-item">
                                         🎸 {instrument}
                                     </div>
                                 ))}
@@ -406,16 +364,12 @@ export default function WorshipMinistry() {
                         </div>
 
                         <div className="col-lg-6 mb-4">
-                            <div className="worship-card" style={{
-                                ...cardStyle,
-                                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                                color: "white"
-                            }}>
+                            <div className="worship-card-gradient">
                                 <div style={{ fontSize: "4rem", marginBottom: "20px" }}>🎹</div>
                                 <h3 style={{ fontSize: "1.8rem", marginBottom: "20px", color: "white" }}>
                                     Join Our Band
                                 </h3>
-                                <p style={{ fontSize: "1.05rem", lineHeight: "1.7", marginBottom: "20px" }}>
+                                <p style={{ fontSize: "1.05rem", lineHeight: "1.7", marginBottom: "20px", color: "rgba(255,255,255,0.9)" }}>
                                     We provide training, mentorship, and opportunities to grow in your musical gifts
                                     while serving God and His people.
                                 </p>
@@ -424,7 +378,8 @@ export default function WorshipMinistry() {
                                     padding: 0,
                                     textAlign: "left",
                                     fontSize: "0.95rem",
-                                    lineHeight: "2"
+                                    lineHeight: "2",
+                                    color: "rgba(255,255,255,0.9)"
                                 }}>
                                     <li>✓ Weekly rehearsals and coaching</li>
                                     <li>✓ Opportunities to lead worship</li>
@@ -439,103 +394,52 @@ export default function WorshipMinistry() {
             </section>
 
             {/* Resources Section */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="worship-section-alt" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                        <h2 className="worship-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                             Worship Resources
                         </h2>
-                        <p style={{ fontSize: "1.1rem" }}>
+                        <p className="worship-text" style={{ fontSize: "1.1rem" }}>
                             Tools to help you grow as a worshipper and worship leader
                         </p>
                     </div>
 
                     <div className="row">
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="worship-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>📚</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Song Library
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Access our complete catalog of worship songs with chord charts, lyrics, and recordings
-                                </p>
+                        {[
+                            { icon: "📚", title: "Song Library", desc: "Access our complete catalog of worship songs with chord charts, lyrics, and recordings" },
+                            { icon: "🎓", title: "Training Materials", desc: "Video tutorials, technique guides, and spiritual development resources for worship leaders" },
+                            { icon: "🎼", title: "Sheet Music", desc: "Professional arrangements and charts for various instruments and skill levels" },
+                            { icon: "🎧", title: "Practice Tracks", desc: "Downloadable backing tracks and click tracks for personal practice sessions" },
+                            { icon: "📖", title: "Devotionals", desc: "Daily devotions and readings specifically for worship leaders and team members" },
+                            { icon: "💬", title: "Team Community", desc: "Connect with other worship team members through our online community platform" }
+                        ].map((resource, index) => (
+                            <div key={index} className="col-lg-4 col-md-6 mb-4">
+                                <div className="worship-card">
+                                    <div style={{ fontSize: "3rem", marginBottom: "20px" }}>{resource.icon}</div>
+                                    <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
+                                        {resource.title}
+                                    </h4>
+                                    <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
+                                        {resource.desc}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="worship-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>🎓</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Training Materials
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Video tutorials, technique guides, and spiritual development resources for worship leaders
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="worship-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>🎼</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Sheet Music
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Professional arrangements and charts for various instruments and skill levels
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="worship-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>🎧</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Practice Tracks
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Downloadable backing tracks and click tracks for personal practice sessions
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="worship-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>📖</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Devotionals
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Daily devotions and readings specifically for worship leaders and team members
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-md-6 mb-4">
-                            <div className="worship-card" style={cardStyle}>
-                                <div style={{ fontSize: "3rem", marginBottom: "20px" }}>💬</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Team Community
-                                </h4>
-                                <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
-                                    Connect with other worship team members through our online community platform
-                                </p>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* Join the Team Form */}
-            <section style={{ padding: "80px 0" }}>
+            <section className="worship-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div className="row justify-content-center">
                         <div className="col-lg-8">
                             <div style={{ textAlign: "center", marginBottom: "50px" }}>
-                                <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
+                                <h2 className="worship-title" style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
                                     Join the Worship Team
                                 </h2>
-                                <p style={{ fontSize: "1.1rem" }}>
+                                <p className="worship-text" style={{ fontSize: "1.1rem" }}>
                                     Use your gifts to lead others into God's presence
                                 </p>
                             </div>
@@ -554,10 +458,10 @@ export default function WorshipMinistry() {
                                 </div>
                             )}
 
-                            <form onSubmit={handleSubmit} style={formContainerStyle}>
+                            <form onSubmit={handleSubmit} className="worship-form">
                                 <div className="row">
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="worship-label">
                                             Full Name *
                                         </label>
                                         <input
@@ -566,12 +470,12 @@ export default function WorshipMinistry() {
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
-                                            style={inputStyle}
+                                            className="worship-input"
                                         />
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="worship-label">
                                             Email *
                                         </label>
                                         <input
@@ -580,12 +484,12 @@ export default function WorshipMinistry() {
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
-                                            style={inputStyle}
+                                            className="worship-input"
                                         />
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="worship-label">
                                             Phone
                                         </label>
                                         <input
@@ -593,19 +497,19 @@ export default function WorshipMinistry() {
                                             name="phone"
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            style={inputStyle}
+                                            className="worship-input"
                                         />
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="worship-label">
                                             Experience Level
                                         </label>
                                         <select
                                             name="experience"
                                             value={formData.experience}
                                             onChange={handleChange}
-                                            style={inputStyle}
+                                            className="worship-input"
                                         >
                                             <option value="">Select...</option>
                                             <option value="beginner">Beginner - Learning and growing</option>
@@ -615,7 +519,7 @@ export default function WorshipMinistry() {
                                     </div>
 
                                     <div className="col-12 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="worship-label">
                                             Primary Instrument/Role (if applicable)
                                         </label>
                                         <input
@@ -624,17 +528,17 @@ export default function WorshipMinistry() {
                                             value={formData.instrument}
                                             onChange={handleChange}
                                             placeholder="e.g., Guitar, Vocals, Keyboard, Dance, etc."
-                                            style={inputStyle}
+                                            className="worship-input"
                                         />
                                     </div>
 
                                     <div className="col-12 mb-3">
-                                        <label style={{ display: "block", marginBottom: "12px", fontWeight: "600" }}>
+                                        <label className="worship-label" style={{ marginBottom: "12px" }}>
                                             Areas of Interest (check all that apply)
                                         </label>
                                         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
                                             {["Vocals/Singing", "Instruments", "Choir", "Dance", "Worship Leading", "Songwriting"].map(interest => (
-                                                <label key={interest} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+                                                <label key={interest} className="worship-checkbox-label">
                                                     <input
                                                         type="checkbox"
                                                         checked={formData.interests.includes(interest)}
@@ -648,7 +552,7 @@ export default function WorshipMinistry() {
                                     </div>
 
                                     <div className="col-12 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label className="worship-label">
                                             Tell us about your worship experience and why you want to join
                                         </label>
                                         <textarea
@@ -656,7 +560,8 @@ export default function WorshipMinistry() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             rows={5}
-                                            style={{...inputStyle, resize: "vertical"}}
+                                            className="worship-input"
+                                            style={{ resize: "vertical" }}
                                             placeholder="Share your musical background, favorite worship songs, and what worship means to you..."
                                         />
                                     </div>
@@ -688,7 +593,7 @@ export default function WorshipMinistry() {
                 textAlign: "center"
             }}>
                 <div className="theme_container">
-                    <h2 style={{ fontSize: "2.2rem", marginBottom: "20px" }}>
+                    <h2 style={{ fontSize: "2.2rem", marginBottom: "20px", color: "white" }}>
                         Questions About Worship Ministry?
                     </h2>
                     <p style={{ fontSize: "1.1rem", marginBottom: "25px", opacity: 0.9 }}>
@@ -708,61 +613,185 @@ export default function WorshipMinistry() {
             <Footer />
 
             <style jsx global>{`
-        .worship-card,
-        .team-schedule-card {
-          transition: transform 0.3s;
-        }
-        
-        .worship-card:hover,
-        .team-schedule-card:hover {
-          transform: translateY(-5px);
-        }
-        
-        /* Dark Mode Support */
-        .dark-mode .worship-card,
-        .dark-mode .team-schedule-card {
-          background: #1a1a1a !important;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-        }
-        
-        .dark-mode form {
-          background: #1a1a1a !important;
-        }
-        
-        .dark-mode input,
-        .dark-mode select,
-        .dark-mode textarea {
-          background: #2a2a2a !important;
-          border-color: #444 !important;
-          color: #fff !important;
-        }
-        
-        .dark-mode h1,
-        .dark-mode h2,
-        .dark-mode h3,
-        .dark-mode h4 {
-          color: #fff !important;
-        }
-        
-        .dark-mode p,
-        .dark-mode li {
-          color: #ccc !important;
-        }
-        
-        .dark-mode label {
-          color: #fff !important;
-        }
-        
-        
-        
-        .dark-mode section[style*="background: #f9f9f9"] {
-          background: #1a1a1a !important;
-        }
-        
-        .dark-mode div[style*="background: #f9f9f9"] {
-          background: #2a2a2a !important;
-        }
-      `}</style>
+                /* Light Mode Defaults */
+                .worship-section {
+                    background: #ffffff;
+                }
+                
+                .worship-section-alt {
+                    background: #f9f9f9;
+                }
+                
+                .worship-title {
+                    color: #333;
+                }
+                
+                .worship-text {
+                    color: #666;
+                }
+                
+                .worship-card {
+                    background: white;
+                    padding: 40px 30px;
+                    border-radius: 12px;
+                    text-align: center;
+                    height: 100%;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                    transition: transform 0.3s;
+                }
+                
+                .worship-card:hover {
+                    transform: translateY(-5px);
+                }
+                
+                .worship-card h3,
+                .worship-card h4 {
+                    color: #333;
+                }
+                
+                .worship-card p {
+                    color: #666;
+                }
+                
+                .worship-card-gradient {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    padding: 40px 30px;
+                    border-radius: 12px;
+                    text-align: center;
+                    color: white;
+                    height: 100%;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                    transition: transform 0.3s;
+                }
+                
+                .worship-card-gradient:hover {
+                    transform: translateY(-5px);
+                }
+                
+                .team-schedule-card {
+                    background: white;
+                    padding: 30px;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+                    height: 100%;
+                    text-align: left;
+                    transition: transform 0.3s;
+                }
+                
+                .team-schedule-card:hover {
+                    transform: translateY(-5px);
+                }
+                
+                .instrument-item {
+                    background: #f9f9f9;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: #333;
+                }
+                
+                .worship-form {
+                    background: #f9f9f9;
+                    padding: 40px;
+                    border-radius: 12px;
+                }
+                
+                .worship-label {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-weight: 600;
+                    color: #333;
+                }
+                
+                .worship-input {
+                    width: 100%;
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                    border-radius: 6px;
+                    font-size: 1rem;
+                    background: white;
+                    color: #333;
+                }
+                
+                .worship-checkbox-label {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    color: #333;
+                }
+                
+                /* Dark Mode Styles */
+                .dark-mode .worship-section {
+                    background: #121212 !important;
+                }
+                
+                .dark-mode .worship-section-alt {
+                    background: #1a1a1a !important;
+                }
+                
+                .dark-mode .worship-title {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .worship-text {
+                    color: #cccccc !important;
+                }
+                
+                .dark-mode .worship-card {
+                    background: #2a2a2a !important;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+                }
+                
+                .dark-mode .worship-card h3,
+                .dark-mode .worship-card h4 {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .worship-card p {
+                    color: #cccccc !important;
+                }
+                
+                .dark-mode .team-schedule-card {
+                    background: #2a2a2a !important;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+                }
+                
+                .dark-mode .team-schedule-card h4 {
+                    color: #667eea !important;
+                }
+                
+                .dark-mode .instrument-item {
+                    background: #2a2a2a !important;
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .worship-form {
+                    background: #1a1a1a !important;
+                }
+                
+                .dark-mode .worship-label {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .worship-input {
+                    background: #2a2a2a !important;
+                    border-color: #444 !important;
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .worship-input::placeholder {
+                    color: #888 !important;
+                }
+                
+                .dark-mode .worship-checkbox-label {
+                    color: #ffffff !important;
+                }
+                
+                .dark-mode .worship-checkbox-label span {
+                    color: #cccccc !important;
+                }
+            `}</style>
         </>
     );
 }
