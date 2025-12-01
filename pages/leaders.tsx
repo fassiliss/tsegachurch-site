@@ -20,7 +20,7 @@ export default function LeadersPage() {
             bio: "Guiding families and supporting discipleship.",
         },
         {
-            name: "Tsegaab Woldekidan",
+            name: "Wondwosen ",
             role: "Elder",
             img: "/assets/images/leaders/wonde.png",
             bio: "Teaching the Word and equipping the next generation.",
@@ -32,8 +32,8 @@ export default function LeadersPage() {
             bio: "Passionate about prayer and pastoral care.",
         },
         {
-            name: "Elder 5",
-            role: "Tadese",
+            name: "Tadese",
+            role: "Elder",
             img: "/assets/images/leaders/tade.png",
             bio: "Leading outreach and missions.",
         },
