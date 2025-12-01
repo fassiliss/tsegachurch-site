@@ -22,7 +22,7 @@ export default function LeadersPage() {
         {
             name: "Tsegaab Woldekidan",
             role: "Elder",
-            img: "/assets/images/leaders/sample7.png",
+            img: "/assets/images/leaders/wonde.png",
             bio: "Teaching the Word and equipping the next generation.",
         },
         {
@@ -33,8 +33,8 @@ export default function LeadersPage() {
         },
         {
             name: "Elder 5",
-            role: "Elder",
-            img: "/assets/images/leaders/fele2.png",
+            role: "Tadese",
+            img: "/assets/images/leaders/tade.png",
             bio: "Leading outreach and missions.",
         },
     ];
@@ -66,24 +66,7 @@ export default function LeadersPage() {
 
             />
 
-            {/*<section*/}
-            {/*    className="page-title"*/}
-            {/*    style={{*/}
-            {/*        backgroundImage: "url(/assets/images/resource/bg-page-title2.png)",*/}
-            {/*        backgroundSize: "cover",*/}
-            {/*        backgroundPosition: "center",*/}
-            {/*        padding: "100px 0"*/}
-            {/*    }}*/}
-            {/*>*/}
-            {/*    <div className="theme_container">*/}
-            {/*        <div className="content-box" style={{ textAlign: "center" }}>*/}
-            {/*            <h1 style={{ color: "white", fontSize: "3rem", marginBottom: "15px" }}>*/}
-            {/*                Our Leaders*/}
-            {/*            </h1>*/}
 
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</section>*/}
 
             <main className="theme_container" style={{ padding: "60px 20px" }}>
                 <h1 className="text-center mb-5">Our Leaders</h1>
