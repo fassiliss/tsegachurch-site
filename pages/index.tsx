@@ -17,8 +17,53 @@ export default function Home() {
   return (
     <>
         <Head>
-            <title>Tsega Church — Home</title>
+            <title>Grace Ethiopian Evangelical Church of Nashville | Tsega Church</title>
+
+            {/* Basic SEO */}
+            <meta
+                name="description"
+                content="Grace Ethiopian Evangelical Church of Nashville (Tsega Church) is an Ethiopian Christian church in La Vergne / Nashville, TN. Join us Sundays at 11:00 AM for worship, Bible teaching, kids & youth ministry, and Amharic-English services."
+            />
+            <meta
+                name="keywords"
+                content="Ethiopian church Nashville, Ethiopian evangelical church Tennessee, Amharic church Nashville, Grace Ethiopian Evangelical Church, Tsega Church, GEECN"
+            />
+            <meta name="author" content="Grace Ethiopian Evangelical Church of Nashville" />
+
+            {/* Open Graph / Social */}
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://www.geecn.org/" />
+            <meta
+                property="og:title"
+                content="Grace Ethiopian Evangelical Church of Nashville | Tsega Church"
+            />
+            <meta
+                property="og:description"
+                content="An Ethiopian evangelical church in the Nashville area, worshiping in Amharic and English. Worship • Get together • Love."
+            />
+            <meta
+                property="og:image"
+                content="https://www.geecn.org/assets/images/main-slider/main-slider-10.png"
+            />
+
+            {/* Twitter Card */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta
+                name="twitter:title"
+                content="Grace Ethiopian Evangelical Church of Nashville | Tsega Church"
+            />
+            <meta
+                name="twitter:description"
+                content="Join us Sundays at 11:00 AM in La Vergne, TN. Ethiopian evangelical church worshiping in Amharic and English."
+            />
+            <meta
+                name="twitter:image"
+                content="https://www.geecn.org/assets/images/main-slider/main-slider-10.png"
+            />
+
+            {/* Favicon */}
             <link rel="icon" href="/assets/images/grace-logo-new.png" />
+
             <style>{`
     .banner-section-one.style-three {
       display: block !important;
