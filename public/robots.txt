@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.geecn.org
+
+# Sitemaps
+Sitemap: https://www.geecn.org/sitemap.xml
