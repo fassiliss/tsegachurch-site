@@ -34,7 +34,7 @@ export default function LeadersPage() {
         {
             name: "Tadese",
             role: "Elder",
-            img: "/assets/images/leaders/tade.png",
+            img: "/assets/images/leaders/tade1.png",
             bio: "Leading outreach and missions.",
         },
     ];
