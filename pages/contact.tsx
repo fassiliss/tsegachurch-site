@@ -104,11 +104,19 @@ export default function Contact() {
                 </p>
 
                 <ul className="contact-list">
-                  <li>
-                    <i className="far fa-map-marker-alt" />
-                    <span>5227 Murfreesboro Rd La Vergne, TN 37086</span>
-                  </li>
-                  <li>
+                    <li>
+                        <i className="far fa-map-marker-alt" />
+                        <a
+                            href="https://www.google.com/maps/search/?api=1&query=5227+Murfreesboro+Rd+La+Vergne+TN+37086"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ textDecoration: "none" }}
+                        >
+                            5227 Murfreesboro Rd La Vergne, TN 37086
+                        </a>
+                    </li>
+
+                    <li>
                     <i className="far fa-envelope" />
                     <a href="mailto:fassil661@gmail.com">fassil661@gmail.com</a>
                   </li>

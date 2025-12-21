@@ -110,8 +110,18 @@ export default function Footer({ extraClass }: FooterProps) {
                                         <div className="icon">
                                             <i className="far fa-map-marker-alt" />
                                         </div>
-                                        <div className="text">5227 Murfreesboro Rd, La Vergne, TN</div>
+                                        <div className="text">
+                                            <a
+                                                href="https://www.google.com/maps/search/?api=1&query=5227+Murfreesboro+Rd+La+Vergne+TN+37086"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                style={{ textDecoration: "none", color: "inherit" }}
+                                            >
+                                                5227 Murfreesboro Rd, La Vergne, TN
+                                            </a>
+                                        </div>
                                     </li>
+
                                     <li>
                                         <div className="icon">
                                             <i className="far fa-envelope" />
