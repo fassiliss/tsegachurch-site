@@ -327,22 +327,25 @@ export default function HomeEventsSection() {
                 )}
 
                 <div style={{ textAlign: "center", marginTop: "50px" }}>
-                    <Link
-                        href="/events"
-                        className="primary_btn-two"
-                        style={{
-                            padding: "16px 45px",
-                            fontSize: "1.05rem",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "10px",
-                            textDecoration: "none",
-                            borderRadius: "30px",
-                        }}
-                    >
-                        View All Events <span style={{ fontSize: "1.2rem" }}>→</span>
+                    <Link href="/events">
+                        <a
+                            className="primary_btn-two"
+                            style={{
+                                padding: "16px 45px",
+                                fontSize: "1.05rem",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                textDecoration: "none",
+                                borderRadius: "30px",
+                            }}
+                        >
+                            <span>View All Events</span>
+                            <span style={{ fontSize: "1.2rem" }}>→</span>
+                        </a>
                     </Link>
                 </div>
+
             </div>
         </section>
     );

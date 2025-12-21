@@ -1,77 +1,91 @@
+// src/layouts/header/Menus.tsx
 import Link from "next/link";
-import { Fragment } from "react";
 
-export const Home = () => (
-  <Fragment>
-    <li>
-      <Link href="/">Home One</Link>
-    </li>
-    <li>
-      <Link href="/index-2">Home Two</Link>
-    </li>
-    <li>
-      <Link href="/index-3">Home Three</Link>
-    </li>
-    <li>
-      <Link href="/index-4">Home Four</Link>
-    </li>
-  </Fragment>
-);
-export const Page = () => (
-  <Fragment>
-    <li>
-      <Link href="/about">About</Link>
-    </li>
-    <li>
-      <Link href="/our-mission">Our Mission</Link>
-    </li>
-    <li>
-      <Link href="/event">Event</Link>
-    </li>
-    <li>
-      <Link href="/event-details">Event Details</Link>
-    </li>
-    <li>
-      <Link href="/volunteer">Volunteer</Link>
-    </li>
-    <li>
-      <Link href="/faq">FAQ</Link>
-    </li>
-    <li>
-      <Link href="/404">404</Link>
-    </li>
-  </Fragment>
-);
-export const Donation = () => (
-  <Fragment>
-    <li>
-      <Link href="/donation-grid">Donation Grid</Link>
-    </li>
-    <li>
-      <Link href="/donation-list">Donation List</Link>
-    </li>
-    <li>
-      <Link href="/donation-details">Donation Details</Link>
-    </li>
-  </Fragment>
-);
-export const Blog = () => (
-  <Fragment>
-    <li>
-      <Link href="/blog">Blog</Link>
-    </li>
-    <li>
-      <Link href="/blog-details">Blog Details</Link>
-    </li>
-  </Fragment>
-);
-export const Portfolio = () => (
-  <li>
-    <Link href="/gallery">Portfolio</Link>
-  </li>
-);
-export const Contact = () => (
-  <li>
-    <Link href="/contact">Contact</Link>
-  </li>
-);
+/* HOME MENUS */
+export function Home() {
+    return (
+        <>
+            <Link href="/"><a>Home One</a></Link>
+            <Link href="/index-2"><a>Home Two</a></Link>
+            <Link href="/index-3"><a>Home Three</a></Link>
+            <Link href="/index-4"><a>Home Four</a></Link>
+        </>
+    );
+}
+
+/* PAGE MENUS */
+export function Page() {
+    return (
+        <>
+            <Link href="/about"><a>About</a></Link>
+            <Link href="/our-mission"><a>Our Mission</a></Link>
+            <Link href="/faq"><a>FAQ</a></Link>
+            <Link href="/404"><a>404</a></Link>
+        </>
+    );
+}
+
+/* EVENT MENUS */
+export function Event() {
+    return (
+        <>
+            <Link href="/event"><a>Event</a></Link>
+            <Link href="/event-details"><a>Event Details</a></Link>
+            <Link href="/volunteer"><a>Volunteer</a></Link>
+        </>
+    );
+}
+
+/* DONATION MENUS */
+export function Donation() {
+    return (
+        <>
+            <Link href="/donation-grid"><a>Donation Grid</a></Link>
+            <Link href="/donation-list"><a>Donation List</a></Link>
+            <Link href="/donation-details"><a>Donation Details</a></Link>
+        </>
+    );
+}
+
+/* BLOG MENUS */
+export function Blog() {
+    return (
+        <>
+            <Link href="/blog"><a>Blog</a></Link>
+            <Link href="/blog-details"><a>Blog Details</a></Link>
+        </>
+    );
+}
+
+/* PORTFOLIO MENUS */
+export function Portfolio() {
+    return (
+        <>
+            <Link href="/gallery"><a>Portfolio</a></Link>
+        </>
+    );
+}
+
+/* CONTACT MENU */
+export function Contact() {
+    return (
+        <>
+            <Link href="/contact"><a>Contact</a></Link>
+        </>
+    );
+}
+
+/* DEFAULT EXPORT (optional, safe to keep) */
+export default function Menus() {
+    return (
+        <>
+            <Home />
+            <Page />
+            <Event />
+            <Donation />
+            <Blog />
+            <Portfolio />
+            <Contact />
+        </>
+    );
+}

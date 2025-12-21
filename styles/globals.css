@@ -105,3 +105,11 @@ div#chart {
     /*backdrop-filter: blur(12px);*/
     box-shadow: none !important;
 }
+.navigation .dropdown > button.nav-link {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0;
+    cursor: pointer;
+    color: #00c2ff !important;
+    font-size: 1.1rem;
+}

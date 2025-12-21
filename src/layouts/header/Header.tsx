@@ -1,6 +1,6 @@
 // src/layouts/header/Header.tsx
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import ThemeToggle from "src/components/ThemeToggle";
 
 export default function Header() {
@@ -33,7 +33,7 @@ export default function Header() {
                         <div className="inner-container d-flex align-items-center justify-content-between">
                             <div className="left-column d-flex align-items-center">
                                 <div className="logo me-3">
-                                    <Link href="/" legacyBehavior>
+                                    <Link href="/">
                                         <a onClick={closeMenu}>
                                             <img
                                                 src="/assets/images/grace-logo-new.png"
@@ -55,84 +55,89 @@ export default function Header() {
                                         color: "var(--primary-color)",
                                     }}
                                 >
-                                    <i className={navOpen ? "fas fa-times" : "fas fa-bars"}></i>
+                                    <i className={navOpen ? "fas fa-times" : "fas fa-bars"} />
                                 </button>
 
                                 <nav className="main-menu d-none d-lg-block">
                                     <ul className="navigation d-flex mb-0">
                                         <li>
-                                            <Link href="/" legacyBehavior>
+                                            <Link href="/">
                                                 <a className="nav-link">Home</a>
                                             </Link>
                                         </li>
+
                                         <li>
-                                            <Link href="/about" legacyBehavior>
+                                            <Link href="/about">
                                                 <a className="nav-link">About</a>
                                             </Link>
                                         </li>
+
                                         <li>
-                                            <Link href="/leaders" legacyBehavior>
+                                            <Link href="/leaders">
                                                 <a className="nav-link">Leaders</a>
                                             </Link>
                                         </li>
+
                                         <li>
-                                            <Link href="/members/register" legacyBehavior>
+                                            <Link href="/members/register">
                                                 <a className="nav-link">Members</a>
                                             </Link>
                                         </li>
 
                                         <li className="dropdown">
-                                            <a className="nav-link">
-                                                Ministries <i className="fa fa-angle-down ms-1"></i>
-                                            </a>
+                                            {/* Not a real link -> use button */}
+                                            <button type="button" className="nav-link">
+                                                Ministries <i className="fa fa-angle-down ms-1" />
+                                            </button>
+
                                             <ul className="submenu">
                                                 <li>
-                                                    <Link href="/ministries/young-adults" legacyBehavior>
+                                                    <Link href="/ministries/young-adults">
                                                         <a>Young Adults Ministry</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/women" legacyBehavior>
+                                                    <Link href="/ministries/women">
                                                         <a>Womens Ministry</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/men" legacyBehavior>
+                                                    <Link href="/ministries/men">
                                                         <a>Mens Ministry</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/bible-study" legacyBehavior>
+                                                    <Link href="/ministries/bible-study">
                                                         <a>Bible Study</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/family" legacyBehavior>
+                                                    <Link href="/ministries/family">
                                                         <a>Family Ministry</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/worship-arts" legacyBehavior>
+                                                    <Link href="/ministries/worship-arts">
                                                         <a>Worship Arts Ministry</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/kids" legacyBehavior>
+                                                    <Link href="/ministries/kids">
                                                         <a>Kids Ministry</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/prayer" legacyBehavior>
+                                                    <Link href="/ministries/prayer">
                                                         <a>Prayer Ministry</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/evangelism" legacyBehavior>
+                                                    <Link href="/ministries/evangelism">
                                                         <a>Evangelism Ministry</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/ministries/audio-visual" legacyBehavior>
+                                                    <Link href="/ministries/audio-visual">
                                                         <a>Audio-Visual Ministry</a>
                                                     </Link>
                                                 </li>
@@ -140,22 +145,24 @@ export default function Header() {
                                         </li>
 
                                         <li className="dropdown">
-                                            <a className="nav-link">
-                                                Events <i className="fa fa-angle-down ms-1"></i>
-                                            </a>
+                                            {/* Not a real link -> use button */}
+                                            <button type="button" className="nav-link">
+                                                Events <i className="fa fa-angle-down ms-1" />
+                                            </button>
+
                                             <ul className="submenu">
                                                 <li>
-                                                    <Link href="/events" legacyBehavior>
+                                                    <Link href="/events">
                                                         <a>Upcoming Events</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/media" legacyBehavior>
+                                                    <Link href="/media">
                                                         <a>Media Gallery</a>
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/announcements" legacyBehavior>
+                                                    <Link href="/announcements">
                                                         <a>Announcements</a>
                                                     </Link>
                                                 </li>
@@ -163,7 +170,7 @@ export default function Header() {
                                         </li>
 
                                         <li>
-                                            <Link href="/contact" legacyBehavior>
+                                            <Link href="/contact">
                                                 <a className="nav-link">Contact</a>
                                             </Link>
                                         </li>
@@ -173,7 +180,8 @@ export default function Header() {
 
                             <div className="right-column d-none d-lg-flex align-items-center gap-3">
                                 <ThemeToggle />
-                                <Link href="/admin" legacyBehavior>
+
+                                <Link href="/admin">
                                     <a
                                         className="btn btn-sm"
                                         style={{
@@ -185,7 +193,7 @@ export default function Header() {
                                             border: "none",
                                         }}
                                     >
-                                        <i className="fas fa-user-shield me-2"></i>
+                                        <i className="fas fa-user-shield me-2" />
                                         Admin
                                     </a>
                                 </Link>
@@ -212,39 +220,40 @@ export default function Header() {
                     >
                         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                             <li style={{ marginBottom: "10px" }}>
-                                <Link href="/" legacyBehavior>
+                                <Link href="/">
                                     <a onClick={closeMenu} className="mobile-link">
-                                        <i className="fas fa-home me-3"></i> Home
+                                        <i className="fas fa-home me-3" /> Home
                                     </a>
                                 </Link>
                             </li>
 
                             <li style={{ marginBottom: "10px" }}>
-                                <Link href="/about" legacyBehavior>
+                                <Link href="/about">
                                     <a onClick={closeMenu} className="mobile-link">
-                                        <i className="fas fa-info-circle me-3"></i> About
+                                        <i className="fas fa-info-circle me-3" /> About
                                     </a>
                                 </Link>
                             </li>
 
                             <li style={{ marginBottom: "10px" }}>
-                                <Link href="/leaders" legacyBehavior>
+                                <Link href="/leaders">
                                     <a onClick={closeMenu} className="mobile-link">
-                                        <i className="fas fa-users me-3"></i> Leaders
+                                        <i className="fas fa-users me-3" /> Leaders
                                     </a>
                                 </Link>
                             </li>
 
                             <li style={{ marginBottom: "10px" }}>
-                                <Link href="/members/register" legacyBehavior>
+                                <Link href="/members/register">
                                     <a onClick={closeMenu} className="mobile-link">
-                                        <i className="fas fa-user-plus me-3"></i> Members
+                                        <i className="fas fa-user-plus me-3" /> Members
                                     </a>
                                 </Link>
                             </li>
 
                             <li style={{ marginBottom: "10px" }}>
                                 <button
+                                    type="button"
                                     onClick={() => setMinistriesOpen(!ministriesOpen)}
                                     className="mobile-link"
                                     style={{
@@ -255,65 +264,81 @@ export default function Header() {
                                     }}
                                 >
                   <span>
-                    <i className="fas fa-church me-3"></i> Ministries
+                    <i className="fas fa-church me-3" /> Ministries
                   </span>
-                                    <i
-                                        className={
-                                            ministriesOpen ? "fas fa-chevron-up" : "fas fa-chevron-down"
-                                        }
-                                    ></i>
+                                    <i className={ministriesOpen ? "fas fa-chevron-up" : "fas fa-chevron-down"} />
                                 </button>
 
                                 {ministriesOpen && (
                                     <ul style={{ listStyle: "none", marginTop: "10px" }}>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/young-adults" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Young Adults</a>
+                                            <Link href="/ministries/young-adults">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Young Adults
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/women" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Women</a>
+                                            <Link href="/ministries/women">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Women
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/men" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Men</a>
+                                            <Link href="/ministries/men">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Men
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/bible-study" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Bible Study</a>
+                                            <Link href="/ministries/bible-study">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Bible Study
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/family" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Family</a>
+                                            <Link href="/ministries/family">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Family
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/worship-arts" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Worship Arts</a>
+                                            <Link href="/ministries/worship-arts">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Worship Arts
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/kids" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Kids Ministry</a>
+                                            <Link href="/ministries/kids">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Kids Ministry
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/prayer" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Prayer</a>
+                                            <Link href="/ministries/prayer">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Prayer
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/evangelism" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Evangelism</a>
+                                            <Link href="/ministries/evangelism">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Evangelism
+                                                </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/ministries/audio-visual" legacyBehavior>
-                                                <a onClick={closeMenu} className="mobile-link">Audio Visual</a>
+                                            <Link href="/ministries/audio-visual">
+                                                <a onClick={closeMenu} className="mobile-link">
+                                                    Audio Visual
+                                                </a>
                                             </Link>
                                         </li>
                                     </ul>
@@ -322,6 +347,7 @@ export default function Header() {
 
                             <li style={{ marginBottom: "10px" }}>
                                 <button
+                                    type="button"
                                     onClick={() => setEventsOpen(!eventsOpen)}
                                     className="mobile-link"
                                     style={{
@@ -332,31 +358,31 @@ export default function Header() {
                                     }}
                                 >
                   <span>
-                    <i className="fas fa-calendar-alt me-3"></i> Events
+                    <i className="fas fa-calendar-alt me-3" /> Events
                   </span>
-                                    <i className={eventsOpen ? "fas fa-chevron-up" : "fas fa-chevron-down"}></i>
+                                    <i className={eventsOpen ? "fas fa-chevron-up" : "fas fa-chevron-down"} />
                                 </button>
 
                                 {eventsOpen && (
                                     <ul style={{ listStyle: "none", marginTop: "10px" }}>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/events" legacyBehavior>
+                                            <Link href="/events">
                                                 <a onClick={closeMenu} className="mobile-link">
-                                                    <i className="fas fa-calendar-check me-2"></i> Upcoming Events
+                                                    <i className="fas fa-calendar-check me-2" /> Upcoming Events
                                                 </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/media" legacyBehavior>
+                                            <Link href="/media">
                                                 <a onClick={closeMenu} className="mobile-link">
-                                                    <i className="fas fa-photo-video me-2"></i> Media Gallery
+                                                    <i className="fas fa-photo-video me-2" /> Media Gallery
                                                 </a>
                                             </Link>
                                         </li>
                                         <li style={{ paddingLeft: "20px" }}>
-                                            <Link href="/announcements" legacyBehavior>
+                                            <Link href="/announcements">
                                                 <a onClick={closeMenu} className="mobile-link">
-                                                    <i className="fas fa-bullhorn me-2"></i> Announcements
+                                                    <i className="fas fa-bullhorn me-2" /> Announcements
                                                 </a>
                                             </Link>
                                         </li>
@@ -365,15 +391,15 @@ export default function Header() {
                             </li>
 
                             <li style={{ marginBottom: "10px" }}>
-                                <Link href="/contact" legacyBehavior>
+                                <Link href="/contact">
                                     <a onClick={closeMenu} className="mobile-link">
-                                        <i className="fas fa-envelope me-3"></i> Contact
+                                        <i className="fas fa-envelope me-3" /> Contact
                                     </a>
                                 </Link>
                             </li>
 
                             <li style={{ marginTop: "20px" }}>
-                                <Link href="/admin" legacyBehavior>
+                                <Link href="/admin">
                                     <a
                                         onClick={closeMenu}
                                         className="mobile-link"
@@ -386,7 +412,7 @@ export default function Header() {
                                             alignItems: "center",
                                         }}
                                     >
-                                        <i className="fas fa-user-shield me-3"></i> Admin
+                                        <i className="fas fa-user-shield me-3" /> Admin
                                     </a>
                                 </Link>
                             </li>
@@ -398,7 +424,9 @@ export default function Header() {
                     </div>
                 )}
             </header>
-            <div style={{ height: "80px" }}></div>
+
+            {/* spacer for fixed header */}
+            <div style={{ height: "80px" }} />
         </>
     );
 }
