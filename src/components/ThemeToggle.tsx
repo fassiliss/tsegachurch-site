@@ -1,54 +1,48 @@
 // src/components/ThemeToggle.tsx
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [darkMode, setDarkMode] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    const [dark, setDark] = useState(false);
 
-  // Load theme from localStorage on mount
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const isDark = savedTheme === "dark";
-    setDarkMode(isDark);
+    // Run only on client
+    useEffect(() => {
+        setMounted(true);
 
-    if (isDark) {
-      document.documentElement.classList.add("dark-mode");
-    }
-  }, []);
+        const saved = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-  // Toggle theme
-  const toggleTheme = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
+        const isDark = saved ? saved === "dark" : prefersDark;
 
-    if (newMode) {
-      document.documentElement.classList.add("dark-mode");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark-mode");
-      localStorage.setItem("theme", "light");
-    }
-  };
+        document.documentElement.classList.toggle("dark-mode", isDark);
+        setDark(isDark);
+    }, []);
 
-  return (
-    <button
-      className="btn btn-sm btn-outline-light theme-toggle"
-      onClick={toggleTheme}
-      aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-      style={{
-        position: "relative",
-        width: "40px",
-        height: "40px",
-        padding: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {darkMode ? (
-        <i className="fas fa-sun" style={{ fontSize: "18px" }} />
-      ) : (
-        <i className="fas fa-moon" style={{ fontSize: "18px" }} />
-      )}
-    </button>
-  );
+    const toggleTheme = () => {
+        const isDark = !dark;
+        document.documentElement.classList.toggle("dark-mode", isDark);
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        setDark(isDark);
+    };
+
+    // ⛔ Prevent hydration mismatch
+    if (!mounted) return null;
+
+    return (
+        <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            style={{
+                background: "transparent",
+                border: "1px solid var(--border-color)",
+                color: "var(--text-primary)",
+                borderRadius: "999px",
+                padding: "6px 14px",
+                cursor: "pointer",
+                fontSize: "14px",
+            }}
+        >
+            {dark ? "🌙 Dark" : "☀️ Light"}
+        </button>
+    );
 }

@@ -53,13 +53,13 @@ export default function WorshipMinistry() {
     const teamMembers = [
         {
             name: " Esayas Fanta",
-            role: "Worship Director",
+            role: "Worship Leader",
             bio: "Leading worship for 15+ years",
             image: "/assets/images/worship/eso3.png"
         },
         {
             name: " Fikru Befekadu",
-            role: "Choir Director",
+            role: "Choir Leader",
             bio: " worship leader",
             image: "/assets/images/worship/fikru2.png"
         },

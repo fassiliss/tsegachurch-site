@@ -52,22 +52,22 @@ export default function FamilyMinistry() {
 
     const teamMembers = [
         {
-            name: "Pastor Mark & Lisa",
+            name: "TBD",
             role: "Family Ministry Directors",
             bio: "30+ years of marriage and ministry"
         },
         {
-            name: "Brother Thomas",
+            name: "TBD",
             role: "Children's Coordinator",
             bio: "Passionate about raising godly kids"
         },
         {
-            name: "Sister Grace",
+            name: "TBD",
             role: "Parenting Resources Leader",
             bio: "Mother of 4, counselor, mentor"
         },
         {
-            name: "Brother Daniel",
+            name: "TBD",
             role: "Family Events Coordinator",
             bio: "Creating memorable family experiences"
         }

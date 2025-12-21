@@ -50,22 +50,22 @@ export default function EvangelismMinistry() {
 
     const teamMembers = [
         {
-            name: "Pastor Samuel",
+            name: "TBD",
             role: "Evangelism Director",
             bio: "Leading souls to Christ for 20+ years"
         },
         {
-            name: "Sister Martha",
+            name: "TBD",
             role: "Community Outreach Coordinator",
             bio: "Passionate about serving the community"
         },
         {
-            name: "Brother Paul",
+            name: "TBD",
             role: "Mission Trips Leader",
             bio: "Organizing global mission opportunities"
         },
         {
-            name: "Sister Esther",
+            name: "TBD",
             role: "Evangelism Training Coordinator",
             bio: "Equipping believers to share their faith"
         }

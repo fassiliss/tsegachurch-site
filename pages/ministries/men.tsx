@@ -50,22 +50,22 @@ export default function MensMinistry() {
 
   const leaders = [
     {
-      name: "Daniel Mitchell",
+      name: "TBD",
       role: "Ministry Director",
       bio: "Equipping men to lead with godly character"
     },
     {
-      name: "Marcus Johnson",
+      name: "TBD",
       role: "Men's Bible Study Leader",
       bio: "Teaching God's Word with passion and truth"
     },
     {
-      name: "Samuel Carter",
+      name: "TBD",
       role: "Prayer Team Coordinator",
       bio: "Leading men in powerful intercession"
     },
     {
-      name: "Joseph Anderson",
+      name: "TBD",
       role: "Outreach Leader",
       bio: "Mobilizing men to serve the community"
     }

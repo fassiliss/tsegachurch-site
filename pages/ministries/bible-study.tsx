@@ -1,3 +1,4 @@
+// pages/ministries/bible-study.tsx
 import Head from "next/head";
 import { useState } from "react";
 import Header from "src/layouts/header/Header";
@@ -16,17 +17,19 @@ export default function BibleStudy() {
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleCheckbox = (interest: string) => {
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
             studyInterests: prev.studyInterests.includes(interest)
-                ? prev.studyInterests.filter(i => i !== interest)
-                : [...prev.studyInterests, interest]
+                ? prev.studyInterests.filter((i) => i !== interest)
+                : [...prev.studyInterests, interest],
         }));
     };
 
@@ -49,49 +52,35 @@ export default function BibleStudy() {
     };
 
     const leaders = [
-        {
-            name: "Pastor David",
-            role: "Bible Study Director",
-            bio: "20+ years teaching God's Word"
-        },
-        {
-            name: "Sister Ruth",
-            role: "Women's Study Leader",
-            bio: "Passionate about discipleship"
-        },
-        {
-            name: "Brother Samuel",
-            role: "Men's Study Coordinator",
-            bio: "Building strong men of faith"
-        },
-        {
-            name: "Sister Hannah",
-            role: "Youth Study Leader",
-            bio: "Connecting young people to Scripture"
-        }
+        { name: "TBD", role: "Bible Study Director", bio: "20+ years teaching God's Word" },
+        { name: "TBD", role: "Women's Study Leader", bio: "Passionate about discipleship" },
+        { name: "TBD", role: "Men's Study Coordinator", bio: "Building strong men of faith" },
+        { name: "TBD", role: "Youth Study Leader", bio: "Connecting young people to Scripture" },
     ];
 
     const studyPrograms = [
         {
             icon: "📖",
             title: "Sunday School",
-            description: "In-depth biblical teaching for all ages every Sunday morning before service"
+            description: "In-depth biblical teaching for all ages every Sunday morning before service",
         },
         {
             icon: "👥",
             title: "Midweek Bible Study",
-            description: "Wednesday evening studies diving deep into God's Word together"
+            description: "Wednesday evening studies diving deep into God's Word together",
         },
         {
             icon: "🏠",
             title: "Home Groups",
-            description: "Small group studies meeting in homes throughout the week for fellowship and growth"
+            description:
+                "Small group studies meeting in homes throughout the week for fellowship and growth",
         },
         {
             icon: "🎓",
             title: "Discipleship Classes",
-            description: "Structured courses for new believers and those seeking deeper understanding"
-        }
+            description:
+                "Structured courses for new believers and those seeking deeper understanding",
+        },
     ];
 
     const studyGroups = [
@@ -99,86 +88,90 @@ export default function BibleStudy() {
             name: "Men's Bible Study",
             schedule: "Saturdays, 7:00 AM",
             focus: "Building Godly Character",
-            location: "Main Building, Room 101"
+            location: "Main Building, Room 101",
         },
         {
             name: "Women's Bible Study",
             schedule: "Tuesdays, 10:00 AM",
             focus: "Proverbs 31 Women",
-            location: "Fellowship Hall"
+            location: "Fellowship Hall",
         },
         {
             name: "Youth Bible Study",
             schedule: "Fridays, 6:00 PM",
             focus: "Living Faith in Modern World",
-            location: "Youth Center"
+            location: "Youth Center",
         },
         {
             name: "Young Adults Study",
             schedule: "Thursdays, 7:00 PM",
             focus: "Purpose & Identity in Christ",
-            location: "Coffee Shop Area"
+            location: "Coffee Shop Area",
         },
         {
             name: "Seniors Bible Study",
             schedule: "Wednesdays, 2:00 PM",
             focus: "Wisdom from the Word",
-            location: "Senior Center"
+            location: "Senior Center",
         },
         {
             name: "New Believers Class",
             schedule: "Sundays, 9:00 AM",
             focus: "Foundations of Faith",
-            location: "Classroom A"
-        }
+            location: "Classroom A",
+        },
     ];
 
+    // ✅ Use theme variables so it works in dark/light consistently
     const cardStyle = {
-        background: "white",
+        background: "var(--card-bg)",
         padding: "40px 30px",
         borderRadius: "12px",
         textAlign: "center" as const,
         height: "100%",
         boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
-        transition: "transform 0.3s"
+        transition: "transform 0.3s",
+        border: "1px solid var(--border-color)",
     };
 
     const groupCardStyle = {
-        background: "white",
+        background: "var(--card-bg)",
         padding: "30px",
         borderRadius: "12px",
         boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-        height: "100%"
+        height: "100%",
+        border: "1px solid var(--border-color)",
     };
 
     const formContainerStyle = {
-        background: "#f9f9f9",
+        background: "var(--bg-secondary)",
         padding: "40px",
-        borderRadius: "12px"
+        borderRadius: "12px",
+        border: "1px solid var(--border-color)",
     };
 
     const inputStyle = {
         width: "100%",
         padding: "12px",
-        border: "1px solid #ddd",
+        border: "1px solid var(--border-color)",
         borderRadius: "6px",
-        fontSize: "1rem"
+        fontSize: "1rem",
+        background: "var(--bg-primary)",
+        color: "var(--text-primary)",
     };
 
     return (
-        <>
+        <div className="bible-study-page">
             <Head>
                 <title>Bible Study / የመጽሐፍ ቅዱስ ጥናት — Tsega Church</title>
             </Head>
+
             <Header />
+
             <PageBanner
-                pageName="Bible Study Ministry "
-                pageTitle="Bible Study Ministry / የመጽሐፍ ቅዱስ ጥናት አገልግሎት "
-
-
+                pageName="Bible Study Ministry"
+                pageTitle="Bible Study Ministry / የመጽሐፍ ቅዱስ ጥናት አገልግሎት"
             />
-
-
 
             {/* Overview Section */}
             <section style={{ padding: "80px 0" }}>
@@ -186,33 +179,33 @@ export default function BibleStudy() {
                     <div className="row align-items-center">
                         <div className="col-lg-6">
                             <div style={{ paddingRight: "30px" }}>
-                                <h2 style={{ fontSize: "2.5rem", marginBottom: "25px" }}>
-                                    Our Mission
-                                </h2>
+                                <h2 style={{ fontSize: "2.5rem", marginBottom: "25px" }}>Our Mission</h2>
+
                                 <p style={{ fontSize: "1.1rem", lineHeight: "1.8", marginBottom: "20px" }}>
-                                    The Bible Study Ministry is committed to helping every member of our church family
-                                    grow in their knowledge and understanding of God's Word. We believe that Scripture
-                                    is alive and active, transforming hearts and minds as we study it together in
-                                    community.
+                                    The Bible Study Ministry is committed to helping every member of our church
+                                    family grow in their knowledge and understanding of God's Word. We believe
+                                    that Scripture is alive and active, transforming hearts and minds as we study
+                                    it together in community.
                                 </p>
+
                                 <p style={{ fontSize: "1.05rem", lineHeight: "1.8" }}>
-                                    Through various study groups, classes, and teaching opportunities, we create spaces
-                                    where people can ask questions, share insights, and apply biblical truths to their
-                                    daily lives. Whether you're new to the Bible or have studied it for years, there's
-                                    a place for you here.
+                                    Through various study groups, classes, and teaching opportunities, we create
+                                    spaces where people can ask questions, share insights, and apply biblical
+                                    truths to their daily lives. Whether you're new to the Bible or have studied
+                                    it for years, there's a place for you here.
                                 </p>
                             </div>
                         </div>
+
                         <div className="col-lg-6">
                             <div className="bible-card" style={cardStyle}>
                                 <div style={{ fontSize: "4rem", marginBottom: "20px" }}>📚</div>
-                                <h3 style={{ fontSize: "1.8rem", marginBottom: "15px" }}>
-                                    The Word is Living
-                                </h3>
+                                <h3 style={{ fontSize: "1.8rem", marginBottom: "15px" }}>The Word is Living</h3>
                                 <p style={{ fontSize: "1rem", fontStyle: "italic", marginBottom: "15px" }}>
-                                    "For the word of God is alive and active. Sharper than any double-edged sword..."
+                                    "For the word of God is alive and active. Sharper than any double-edged
+                                    sword..."
                                 </p>
-                                <p style={{ fontSize: "0.9rem", color: "#666" }}>
+                                <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>
                                     — Hebrews 4:12
                                 </p>
                             </div>
@@ -222,12 +215,10 @@ export default function BibleStudy() {
             </section>
 
             {/* Study Programs Section */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="bible-alt-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
-                            Our Study Programs
-                        </h2>
+                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>Our Study Programs</h2>
                         <p style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
                             Multiple opportunities to dive deep into Scripture
                         </p>
@@ -238,9 +229,7 @@ export default function BibleStudy() {
                             <div key={index} className="col-lg-3 col-md-6 mb-4">
                                 <div className="bible-card" style={cardStyle}>
                                     <div style={{ fontSize: "3rem", marginBottom: "20px" }}>{program.icon}</div>
-                                    <h3 style={{ fontSize: "1.4rem", marginBottom: "15px" }}>
-                                        {program.title}
-                                    </h3>
+                                    <h3 style={{ fontSize: "1.4rem", marginBottom: "15px" }}>{program.title}</h3>
                                     <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
                                         {program.description}
                                     </p>
@@ -255,9 +244,7 @@ export default function BibleStudy() {
             <section style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
-                            Our Study Leaders
-                        </h2>
+                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>Our Study Leaders</h2>
                         <p style={{ fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto" }}>
                             Experienced teachers passionate about God's Word
                         </p>
@@ -267,32 +254,34 @@ export default function BibleStudy() {
                         {leaders.map((leader, index) => (
                             <div key={index} className="col-lg-3 col-md-6 mb-4">
                                 <div style={{ textAlign: "center", padding: "20px" }}>
-                                    <div style={{
-                                        width: "180px",
-                                        height: "180px",
-                                        borderRadius: "50%",
-                                        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                                        margin: "0 auto 20px",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        fontSize: "4rem",
-                                        color: "white"
-                                    }}>
+                                    <div
+                                        style={{
+                                            width: "180px",
+                                            height: "180px",
+                                            borderRadius: "50%",
+                                            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                                            margin: "0 auto 20px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontSize: "4rem",
+                                            color: "white",
+                                        }}
+                                    >
                                         👤
                                     </div>
-                                    <h3 style={{ fontSize: "1.3rem", marginBottom: "8px" }}>
-                                        {leader.name}
-                                    </h3>
-                                    <p style={{
-                                        fontSize: "1rem",
-                                        color: "#667eea",
-                                        fontWeight: "600",
-                                        marginBottom: "10px"
-                                    }}>
+                                    <h3 style={{ fontSize: "1.3rem", marginBottom: "8px" }}>{leader.name}</h3>
+                                    <p
+                                        style={{
+                                            fontSize: "1rem",
+                                            color: "var(--link-color)",
+                                            fontWeight: "600",
+                                            marginBottom: "10px",
+                                        }}
+                                    >
                                         {leader.role}
                                     </p>
-                                    <p style={{ fontSize: "0.9rem" }}>
+                                    <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>
                                         {leader.bio}
                                     </p>
                                 </div>
@@ -303,12 +292,10 @@ export default function BibleStudy() {
             </section>
 
             {/* Study Groups Section */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="bible-alt-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
-                            Weekly Study Groups
-                        </h2>
+                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>Weekly Study Groups</h2>
                         <p style={{ fontSize: "1.1rem" }}>
                             Find a group that fits your schedule and season of life
                         </p>
@@ -318,7 +305,13 @@ export default function BibleStudy() {
                         {studyGroups.map((group, index) => (
                             <div key={index} className="col-lg-4 col-md-6 mb-4">
                                 <div className="group-card" style={groupCardStyle}>
-                                    <h4 style={{ fontSize: "1.4rem", marginBottom: "15px", color: "#667eea" }}>
+                                    <h4
+                                        style={{
+                                            fontSize: "1.4rem",
+                                            marginBottom: "15px",
+                                            color: "var(--link-color)",
+                                        }}
+                                    >
                                         {group.name}
                                     </h4>
                                     <div style={{ fontSize: "0.95rem", lineHeight: "1.8" }}>
@@ -343,21 +336,15 @@ export default function BibleStudy() {
             <section style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div style={{ textAlign: "center", marginBottom: "60px" }}>
-                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
-                            Study Resources
-                        </h2>
-                        <p style={{ fontSize: "1.1rem" }}>
-                            Tools to help you grow in your understanding
-                        </p>
+                        <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>Study Resources</h2>
+                        <p style={{ fontSize: "1.1rem" }}>Tools to help you grow in your understanding</p>
                     </div>
 
                     <div className="row">
                         <div className="col-lg-4 col-md-6 mb-4">
                             <div className="bible-card" style={cardStyle}>
                                 <div style={{ fontSize: "3rem", marginBottom: "20px" }}>📝</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Study Guides
-                                </h4>
+                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>Study Guides</h4>
                                 <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
                                     Downloadable guides for personal and group study with discussion questions
                                 </p>
@@ -367,9 +354,7 @@ export default function BibleStudy() {
                         <div className="col-lg-4 col-md-6 mb-4">
                             <div className="bible-card" style={cardStyle}>
                                 <div style={{ fontSize: "3rem", marginBottom: "20px" }}>🎧</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Teaching Audio
-                                </h4>
+                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>Teaching Audio</h4>
                                 <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
                                     Listen to previous teachings and sermons on our podcast platform
                                 </p>
@@ -379,9 +364,7 @@ export default function BibleStudy() {
                         <div className="col-lg-4 col-md-6 mb-4">
                             <div className="bible-card" style={cardStyle}>
                                 <div style={{ fontSize: "3rem", marginBottom: "20px" }}>💬</div>
-                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>
-                                    Online Community
-                                </h4>
+                                <h4 style={{ fontSize: "1.3rem", marginBottom: "15px" }}>Online Community</h4>
                                 <p style={{ fontSize: "0.95rem", lineHeight: "1.6" }}>
                                     Join our online discussion groups to continue conversations throughout the week
                                 </p>
@@ -392,37 +375,36 @@ export default function BibleStudy() {
             </section>
 
             {/* Join Form */}
-            <section style={{ padding: "80px 0", background: "#f9f9f9" }}>
+            <section className="bible-alt-section" style={{ padding: "80px 0" }}>
                 <div className="theme_container">
                     <div className="row justify-content-center">
                         <div className="col-lg-8">
                             <div style={{ textAlign: "center", marginBottom: "50px" }}>
-                                <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>
-                                    Join a Bible Study
-                                </h2>
-                                <p style={{ fontSize: "1.1rem" }}>
-                                    Take the next step in your spiritual growth
-                                </p>
+                                <h2 style={{ fontSize: "2.5rem", marginBottom: "15px" }}>Join a Bible Study</h2>
+                                <p style={{ fontSize: "1.1rem" }}>Take the next step in your spiritual growth</p>
                             </div>
 
                             {success && (
-                                <div style={{
-                                    background: "#d4edda",
-                                    border: "1px solid #c3e6cb",
-                                    color: "#155724",
-                                    padding: "15px",
-                                    borderRadius: "8px",
-                                    marginBottom: "30px",
-                                    textAlign: "center"
-                                }}>
-                                    ✅ Thank you! We'll contact you with more information about your selected study group.
+                                <div
+                                    style={{
+                                        background: "#d4edda",
+                                        border: "1px solid #c3e6cb",
+                                        color: "#155724",
+                                        padding: "15px",
+                                        borderRadius: "8px",
+                                        marginBottom: "30px",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    ✅ Thank you! We'll contact you with more information about your selected study
+                                    group.
                                 </div>
                             )}
 
                             <form onSubmit={handleSubmit} style={formContainerStyle}>
                                 <div className="row">
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: 600 }}>
                                             Full Name *
                                         </label>
                                         <input
@@ -436,7 +418,7 @@ export default function BibleStudy() {
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: 600 }}>
                                             Email *
                                         </label>
                                         <input
@@ -450,7 +432,7 @@ export default function BibleStudy() {
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: 600 }}>
                                             Phone
                                         </label>
                                         <input
@@ -463,7 +445,7 @@ export default function BibleStudy() {
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: 600 }}>
                                             Age Group
                                         </label>
                                         <select
@@ -481,12 +463,22 @@ export default function BibleStudy() {
                                     </div>
 
                                     <div className="col-12 mb-3">
-                                        <label style={{ display: "block", marginBottom: "12px", fontWeight: "600" }}>
+                                        <label style={{ display: "block", marginBottom: "12px", fontWeight: 600 }}>
                                             Which study groups interest you? (check all that apply)
                                         </label>
-                                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
-                                            {studyGroups.map(group => (
-                                                <label key={group.name} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+
+                                        <div
+                                            style={{
+                                                display: "grid",
+                                                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                                                gap: "12px",
+                                            }}
+                                        >
+                                            {studyGroups.map((group) => (
+                                                <label
+                                                    key={group.name}
+                                                    style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+                                                >
                                                     <input
                                                         type="checkbox"
                                                         checked={formData.studyInterests.includes(group.name)}
@@ -500,7 +492,7 @@ export default function BibleStudy() {
                                     </div>
 
                                     <div className="col-12 mb-3">
-                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: "600" }}>
+                                        <label style={{ display: "block", marginBottom: "8px", fontWeight: 600 }}>
                                             Prayer requests or questions about Bible study
                                         </label>
                                         <textarea
@@ -508,7 +500,7 @@ export default function BibleStudy() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             rows={5}
-                                            style={{...inputStyle, resize: "vertical"}}
+                                            style={{ ...inputStyle, resize: "vertical" as const }}
                                             placeholder="Share any prayer requests or questions you have about joining a study group..."
                                         />
                                     </div>
@@ -518,11 +510,7 @@ export default function BibleStudy() {
                                     type="submit"
                                     disabled={submitting}
                                     className="primary_btn-two"
-                                    style={{
-                                        padding: "14px 40px",
-                                        fontSize: "1.1rem",
-                                        marginTop: "10px"
-                                    }}
+                                    style={{ padding: "14px 40px", fontSize: "1.1rem", marginTop: "10px" }}
                                 >
                                     {submitting ? "Submitting..." : "Submit Registration"}
                                 </button>
@@ -532,26 +520,39 @@ export default function BibleStudy() {
                 </div>
             </section>
 
-            {/* Contact Section */}
-            <section style={{
-                padding: "60px 0",
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                color: "white",
-                textAlign: "center"
-            }}>
+            {/* Contact strip (keep purple/white always) */}
+            <section
+                className="bible-contact-strip"
+                style={{
+                    padding: "60px 0",
+                    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                    color: "white",
+                    textAlign: "center",
+                }}
+            >
                 <div className="theme_container">
-                    <h2 style={{ fontSize: "2.2rem", marginBottom: "20px" }}>
-                        Questions About Bible Study?
-                    </h2>
+                    <h2 style={{ fontSize: "2.2rem", marginBottom: "20px" }}>Questions About Bible Study?</h2>
                     <p style={{ fontSize: "1.1rem", marginBottom: "25px", opacity: 0.9 }}>
                         We're here to help you get connected and growing in God's Word!
                     </p>
                     <div style={{ fontSize: "1.2rem" }}>
                         <p style={{ marginBottom: "10px" }}>
-                            📧 Email: <a href="mailto:biblestudy@tsegachurch.org" style={{ color: "white", textDecoration: "underline" }}>biblestudy@tsegachurch.org</a>
+                            📧 Email:{" "}
+                            <a
+                                href="mailto:biblestudy@tsegachurch.org"
+                                style={{ color: "white", textDecoration: "underline" }}
+                            >
+                                biblestudy@tsegachurch.org
+                            </a>
                         </p>
                         <p>
-                            📞 Phone: <a href="tel:+1234567890" style={{ color: "white", textDecoration: "underline" }}>(123) 456-7890</a>
+                            📞 Phone:{" "}
+                            <a
+                                href="tel:+1234567890"
+                                style={{ color: "white", textDecoration: "underline" }}
+                            >
+                                (123) 456-7890
+                            </a>
                         </p>
                     </div>
                 </div>
@@ -559,54 +560,47 @@ export default function BibleStudy() {
 
             <Footer />
 
+            {/* Page-scoped theme helpers */}
             <style jsx global>{`
-        .bible-card,
-        .group-card {
-          transition: transform 0.3s;
-        }
-        
-        .bible-card:hover,
-        .group-card:hover {
-          transform: translateY(-5px);
-        }
-        
-        /* Dark Mode Support */
-        .dark-mode .bible-card,
-        .dark-mode .group-card {
-          background: #1a1a1a !important;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-        }
-        
-        .dark-mode form {
-          background: #1a1a1a !important;
-        }
-        
-        .dark-mode input,
-        .dark-mode select,
-        .dark-mode textarea {
-          background: #2a2a2a !important;
-          border-color: #444 !important;
-          color: #fff !important;
-        }
-        
-        .dark-mode h1,
-        .dark-mode h2,
-        .dark-mode h3,
-        .dark-mode h4 {
-          color: #fff !important;
-        }
-        
-        .dark-mode p,
-        .dark-mode li {
-          color: #ccc !important;
-        }
-        
-        .dark-mode label {
-          color: #fff !important;
-        }
-        
-        
-      `}</style>
-        </>
+                .bible-study-page {
+                    background: var(--bg-primary);
+                    color: var(--text-primary);
+                }
+
+                .bible-study-page .bible-alt-section {
+                    background: var(--bg-secondary);
+                }
+
+                .bible-study-page .bible-card,
+                .bible-study-page .group-card {
+                    background: var(--card-bg) !important;
+                    color: var(--text-primary) !important;
+                    border: 1px solid var(--border-color);
+                }
+
+                .bible-study-page .bible-card:hover,
+                .bible-study-page .group-card:hover {
+                    transform: translateY(-5px);
+                }
+
+                .bible-study-page form {
+                    background: var(--bg-secondary) !important;
+                }
+
+                .bible-study-page input,
+                .bible-study-page select,
+                .bible-study-page textarea {
+                    background: var(--bg-primary) !important;
+                    border-color: var(--border-color) !important;
+                    color: var(--text-primary) !important;
+                }
+
+                /* keep the purple strip always white text */
+                .bible-study-page .bible-contact-strip,
+                .bible-study-page .bible-contact-strip * {
+                    color: #fff !important;
+                }
+            `}</style>
+        </div>
     );
 }
