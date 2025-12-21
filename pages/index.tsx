@@ -182,7 +182,7 @@ export default function Home() {
                 <div className="theme_container">
                     <div className="row">
                         {[
-                            { icon: "flaticon-igloo", title: "Sunday Service", text: "11:00 AM — All are welcome." },
+                            { icon: "flaticon-igloo", title: "Sunday Service", text: "11:00 AM — 1:00 PM." },
                             { icon: "flaticon-polar-bear", title: "Kids & Youth", text: "Safe, fun, Christ-centered." },
                             { icon: "flaticon-planet-earth", title: "Groups", text: "Grow in faith & community." },
                             { icon: "flaticon-environment", title: "Outreach", text: "Serving our neighbors." },
