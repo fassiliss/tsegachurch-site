@@ -284,14 +284,14 @@ export default function MembersRegister() {
                     </div>
 
                     <div className="col-12">
-                      <label className="form-label">Prayer Requests</label>
+                      <label className="form-label">Please share what God has placed on your heart to serve Him.</label>
                       <textarea
                         className="form-control"
                         name="prayerRequest"
                         rows={4}
                         value={data.prayerRequest}
                         onChange={onChange}
-                        placeholder="How can we pray for you?"
+                        placeholder="Share how God is leading you to serve…"
                       />
                     </div>
 
