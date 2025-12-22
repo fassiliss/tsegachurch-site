@@ -30,6 +30,21 @@ export default function Home() {
         "/assets/images/resource/satisfy3.png",
         "/assets/images/resource/satisfy2.png",
         "/assets/images/resource/satisfy1.png",
+        "/assets/images/resource/christmas1.png",
+        "/assets/images/resource/christmas2.png",
+        "/assets/images/resource/christmas3.png",
+        "/assets/images/resource/christmas4.png",
+        "/assets/images/resource/christmas5.png",
+        "/assets/images/resource/christmas6.png",
+        "/assets/images/resource/christmas7.png",
+        "/assets/images/resource/christmas8.png",
+        "/assets/images/resource/christmas9.png",
+        "/assets/images/resource/christmas10.png",
+        "/assets/images/resource/christmas11.png",
+        "/assets/images/resource/christmas12.png",
+        "/assets/images/resource/christmas13.png",
+        "/assets/images/resource/christmas14.png",
+
     ];
 
     return (
