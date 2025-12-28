@@ -11,31 +11,34 @@ export default function LeadersPage() {
             name: "Henok Hailu",
             role: "Elder",
             img: "/assets/images/leaders/henok-1.png",
-            bio: "Faithful servant and mentor to the community.",
+            bio: "Worship"
         },
         {
             name: "Daniel Shita",
             role: "Elder",
             img: "/assets/images/leaders/danny-5.png",
-            bio: "Guiding families and supporting discipleship.",
+            bio: "Building"
+
         },
         {
-            name: "Wondwosen ",
+            name: "Wondwosen Berta ",
             role: "Elder",
             img: "/assets/images/leaders/wonde.png",
-            bio: "Teaching the Word and equipping the next generation.",
+            bio: "Deacon"
+
         },
         {
             name: "Getachew Habte",
             role: "Elder",
             img: "/assets/images/leaders/getusewa.png",
-            bio: "Passionate about prayer and pastoral care.",
+            bio: "Chairman/Children",
+
         },
         {
-            name: "Tadese",
+            name: "Tadese Reta",
             role: "Elder",
             img: "/assets/images/leaders/tade1.png",
-            bio: "Leading outreach and missions.",
+            bio: "Treasurer",
         },
     ];
 
