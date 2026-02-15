@@ -16,12 +16,10 @@ const StickNav2 = ({
             <div className="left-column">
               <div className="logo">
                 <Link href="/">
-                  <a>
-                    <img
-                      src={logo ? logo : "assets/images/logo-light.png"}
-                      alt=""
-                    />
-                  </a>
+                  <img
+                    src={logo ? logo : "assets/images/logo-light.png"}
+                    alt=""
+                  />
                 </Link>
               </div>
               {/*Nav Box*/}
@@ -36,10 +34,7 @@ const StickNav2 = ({
             <div className="middle-column">
               <div className="nav-outer">
                 {/*Mobile Navigation Toggler*/}
-                <div
-                  className="mobile-nav-toggler"
-                  onClick={openSidebar}
-                >
+                <div className="mobile-nav-toggler" onClick={openSidebar}>
                   <img src="assets/images/icons/icon-bar.png" alt="" />
                 </div>
                 {/* Main Menu */}
@@ -50,25 +45,25 @@ const StickNav2 = ({
                   >
                     <ul className="navigation">
                       <li className="dropdown">
-                        <a href="#">Home </a>
+                        href="#"Home /href=
                         <ul>
                           <Home />
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <a href="#">Page </a>
+                        href="#"Page
                         <ul>
                           <Page />
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <a href="#">Donation</a>
+                        href="#"Donation
                         <ul>
                           <Donation />
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <a href="#">Blog</a>
+                        href="#"Blog
                         <ul>
                           <Blog />
                         </ul>
@@ -80,10 +75,7 @@ const StickNav2 = ({
                 </nav>
                 {/* language */}
               </div>
-              <div
-                className="search-toggler"
-                onClick={openSearchBar}
-              >
+              <div className="search-toggler" onClick={openSearchBar}>
                 <i className="far fa-search" />
               </div>
             </div>
@@ -101,13 +93,10 @@ const StickNav2 = ({
                   alt=""
                 />
               </div>
-              <a
-                href="#"
-                className={btnClass ? btnClass : "primary_btn style-seven"}
-              >
-                Donation
-                <i className="far fa-heart" />
-              </a>
+              href="#" className=
+              {btnClass ? btnClass : "primary_btn style-seven"}
+              Donation
+              <i className="far fa-heart" />
             </div>
           </div>
         </div>

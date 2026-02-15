@@ -10,135 +10,141 @@ import Footer from "src/layouts/Footer";
 import PageBanner from "src/components/PageBanner";
 
 type Card = {
-    title: string;
-    description: string;
-    icon: string;
-    href: string;
-    color: string;
+  title: string;
+  description: string;
+  icon: string;
+  href: string;
+  color: string;
 };
 
 export default function AdminDashboard() {
-    const { status } = useSession();
-    const router = useRouter();
+  const { status } = useSession();
+  const router = useRouter();
 
-    // Redirect unauthenticated users
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            router.replace("/admin/login");
-        }
-    }, [status, router]);
-
-    const handleLogout = async () => {
-        await signOut({ callbackUrl: "/admin/login" });
-    };
-
-    // Don’t render the dashboard until we know session status
-    if (status === "loading") {
-        return (
-            <div
-                style={{
-                    minHeight: "100vh",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "var(--bg-secondary)",
-                }}
-            >
-                <p style={{ color: "var(--text-color)" }}>Loading...</p>
-            </div>
-        );
+  // Redirect unauthenticated users
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/admin/login");
     }
+  }, [status, router]);
 
-    // While redirecting, render nothing (prevents flicker)
-    if (status === "unauthenticated") return null;
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/admin/login" });
+  };
 
-    const cards: Card[] = [
-        {
-            title: "Members Manager",
-            description: "View, add, edit, and manage church members and their information.",
-            icon: "fas fa-users",
-            href: "/admin/members",
-            color: "#6366f1",
-        },
-        {
-            title: "Announcements",
-            description: "Create and manage church announcements and news updates.",
-            icon: "fas fa-bullhorn",
-            href: "/admin/announcements",
-            color: "#f97316",
-        },
-        {
-            title: "Events",
-            description: "Manage upcoming church events, dates, times, and locations.",
-            icon: "fas fa-calendar-alt",
-            href: "/admin/events",
-            color: "#10b981",
-        },
-        {
-            title: "Media",
-            description: "Upload and organize photos, videos, sermons, and documents.",
-            icon: "fas fa-photo-video",
-            href: "/admin/media",
-            color: "#14b8a6",
-        },
-        {
-            title: "Admin Management",
-            description: "Add, deactivate, and manage administrator accounts and permissions.",
-            icon: "fas fa-user-shield",
-            href: "/admin/admins",
-            color: "#8b5cf6",
-        },
-    ];
-
+  // Don’t render the dashboard until we know session status
+  if (status === "loading") {
     return (
-        <>
-            <Head>
-                <title>Admin Dashboard — GEECN</title>
-            </Head>
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "var(--bg-secondary)",
+        }}
+      >
+        <p style={{ color: "var(--text-color)" }}>Loading...</p>
+      </div>
+    );
+  }
 
-            <Header />
-            <PageBanner pageName="Admin Area" pageTitle="Admin Dashboard" />
+  // While redirecting, render nothing (prevents flicker)
+  if (status === "unauthenticated") return null;
 
-            <main className="admin-dashboard">
-                <div className="theme_container">
-                    <div className="admin-dashboard__top">
-                        <div>
-                            <h2 className="admin-dashboard__title">Welcome, Admin</h2>
-                            <p className="admin-dashboard__subtitle">
-                                Use the cards below to manage site content.
-                            </p>
-                        </div>
+  const cards: Card[] = [
+    {
+      title: "Members Manager",
+      description:
+        "View, add, edit, and manage church members and their information.",
+      icon: "fas fa-users",
+      href: "/admin/members",
+      color: "#6366f1",
+    },
+    {
+      title: "Announcements",
+      description: "Create and manage church announcements and news updates.",
+      icon: "fas fa-bullhorn",
+      href: "/admin/announcements",
+      color: "#f97316",
+    },
+    {
+      title: "Events",
+      description:
+        "Manage upcoming church events, dates, times, and locations.",
+      icon: "fas fa-calendar-alt",
+      href: "/admin/events",
+      color: "#10b981",
+    },
+    {
+      title: "Media",
+      description:
+        "Upload and organize photos, videos, sermons, and documents.",
+      icon: "fas fa-photo-video",
+      href: "/admin/media",
+      color: "#14b8a6",
+    },
+    {
+      title: "Admin Management",
+      description:
+        "Add, deactivate, and manage administrator accounts and permissions.",
+      icon: "fas fa-user-shield",
+      href: "/admin/admins",
+      color: "#8b5cf6",
+    },
+  ];
 
-                        <button className="admin-dashboard__logout" onClick={handleLogout}>
-                            <i className="fas fa-sign-out-alt" />
-                            Logout
-                        </button>
-                    </div>
+  return (
+    <>
+      <Head>
+        <title>Admin Dashboard — GEECN</title>
+      </Head>
 
-                    <div className="admin-dashboard__grid">
-                        {cards.map((card) => (
-                            <Link href={card.href} key={card.title}>
-                                <a className="admin-card" style={{ borderTopColor: card.color }}>
-                                    <div
-                                        className="admin-card__icon"
-                                        style={{ backgroundColor: `${card.color}20` }}
-                                    >
-                                        <i className={card.icon} style={{ color: card.color }} />
-                                    </div>
+      <Header />
+      <PageBanner pageName="Admin Area" pageTitle="Admin Dashboard" />
 
-                                    <h3 className="admin-card__title">{card.title}</h3>
-                                    <p className="admin-card__desc">{card.description}</p>
-                                </a>
-                            </Link>
-                        ))}
-                    </div>
+      <main className="admin-dashboard">
+        <div className="theme_container">
+          <div className="admin-dashboard__top">
+            <div>
+              <h2 className="admin-dashboard__title">Welcome, Admin</h2>
+              <p className="admin-dashboard__subtitle">
+                Use the cards below to manage site content.
+              </p>
+            </div>
+
+            <button className="admin-dashboard__logout" onClick={handleLogout}>
+              <i className="fas fa-sign-out-alt" />
+              Logout
+            </button>
+          </div>
+
+          <div className="admin-dashboard__grid">
+            {cards.map((card) => (
+              <Link href={card.href} key={card.title}>
+                <div
+                  className="admin-card"
+                  style={{ borderTopColor: card.color }}
+                >
+                  <div
+                    className="admin-card__icon"
+                    style={{ backgroundColor: `${card.color}20` }}
+                  >
+                    <i className={card.icon} style={{ color: card.color }} />
+                  </div>
+                  <h3 className="admin-card__title">{card.title}</h3>
+                  <p className="admin-card__desc">{card.description}</p>
                 </div>
-            </main>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </main>
 
-            <Footer />
+      <Footer />
 
-            {/* Keep styles here so you don’t need another CSS file */}
-            <style jsx>{`
+      {/* Keep styles here so you don’t need another CSS file */}
+      <style jsx>{`
         .admin-dashboard {
           padding: 40px 0 60px;
           background: var(--bg-secondary);
@@ -177,7 +183,9 @@ export default function AdminDashboard() {
           font-size: 15px;
           font-weight: 600;
           cursor: pointer;
-          transition: background 0.2s ease, color 0.2s ease;
+          transition:
+            background 0.2s ease,
+            color 0.2s ease;
         }
 
         .admin-dashboard__logout:hover {
@@ -200,7 +208,9 @@ export default function AdminDashboard() {
           border-top: 4px solid;
           text-decoration: none;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
         }
 
         .admin-card:hover {
@@ -236,6 +246,6 @@ export default function AdminDashboard() {
           line-height: 1.5;
         }
       `}</style>
-        </>
-    );
+    </>
+  );
 }

@@ -16,12 +16,10 @@ const StickNav = ({
             <div className="left-column">
               <div className="logo">
                 <Link href="/">
-                  <a>
-                    <img
-                      src={logo ? logo : "assets/images/logo-light.png"}
-                      alt=""
-                    />
-                  </a>
+                  <img
+                    src={logo ? logo : "assets/images/logo-light.png"}
+                    alt=""
+                  />
                 </Link>
               </div>
               {/*Nav Box*/}
@@ -38,7 +36,7 @@ const StickNav = ({
                   >
                     <ul className="navigation">
                       <li className="dropdown current">
-                        <a href="#">Home </a>
+                         href="#"Home 
                         <ul>
                           <Home />
                         </ul>
@@ -47,7 +45,7 @@ const StickNav = ({
                         </div>
                       </li>
                       <li className="dropdown">
-                        <a href="#">Page </a>
+                        href="#"Page
                         <ul>
                           <Page />
                         </ul>
@@ -56,7 +54,7 @@ const StickNav = ({
                         </div>
                       </li>
                       <li className="dropdown">
-                        <a href="#">Donation</a>
+                        href="#"Donation
                         <ul>
                           <Donation />
                         </ul>
@@ -65,7 +63,7 @@ const StickNav = ({
                         </div>
                       </li>
                       <li className="dropdown">
-                        <a href="#">Blog</a>
+                        href="#"Blog
                         <ul>
                           <Blog />
                         </ul>
@@ -105,13 +103,10 @@ const StickNav = ({
                   alt=""
                 />
               </div>
-              <a
-                href="#"
-                className={btnClass ? btnClass : "primary_btn style-seven"}
-              >
-                Donation
-                <i className="far fa-heart" />
-              </a>
+              href="#" className=
+              {btnClass ? btnClass : "primary_btn style-seven"}
+              Donation
+              <i className="far fa-heart" />
             </div>
           </div>
         </div>

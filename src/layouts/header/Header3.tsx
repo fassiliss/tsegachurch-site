@@ -27,10 +27,8 @@ const Header3 = () => {
               <div className="left-column">
                 <div className="logo">
                   <Link href="/">
-                    <a>
-                      {/* update the logo path if needed */}
-                      <img src="/assets/images/logo-light-3.png" alt="Logo" />
-                    </a>
+                    {/* update the logo path if needed */}
+                    <img src="/assets/images/logo-light-3.png" alt="Logo" />
                   </Link>
                 </div>
               </div>
@@ -51,29 +49,19 @@ const Header3 = () => {
                     >
                       <ul className="navigation">
                         <li>
-                          <Link href="/">
-                            <a>Home</a>
-                          </Link>
+                          <Link href="/">Home</Link>
                         </li>
                         <li>
-                          <Link href="/about">
-                            <a>About</a>
-                          </Link>
+                          <Link href="/about">About</Link>
                         </li>
                         <li>
-                          <Link href="/members/register">
-                            <a>Members Register</a>
-                          </Link>
+                          <Link href="/members/register">Members Register</Link>
                         </li>
                         <li>
-                          <Link href="/leaders">
-                            <a>Leaders</a>
-                          </Link>
+                          <Link href="/leaders">Leaders</Link>
                         </li>
                         <li>
-                          <Link href="/contact">
-                            <a>Contact</a>
-                          </Link>
+                          <Link href="/contact">Contact</Link>
                         </li>
                       </ul>
                     </div>
