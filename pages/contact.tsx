@@ -48,7 +48,7 @@ export default function Contact() {
   return (
     <>
       <Head>
-          <style>{`
+        <style>{`
   .dark-mode .section-contact {
     background-color: #1a1a1a !important;
   }
@@ -81,17 +81,16 @@ export default function Contact() {
       </Head>
 
       <Header />
-      <PageBanner
-          pageName="Get in Touch"
-          pageTitle="Get in Touch"
-
-      />
+      <PageBanner pageName="Get in Touch" pageTitle="Get in Touch" />
 
       {/* CONTACT CONTENT */}
-      <section className="section-contact"
-               style={{
-                   padding: "60px 0",
-               background: "var(--bg-color, #ffffff"}}>
+      <section
+        className="section-contact"
+        style={{
+          padding: "60px 0",
+          background: "var(--bg-color, #ffffff",
+        }}
+      >
         <div className="theme_container">
           <div className="row">
             {/* Left: Contact Info */}
@@ -104,21 +103,21 @@ export default function Contact() {
                 </p>
 
                 <ul className="contact-list">
-                    <li>
-                        <i className="far fa-map-marker-alt" />
-                        <a
-                            href="https://www.google.com/maps/search/?api=1&query=5227+Murfreesboro+Rd+La+Vergne+TN+37086"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ textDecoration: "none" }}
-                        >
-                            5227 Murfreesboro Rd La Vergne, TN 37086
-                        </a>
-                    </li>
+                  <li>
+                    <i className="far fa-map-marker-alt" />
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=5227+Murfreesboro+Rd+La+Vergne+TN+37086"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ textDecoration: "none" }}
+                    >
+                      5227 Murfreesboro Rd La Vergne, TN 37086
+                    </a>
+                  </li>
 
-                    <li>
+                  <li>
                     <i className="far fa-envelope" />
-                    <a href="mailto:fassil661@gmail.com">fassil661@gmail.com</a>
+                    <a href="mailto:gec5227@gmail.com">gec5227@gmail.com</a>
                   </li>
                   <li>
                     <i className="far fa-phone" />

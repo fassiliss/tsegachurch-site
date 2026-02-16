@@ -7,3 +7,4 @@ Host: https://www.geecn.org
 
 # Sitemaps
 Sitemap: https://www.geecn.org/sitemap.xml
+Sitemap: https://www.geecn.org/sitemap-0.xml

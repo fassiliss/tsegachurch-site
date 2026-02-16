@@ -1,3 +1,4 @@
+// pages/members/register.tsx
 import Head from "next/head";
 import { useState } from "react";
 import Header from "src/layouts/header/Header";
@@ -45,14 +46,13 @@ export default function MembersRegister() {
   const onChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
-    const { name, value, type } = e.target as HTMLInputElement;
+    const target = e.target as HTMLInputElement;
+    const { name, value, type } = target;
+
     if (type === "checkbox") {
-      setData((s) => ({
-        ...s,
-        [name]: (e.target as HTMLInputElement).checked,
-      }));
+      setData((s) => ({ ...s, [name]: target.checked }));
     } else {
       setData((s) => ({ ...s, [name]: value }));
     }
@@ -114,15 +114,8 @@ export default function MembersRegister() {
       </Head>
 
       <Header />
-        <PageBanner
-            pageName="Members Register"
-            pageTitle="Members Register"
 
-
-
-        />
-
-
+      <PageBanner pageName="Members Register" pageTitle="Members Register" />
 
       {/* Form Section */}
       <section className="theme_container" style={{ padding: "56px 0" }}>
@@ -160,6 +153,7 @@ export default function MembersRegister() {
                         required
                       />
                     </div>
+
                     <div className="col-md-6">
                       <label className="form-label">Last Name *</label>
                       <input
@@ -183,6 +177,7 @@ export default function MembersRegister() {
                         required
                       />
                     </div>
+
                     <div className="col-md-6">
                       <label className="form-label">Phone *</label>
                       <input
@@ -205,6 +200,7 @@ export default function MembersRegister() {
                         onChange={onChange}
                       />
                     </div>
+
                     <div className="col-md-6">
                       <label className="form-label">Marital Status</label>
                       <select
@@ -214,11 +210,13 @@ export default function MembersRegister() {
                         onChange={onChange}
                       >
                         <option value="">Select…</option>
-                        <option>Single</option>
-                        <option>Married</option>
-                        <option>Engaged</option>
-                        <option>Widowed</option>
-                        <option>Prefer not to say</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Engaged">Engaged</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Prefer not to say">
+                          Prefer not to say
+                        </option>
                       </select>
                     </div>
 
@@ -232,11 +230,11 @@ export default function MembersRegister() {
                         required
                       >
                         <option value="">Select…</option>
-                        <option>New Member</option>
-                        <option>Transfer</option>
-                        <option>Baptism</option>
-                        <option>Volunteer</option>
-
+                        <option value="New Member">New Member</option>
+                        <option value="Existing Member">Existing Member</option>
+                        <option value="Transfer">Transfer</option>
+                        <option value="Baptism">Baptism</option>
+                        <option value="Volunteer">Volunteer</option>
                       </select>
                     </div>
 
@@ -262,6 +260,7 @@ export default function MembersRegister() {
                         onChange={onChange}
                       />
                     </div>
+
                     <div className="col-md-4">
                       <label className="form-label">State/Province</label>
                       <input
@@ -272,6 +271,7 @@ export default function MembersRegister() {
                         onChange={onChange}
                       />
                     </div>
+
                     <div className="col-md-4">
                       <label className="form-label">ZIP/Postal</label>
                       <input
@@ -284,7 +284,10 @@ export default function MembersRegister() {
                     </div>
 
                     <div className="col-12">
-                      <label className="form-label">Please share what God has placed on your heart to serve Him.</label>
+                      <label className="form-label">
+                        Please share what God has placed on your heart to serve
+                        Him.
+                      </label>
                       <textarea
                         className="form-control"
                         name="prayerRequest"
@@ -319,6 +322,7 @@ export default function MembersRegister() {
                     >
                       {submitting ? "Submitting…" : "Submit Registration"}
                     </button>
+
                     <button
                       type="button"
                       className="btn btn-outline-secondary"
@@ -335,10 +339,9 @@ export default function MembersRegister() {
               </div>
             </div>
 
-            {/* Optional side info */}
             <div className="text-center text-muted small mt-3">
-              Need help? Email us at{" "}
-              <a href="mailto:info@tsegachurch.org">info@tsegachurch.org</a>
+              Need help? Email us at or call {" "} 
+              <a href="mailto:info@tsegachurch.org">gec5227@gmail.com / 615-485-1516</a>
             </div>
           </div>
         </div>

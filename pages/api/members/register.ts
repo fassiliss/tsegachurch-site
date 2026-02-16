@@ -1,15 +1,18 @@
-import { createClient } from '@supabase/supabase-js';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { createClient } from "@supabase/supabase-js";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
   try {
@@ -27,59 +30,76 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       state,
       zip,
       zipCode,
-      prayerRequest,
-    } = req.body;
+      // prayerRequest, // currently unused — OK to accept, but don’t store unless you intend to
+      website, // honeypot (optional) - your form should submit this hidden; real users leave it blank
+    } = req.body ?? {};
+
+    // Honeypot (simple anti-bot)
+    if (website) {
+      return res.status(200).json({ message: "OK" }); // pretend success
+    }
 
     if (!firstName || !lastName || !email) {
-      return res.status(400).json({ error: 'First name, last name, and email are required' });
+      return res
+        .status(400)
+        .json({ error: "First name, last name, and email are required" });
     }
 
-    // Check if email already exists
-    const { data: existing } = await supabase
-      .from('members')
-      .select('email')
-      .eq('email', email)
-      .single();
+    const normalizedEmail = String(email).trim().toLowerCase();
+
+    const date_of_birth = (dateOfBirth || dob || null) as string | null;
+    const zip_code = (zipCode || zip || null) as string | null;
+
+    // Check if email already exists (safe)
+    const { data: existing, error: existingErr } = await supabase
+      .from("members")
+      .select("id")
+      .eq("email", normalizedEmail)
+      .maybeSingle();
+
+    // If Supabase throws a real error (not "no rows"), handle it
+    if (existingErr) {
+      console.error("Email check error:", existingErr);
+      return res.status(500).json({ error: "Internal server error" });
+    }
 
     if (existing) {
-      return res.status(409).json({ error: 'This email is already registered. If you\'re an existing member, please contact the church office.' });
+      return res.status(409).json({
+        error:
+          "This email is already registered. If you're an existing member, please contact the church office.",
+      });
     }
 
-    // Handle both naming conventions
-    const date_of_birth = dateOfBirth || dob || null;
-    const zip_code = zipCode || zip || null;
+    const joined_date = new Date().toISOString().slice(0, 10); // YYYY-MM-DD (best if column is date)
 
-    const { data, error } = await supabase
-      .from('members')
-      .insert([
-        {
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          phone,
-          date_of_birth,
-          marital_status: maritalStatus || null,
-          status: 'Active',
-          membership_type: membershipType || null,
-          ministry: null,
-          address: address || null,
-          city: city || null,
-          state: state || null,
-          zip_code,
-          joined_date: new Date().toISOString(),
-        },
-      ])
-      .select()
-      .single();
+    const { error: insertErr } = await supabase.from("members").insert([
+      {
+        first_name: String(firstName).trim(),
+        last_name: String(lastName).trim(),
+        email: normalizedEmail,
+        phone: phone ? String(phone).trim() : null,
+        date_of_birth: date_of_birth || null,
+        marital_status: maritalStatus || null,
+        status: "Active",
+        membership_type: membershipType || null,
+        ministry: null,
+        address: address || null,
+        city: city || null,
+        state: state || null,
+        zip_code,
+        joined_date,
+      },
+    ]);
 
-    if (error) {
-      console.error('Supabase Insert Error:', error);
-      throw error;
+    if (insertErr) {
+      console.error("Supabase Insert Error:", insertErr);
+      return res.status(500).json({ error: "Internal server error" });
     }
 
-    return res.status(201).json({ message: 'Registration successful', member: data });
+    // ✅ Public route: return minimal response only
+    return res.status(201).json({ message: "Registration successful" });
   } catch (error: any) {
-    console.error('API Error:', error);
-    return res.status(500).json({ error: error.message || 'Internal server error' });
+    console.error("API Error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
