@@ -21,8 +21,8 @@ export default async function handler(
 
   // must be superadmin
   const role = (session.user as any).role;
-  if (role !== "superadmin") {
-    return res.status(403).json({ error: "Forbidden: Superadmin only" });
+  if (role !== "super_admin") {
+    return res.status(403).json({ error: "Forbidden: Super admin only" });
   }
 
   const { id } = req.query;

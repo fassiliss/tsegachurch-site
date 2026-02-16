@@ -1,3 +1,4 @@
+// pages/api/members/index.ts
 import { createClient } from "@supabase/supabase-js";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
@@ -8,143 +9,206 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
+function isAdminRole(role: unknown) {
+  return role === "admin" || role === "super_admin";
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   // ✅ Require login
   const session = await getServerSession(req, res, authOptions);
+  if (!session) return res.status(401).json({ error: "Unauthorized" });
 
-  if (!session) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
-  // ✅ Require admin role
+  // ✅ Require admin/super_admin role
   const role = (session.user as any)?.role;
-
-  if (!role || (role !== "admin" && role !== "superadmin")) {
-    return res.status(403).json({ error: "Forbidden" });
-  }
-
-  const { method } = req;
+  if (!isAdminRole(role)) return res.status(403).json({ error: "Forbidden" });
 
   try {
-    switch (method) {
-      case "GET": {
-        const { data, error } = await supabase
-          .from("members")
-          .select("*")
-          .order("created_at", { ascending: false });
+    // -----------------------
+    // GET: list members
+    // -----------------------
+    if (req.method === "GET") {
+      const { data, error } = await supabase
+        .from("members")
+        .select(
+          `
+          id,
+          first_name,
+          last_name,
+          email,
+          phone,
+          date_of_birth,
+          marital_status,
+          status,
+          ministry,
+          membership_type,
+          address,
+          city,
+          state,
+          zip_code,
+          joined_date,
+          created_at
+        `,
+        )
+        .order("created_at", { ascending: false });
 
-        if (error) throw error;
-
-        const members = data.map((member: any) => ({
-          id: member.id,
-          firstName: member.first_name,
-          lastName: member.last_name,
-          email: member.email,
-          phone: member.phone,
-          dateOfBirth: member.date_of_birth,
-          maritalStatus: member.marital_status,
-          status: member.status,
-          ministry: member.ministry,
-          membershipType: member.membership_type,
-          address: member.address,
-          city: member.city,
-          state: member.state,
-          zipCode: member.zip_code,
-          joinedAt: member.joined_date,
-        }));
-
-        return res.status(200).json({ members });
+      if (error) {
+        console.error("Members GET error:", error);
+        return res.status(500).json({ error: "Internal server error" });
       }
 
-      case "POST": {
-        const body = req.body;
+      const members =
+        data?.map((m: any) => ({
+          id: m.id,
+          firstName: m.first_name,
+          lastName: m.last_name,
+          email: m.email,
+          phone: m.phone,
+          dateOfBirth: m.date_of_birth,
+          maritalStatus: m.marital_status,
+          status: m.status,
+          ministry: m.ministry,
+          membershipType: m.membership_type,
+          address: m.address,
+          city: m.city,
+          state: m.state,
+          zipCode: m.zip_code,
+          joinedAt: m.joined_date,
+        })) ?? [];
 
-        const first_name = body.firstName || body.first_name;
-        const last_name = body.lastName || body.last_name;
-        const email = body.email;
-        const phone = body.phone || null;
-        const date_of_birth = body.dateOfBirth || body.date_of_birth || null;
-        const marital_status =
-          body.maritalStatus || body.marital_status || null;
-
-        let status = body.status || "Active";
-        status = status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
-
-        const ministry = body.ministry || null;
-        const membership_type =
-          body.membershipType || body.membership_type || null;
-        const address = body.address || null;
-        const city = body.city || null;
-        const state = body.state || null;
-        const zip_code = body.zipCode || body.zip_code || null;
-        const joined_date =
-          body.joinedAt ||
-          body.joined_date ||
-          new Date().toISOString().split("T")[0];
-
-        if (!first_name || !last_name || !email) {
-          return res.status(400).json({
-            error: "firstName, lastName, and email are required",
-          });
-        }
-
-        const { data, error } = await supabase
-          .from("members")
-          .insert([
-            {
-              first_name,
-              last_name,
-              email,
-              phone,
-              date_of_birth,
-              marital_status,
-              status,
-              ministry,
-              membership_type,
-              address,
-              city,
-              state,
-              zip_code,
-              joined_date,
-            },
-          ])
-          .select()
-          .single();
-
-        if (error) throw error;
-
-        const member = {
-          id: data.id,
-          firstName: data.first_name,
-          lastName: data.last_name,
-          email: data.email,
-          phone: data.phone,
-          dateOfBirth: data.date_of_birth,
-          maritalStatus: data.marital_status,
-          status: data.status,
-          ministry: data.ministry,
-          membershipType: data.membership_type,
-          address: data.address,
-          city: data.city,
-          state: data.state,
-          zipCode: data.zip_code,
-          joinedAt: data.joined_date,
-        };
-
-        return res.status(201).json({ member });
-      }
-
-      default:
-        res.setHeader("Allow", ["GET", "POST"]);
-        return res.status(405).end(`Method ${method} Not Allowed`);
+      return res.status(200).json({ members });
     }
-  } catch (error: any) {
-    console.error("API Error:", error);
-    return res
-      .status(500)
-      .json({ error: error.message || "Internal server error" });
+
+    // -----------------------
+    // POST: create member (admin panel)
+    // -----------------------
+    if (req.method === "POST") {
+      const body = req.body ?? {};
+
+      const first_name = (body.firstName || body.first_name || "").trim();
+      const last_name = (body.lastName || body.last_name || "").trim();
+      const rawEmail = body.email;
+      const email = rawEmail ? String(rawEmail).trim().toLowerCase() : "";
+
+      const phone = body.phone ? String(body.phone).trim() : null;
+      const date_of_birth = body.dateOfBirth || body.date_of_birth || null;
+      const marital_status = body.maritalStatus || body.marital_status || null;
+
+      let status = body.status || "Active";
+      status =
+        String(status).charAt(0).toUpperCase() +
+        String(status).slice(1).toLowerCase();
+
+      const ministry = body.ministry || null;
+      const membership_type =
+        body.membershipType || body.membership_type || null;
+      const address = body.address || null;
+      const city = body.city || null;
+      const state = body.state || null;
+      const zip_code = body.zipCode || body.zip_code || null;
+
+      const joined_date =
+        body.joinedAt ||
+        body.joined_date ||
+        new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+      if (!first_name || !last_name || !email) {
+        return res.status(400).json({
+          error: "firstName, lastName, and email are required",
+        });
+      }
+
+      // Optional: prevent duplicates by email
+      const { data: existing, error: existingErr } = await supabase
+        .from("members")
+        .select("id")
+        .eq("email", email)
+        .maybeSingle();
+
+      if (existingErr) {
+        console.error("Members duplicate check error:", existingErr);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+
+      if (existing) {
+        return res
+          .status(409)
+          .json({ error: "A member with this email already exists." });
+      }
+
+      const { data, error } = await supabase
+        .from("members")
+        .insert([
+          {
+            first_name,
+            last_name,
+            email,
+            phone,
+            date_of_birth,
+            marital_status,
+            status,
+            ministry,
+            membership_type,
+            address,
+            city,
+            state,
+            zip_code,
+            joined_date,
+          },
+        ])
+        .select(
+          `
+          id,
+          first_name,
+          last_name,
+          email,
+          phone,
+          date_of_birth,
+          marital_status,
+          status,
+          ministry,
+          membership_type,
+          address,
+          city,
+          state,
+          zip_code,
+          joined_date
+        `,
+        )
+        .single();
+
+      if (error) {
+        console.error("Members POST error:", error);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+
+      const member = {
+        id: data.id,
+        firstName: data.first_name,
+        lastName: data.last_name,
+        email: data.email,
+        phone: data.phone,
+        dateOfBirth: data.date_of_birth,
+        maritalStatus: data.marital_status,
+        status: data.status,
+        ministry: data.ministry,
+        membershipType: data.membership_type,
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        zipCode: data.zip_code,
+        joinedAt: data.joined_date,
+      };
+
+      return res.status(201).json({ member });
+    }
+
+    res.setHeader("Allow", ["GET", "POST"]);
+    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+  } catch (err) {
+    console.error("Members API error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }

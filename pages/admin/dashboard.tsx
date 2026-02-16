@@ -18,7 +18,9 @@ type Card = {
 };
 
 export default function AdminDashboard() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+  const role = (session?.user as any)?.role;
+
   const router = useRouter();
 
   // Redirect unauthenticated users
@@ -84,15 +86,18 @@ export default function AdminDashboard() {
       href: "/admin/media",
       color: "#14b8a6",
     },
-    {
+  ];
+
+  if (role === "super_admin") {
+    cards.push({
       title: "Admin Management",
       description:
         "Add, deactivate, and manage administrator accounts and permissions.",
       icon: "fas fa-user-shield",
       href: "/admin/admins",
       color: "#8b5cf6",
-    },
-  ];
+    });
+  }
 
   return (
     <>
@@ -107,7 +112,14 @@ export default function AdminDashboard() {
         <div className="theme_container">
           <div className="admin-dashboard__top">
             <div>
-              <h2 className="admin-dashboard__title">Welcome, Admin</h2>
+              <h2 className="admin-dashboard__title">
+                Welcome,{" "}
+                {role === "super_admin"
+                  ? "Super Admin"
+                  : role === "admin"
+                    ? "Admin"
+                    : "User"}
+              </h2>
               <p className="admin-dashboard__subtitle">
                 Use the cards below to manage site content.
               </p>
