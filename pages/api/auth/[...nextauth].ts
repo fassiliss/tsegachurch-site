@@ -1,11 +1,11 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { createClient } from '@supabase/supabase-js';
-import bcrypt from 'bcryptjs';
+import { createClient } from "@supabase/supabase-js";
+import bcrypt from "bcryptjs";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
 export const authOptions: NextAuthOptions = {
@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -24,25 +24,25 @@ export const authOptions: NextAuthOptions = {
         try {
           // Get admin from Supabase
           const { data: admin, error } = await supabase
-            .from('admins')
-            .select('*')
-            .eq('email', credentials.email)
-            .eq('is_active', true)
+            .from("admins")
+            .select("*")
+            .eq("email", credentials.email)
+            .eq("is_active", true)
             .single();
 
           if (error || !admin) {
-            console.log('Admin not found or inactive');
+            console.log("Admin not found or inactive");
             return null;
           }
 
           // Verify password
           const isValidPassword = await bcrypt.compare(
             credentials.password,
-            admin.password_hash
+            admin.password_hash,
           );
 
           if (!isValidPassword) {
-            console.log('Invalid password');
+            console.log("Invalid password");
             return null;
           }
 
@@ -54,11 +54,11 @@ export const authOptions: NextAuthOptions = {
             role: admin.role,
           };
         } catch (err) {
-          console.error('Auth error:', err);
+          console.error("Auth error:", err);
           return null;
         }
-      }
-    })
+      },
+    }),
   ],
   pages: {
     signIn: "/admin/login",
@@ -79,12 +79,14 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name as string;
       }
       return session;
-    }
+    },
   },
   session: {
     strategy: "jwt",
     maxAge: 24 * 60 * 60, // 24 hours
   },
+  useSecureCookies: process.env.NODE_ENV === "production",
+
   secret: process.env.NEXTAUTH_SECRET,
 };
 
